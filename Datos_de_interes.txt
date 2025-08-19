@@ -1,0 +1,18 @@
+#Lista de links a consultar
+Voy a listar una serie de links que son de interes para conocer como funciona la extracción progrmática
+de datos de la [plataforma de contratación del sector público](https://contrataciondelestado.es/wps/portal/plataforma)
+
+## Atom
+La plataforma expone un feed de tipo Atom. Este feed es un documento XML que contiene una entrada por cada licitación
+que se haya creado/actualizado en la plataforma.
+
+Este feed está dividido en páginas. Cada página contiene unas 500 entradas. Además cada página
+contiene un link a la página anterior del feed. Para poder leer todo el feed basta con coger la primera página,
+cuyo link está expuesto [aquí](https://datos.gob.es/en/catalogo/e05188501-licitaciones-publicadas-en-los-perfiles-del-contratante-ubicados-en-la-plataforma-de-contratacion-del-sector-publico-excluyendo-los-contratos-menores/resource/acb5fad0-c617-4e16-80f1-d519ac9eb8f9)
+procesarla, extraer la url a la siguiente página y repetir recursivamente el proceso con ella.
+
+Alternativamente, en vez de tener que tener que hacer una petición de red para descargarse los ficheros pueden descargarse
+en conjunto todos ellos desde [aquí](https://www.hacienda.gob.es/es-ES/GobiernoAbierto/Datos%20Abiertos/Paginas/LicitacionesContratante.aspx).
+
+## Estructura del atom
+La estructura de la data del atom se especifica [aqui](https://contrataciondelestado.es/wps/wcm/connect/a7a7426d-dead-48b1-8be5-fb653c0176b6/DGPE_PLACSP_EspecificacionTecnicaMecanismoAgregacion_2.4.1.pdf) y [aqui](https://contrataciondelsectorpublico.gob.es/datosabiertos/especificacion-sindicacion.pdf)
