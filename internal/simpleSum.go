@@ -2,13 +2,11 @@ package internal
 
 import (
 	"bufio"
-	"bytes"
 	"encoding/csv"
 	"encoding/xml"
 	"fmt"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -394,7 +392,7 @@ func (a *OrgAgg) keyFor(dir3, name string) string {
 	return "NAME:" + n
 }
 
-var HydrocarbonCPVPrefixes = []string{"091"}
+var HydrocarbonCPVPrefixes = []string{"0911", "0912", "0913"}
 
 func isHydroCPV(cpv string) bool {
 	c := strings.TrimSpace(cpv)
@@ -557,151 +555,103 @@ func (a *OrgAgg) writeCSV(filename string) error {
 	return os.Rename(".\\"+filename+".tmp", ".\\"+filename)
 }
 
+func listLocalAtoms(dir string) ([]string, error) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	type item struct {
+		path string
+		ts   string
+	}
+	var xs []item
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
+		}
+		name := e.Name()
+		if strings.HasPrefix(name, "licitacionesPerfilesContratanteCompleto3_") &&
+			strings.HasSuffix(name, ".atom") {
+			// Soporta sufijos tipo “…_1.atom”
+			base := strings.TrimSuffix(name, ".atom")
+			parts := strings.Split(base, "_")
+			if len(parts) >= 3 {
+				ts := parts[1] + "_" + parts[2] // 20250814_175901
+				xs = append(xs, item{path: filepath.Join(dir, name), ts: ts})
+			}
+		}
+	}
+	sort.Slice(xs, func(i, j int) bool { return xs[i].ts > xs[j].ts })
+	out := make([]string, len(xs))
+	for i := range xs {
+		out[i] = xs[i].path
+	}
+	return out, nil
+}
+
 func intToString(n int) string        { return strconvFormatInt(int64(n)) }
 func strconvFormatInt(n int64) string { return strconv.FormatInt(n, 10) }
 
-type Downloader struct {
-	Client *http.Client
-}
-
-func NewDownloader() *Downloader {
-	tr := &http.Transport{
-		MaxIdleConns:        64,
-		MaxIdleConnsPerHost: 64,
-		IdleConnTimeout:     60 * time.Second,
-		// (Go habilita gzip y http/2 por defecto en HTTPS)
-	}
-	return &Downloader{
-		Client: &http.Client{
-			Transport: tr,
-			Timeout:   45 * time.Second,
-		},
-	}
-}
-
-type readCloser struct {
-	r io.Reader
-	c io.Closer
-}
-
-func (x readCloser) Read(p []byte) (int, error) {
-	return x.r.Read(p)
-}
-
-func (x readCloser) Close() error {
-	return x.c.Close()
-}
-
-func ParseAtom() error {
+func ParseAtom(dir string) error {
 	startTime := time.Now()
 
-	agg := NewOrgAgg()
+	files, err := listLocalAtoms(dir)
+	if err != nil {
+		return err
+	}
 
 	workers := 8
-	parseCh := make(chan io.ReadCloser, workers*2)
-	entryCh := make(chan Entry, 2048)
+	fileCh := make(chan string, workers*2)
+	agg := NewOrgAgg()
 
-	var aggWG sync.WaitGroup
-	aggWG.Add(1)
-	go func() {
-		defer aggWG.Done()
-		for e := range entryCh {
-			agg.ingestEntry(e)
-		}
-	}()
-
-	var parseWG sync.WaitGroup
-	parseWG.Add(workers)
-	for i := 0; i < workers; i++ {
+	var wg sync.WaitGroup
+	wg.Add(workers)
+	for w := 0; w < workers; w++ {
 		go func() {
-			defer parseWG.Done()
-			for rc := range parseCh {
-				func() {
-					defer rc.Close()
-					body, err := io.ReadAll(rc)
+			defer wg.Done()
+
+			dec := xml.NewDecoder(nil) // se reasigna por archivo
+			for path := range fileCh {
+				pathStart := time.Now()
+
+				f, err := os.Open(path)
+				if err != nil {
+					log.Printf("[WARN] %v", err)
+				}
+
+				dec = xml.NewDecoder(bufio.NewReaderSize(f, 256<<10))
+				for {
+					tok, err := dec.Token()
+
+					if err == io.EOF {
+						break
+					}
+
 					if err != nil {
-						log.Println("Could not parse body")
-						return
+						log.Printf("[XML] %s %v", path, err)
+						break
 					}
 
-					var feed Feed
-					if err := xml.Unmarshal(body, &feed); err != nil {
-						log.Printf("[WARN] no se pudo parsear %s: %v", feed.Links[0].Href, err)
-						return
+					if se, ok := tok.(xml.StartElement); ok && se.Name.Local == "entry" {
+						var e Entry
+						if err := dec.DecodeElement(&e, &se); err == nil {
+							agg.ingestEntry(e)
+						}
 					}
+				}
 
-					for _, e := range feed.Entries {
-						entryCh <- e
-					}
-				}()
+				_ = f.Close()
+				log.Printf("Took %s to process %s", time.Since(pathStart), path)
 			}
 		}()
 	}
 
-	dl := NewDownloader()
-	path := "https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"
-	for path != "" {
-		start := time.Now()
-		resp, err := dl.Client.Get(path)
-		if err != nil {
-			return fmt.Errorf("Not found next element")
-		}
-		log.Println("Started Petition", time.Since(start), len(agg.byKey))
-
-		br := bufio.NewReader(resp.Body)
-
-		var head bytes.Buffer
-		tee := io.TeeReader(br, &head)
-
-		dec := xml.NewDecoder(tee)
-		newUrl := ""
-		for {
-			tok, err := dec.Token()
-			if err == io.EOF {
-				break
-			}
-			if err != nil {
-				fmt.Println("peto la cosa")
-				break
-			}
-
-			se, ok := tok.(xml.StartElement)
-			if !ok || se.Name.Local != "link" {
-				continue
-			}
-
-			var rel, href string
-			for _, a := range se.Attr {
-				switch a.Name.Local {
-				case "rel":
-					rel = a.Value
-				case "href":
-					href = a.Value
-				}
-			}
-
-			if strings.EqualFold(rel, "next") {
-				newUrl = href
-				break
-			}
-		}
-		log.Println("Found next el", newUrl, time.Since(start))
-
-		full := io.MultiReader(bytes.NewReader(head.Bytes()), br)
-
-		parseCh <- readCloser{r: full, c: resp.Body}
-		path = newUrl
-		log.Println()
-
-		if strings.Contains(path, "2023") {
-			break
-		}
+	for _, f := range files {
+		fileCh <- f
 	}
-
-	close(parseCh)
-	parseWG.Wait()
-	close(entryCh)
-	aggWG.Wait()
+	close(fileCh)
+	wg.Wait()
 
 	elapsed := time.Since(startTime)
 	log.Printf("[done] Total: %d organismos únicos, tiempo: %s",

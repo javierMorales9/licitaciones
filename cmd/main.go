@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	internal.ParseAtom()
+	internal.ParseAtom("data/licitacionesPerfilesContratanteCompleto3_2025")
 }
