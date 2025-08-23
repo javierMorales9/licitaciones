@@ -1,19 +1,12 @@
 package internal
 
 import (
-	"bufio"
-	"encoding/csv"
 	"encoding/xml"
 	"fmt"
 	"io"
-	"log"
-	"os"
-	"path/filepath"
 	"regexp"
-	"sort"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 )
 
@@ -34,13 +27,13 @@ func (t *RFC3339Time) UnmarshalText(b []byte) error {
 	return nil
 }
 
-// Fecha AAAA-MM-DD (sin zona)
+// Date Format: AAAA-MM-DD (no zone)
 var reYMD = regexp.MustCompile(`^(\d{4}-\d{2}-\d{2})`)
 
 type DateYMD struct {
 	time.Time
-	Valid bool   // true si se pudo parsear
-	Raw   string // valor original por trazabilidad
+	Valid bool   // true if could be parsed
+	Raw   string // original value
 }
 
 func (d *DateYMD) UnmarshalText(b []byte) error {
@@ -77,7 +70,7 @@ func (d *DateYMD) UnmarshalText(b []byte) error {
 	}
 
 	// No tumbar la ingesta: marca inválido y sigue.
-	fmt.Printf("WARN DateYMD: no se pudo parsear %q; se deja en cero", s)
+	fmt.Printf("[WARN] DateYMD: could not be parsed %q", s)
 	d.Valid = false
 	d.Time = time.Time{}
 	return nil
@@ -86,10 +79,63 @@ func (d *DateYMD) UnmarshalText(b []byte) error {
 // ===== Modelos de Feed y Tombstones =====
 
 type Feed struct {
-	Links    []Link      `xml:"link"`
+	Self     string
+	First    string
+	Prev     string
+	Next     string
 	Updated  RFC3339Time `xml:"updated"`
 	TombList []Tombstone `xml:"deleted-entry"` // at:deleted-entry
 	Entries  []Entry     `xml:"entry"`
+}
+
+func (f *Feed) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	f.TombList = make([]Tombstone, 0)
+	f.Entries = make([]Entry, 0)
+
+	for {
+		t, err := d.Token()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			break
+		}
+
+		se, ok := t.(xml.StartElement)
+		if !ok {
+			continue
+		}
+
+		switch se.Name.Local {
+		case "link":
+			var l Link
+			if err := d.DecodeElement(&l, &se); err == nil {
+				switch l.Rel {
+				case "self":
+					f.Self = l.Href
+				case "first":
+					f.First = l.Href
+				case "prev":
+					f.Prev = l.Href
+				case "next":
+					f.Next = l.Href
+				}
+			}
+		case "entry":
+			var e Entry
+			if err := d.DecodeElement(&e, &se); err == nil {
+				f.Entries = append(f.Entries, e)
+			}
+		case "deleted-entry":
+			var t Tombstone
+			if err := d.DecodeElement(&t, &se); err == nil {
+				f.TombList = append(f.TombList, t)
+			}
+		}
+	}
+
+	return nil
 }
 
 type Link struct {
@@ -356,307 +402,4 @@ type ValidNotice struct {
 			IssueDate DateYMD `xml:"IssueDate"`
 		} `xml:"AdditionalPublicationDocumentReference"`
 	} `xml:"AdditionalPublicationStatus"`
-}
-
-// ---------- Output row ----------
-type OrgHydroRow struct {
-	Dir3           string
-	NIF            string
-	OrgName        string
-	ProfileUrl     string
-	Email          string
-	Phone          string
-	AddressLine    string
-	PostalCode     string
-	City           string
-	Country        string
-	LastActionDate time.Time
-	LastTenderURL  string
-	TendersCount   int
-}
-
-type OrgAgg struct {
-	byKey map[string]*OrgHydroRow // key = dir3|normalizedName
-}
-
-func NewOrgAgg() *OrgAgg {
-	return &OrgAgg{byKey: make(map[string]*OrgHydroRow)}
-}
-
-func (a *OrgAgg) keyFor(dir3, name string) string {
-	if dir3 != "" {
-		return "DIR3:" + strings.ToUpper(strings.TrimSpace(dir3))
-	}
-	// Fallback por nombre si no hay DIR3
-	n := strings.ToUpper(strings.Join(strings.Fields(name), " "))
-	return "NAME:" + n
-}
-
-var HydrocarbonCPVPrefixes = []string{"0911", "0912", "0913"}
-
-func isHydroCPV(cpv string) bool {
-	c := strings.TrimSpace(cpv)
-	c = strings.ReplaceAll(c, "-", "") // "09120000-6" -> "091200006"
-	for _, p := range HydrocarbonCPVPrefixes {
-		if strings.HasPrefix(c, p) {
-			return true
-		}
-	}
-	return false
-}
-
-func (a *OrgAgg) ingestEntry(e Entry) {
-	// 1) Extraer CPVs y filtrar por hidrocarburos
-	var hasHydro bool
-	for _, c := range e.CFS.Project.Commodity {
-		if isHydroCPV(c.CPV.Value) {
-			hasHydro = true
-			break
-		}
-	}
-	if !hasHydro {
-		return
-	}
-
-	orgName := e.CFS.LocatedParty.Party.PartyName.Name
-	profileUrl := e.CFS.LocatedParty.BuyerProfileURIID
-	dir3 := ""
-	nif := ""
-	for _, pid := range e.CFS.LocatedParty.Party.Identifications {
-		if strings.EqualFold(pid.ID.SchemeName, "DIR3") {
-			dir3 = pid.ID.Value
-		} else if strings.EqualFold(pid.ID.SchemeName, "NIF") {
-			nif = pid.ID.Value
-		}
-	}
-
-	fields := e.CFS.LocatedParty.Party.PostalAddress
-
-	email := e.CFS.LocatedParty.Party.Contact.Mail
-	phone := e.CFS.LocatedParty.Party.Contact.Phone
-
-	lastActionDate := e.Updated.Time
-	lastTenderUrl := e.Links[0].Href
-
-	key := a.keyFor(dir3, orgName)
-	row, ok := a.byKey[key]
-	if !ok {
-		row = &OrgHydroRow{
-			Dir3:           dir3,
-			NIF:            nif,
-			OrgName:        orgName,
-			ProfileUrl:     profileUrl,
-			Email:          email,
-			Phone:          phone,
-			AddressLine:    fields.Line,
-			PostalCode:     fields.PostalZone,
-			City:           fields.City,
-			Country:        fields.Country.Code.Value,
-			LastActionDate: lastActionDate,
-			LastTenderURL:  lastTenderUrl,
-			TendersCount:   1,
-		}
-		a.byKey[key] = row
-		return
-	}
-
-	row.TendersCount++
-
-	if lastActionDate.After(row.LastActionDate) {
-		row.LastActionDate = lastActionDate
-		row.LastTenderURL = lastTenderUrl
-		row.Email = email
-		row.Phone = phone
-		row.AddressLine = fields.Line
-		row.PostalCode = fields.PostalZone
-		row.City = fields.City
-		row.Country = fields.Country.Code.Value
-		row.NIF = nif
-		return
-	}
-
-	// Rellenar si antes estaban vacíos
-	if row.Email == "" && email != "" {
-		row.Email = email
-	}
-	if row.Phone == "" && phone != "" {
-		row.Phone = phone
-	}
-	if row.AddressLine == "" && fields.Line != "" {
-		row.AddressLine = fields.Line
-	}
-	if row.PostalCode == "" && fields.PostalZone != "" {
-		row.PostalCode = fields.PostalZone
-	}
-	if row.City == "" && fields.City != "" {
-		row.City = fields.City
-	}
-	if row.Country == "" && fields.Country.Code.Value != "" {
-		row.Country = fields.Country.Code.Value
-	}
-	if row.NIF == "" && nif != "" {
-		row.NIF = nif
-	}
-}
-
-func (a *OrgAgg) rowsSorted() []OrgHydroRow {
-	out := make([]OrgHydroRow, 0, len(a.byKey))
-	for _, r := range a.byKey {
-		out = append(out, *r)
-	}
-	// Ordenar por fecha desc y nombre
-	sort.Slice(out, func(i, j int) bool {
-		if out[i].LastActionDate.Equal(out[j].LastActionDate) {
-			return out[i].OrgName < out[j].OrgName
-		}
-		return out[i].LastActionDate.After(out[j].LastActionDate)
-	})
-	return out
-}
-
-func (a *OrgAgg) writeCSV(filename string) error {
-	if err := os.MkdirAll(filepath.Dir(filename), 0o755); err != nil {
-		return err
-	}
-	f, err := os.Create(".\\" + filename + ".tmp")
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	w := csv.NewWriter(f)
-	defer w.Flush()
-
-	_ = w.Write([]string{
-		"Organismo", "NIF", "Url perfil", "Email", "Teléfono",
-		"Dirección",
-		"Fecha última licitación", "Url última licitación", "nº licitaciones",
-	})
-
-	for _, r := range a.rowsSorted() {
-		_ = w.Write([]string{
-			r.OrgName,
-			r.ProfileUrl,
-			r.Email,
-			r.Phone,
-			fmt.Sprintf("%s %s, %s %s", r.AddressLine, r.PostalCode, r.City, r.Country),
-			r.LastActionDate.Format(time.RFC3339),
-			r.LastTenderURL,
-			intToString(r.TendersCount),
-			r.Dir3,
-			r.NIF,
-		})
-	}
-	w.Flush()
-	if err := w.Error(); err != nil {
-		return err
-	}
-	// Publicación atómica
-	return os.Rename(".\\"+filename+".tmp", ".\\"+filename)
-}
-
-func listLocalAtoms(dir string) ([]string, error) {
-	entries, err := os.ReadDir(dir)
-	if err != nil {
-		return nil, err
-	}
-
-	type item struct {
-		path string
-		ts   string
-	}
-	var xs []item
-	for _, e := range entries {
-		if e.IsDir() {
-			continue
-		}
-		name := e.Name()
-		if strings.HasPrefix(name, "licitacionesPerfilesContratanteCompleto3_") &&
-			strings.HasSuffix(name, ".atom") {
-			// Soporta sufijos tipo “…_1.atom”
-			base := strings.TrimSuffix(name, ".atom")
-			parts := strings.Split(base, "_")
-			if len(parts) >= 3 {
-				ts := parts[1] + "_" + parts[2] // 20250814_175901
-				xs = append(xs, item{path: filepath.Join(dir, name), ts: ts})
-			}
-		}
-	}
-	sort.Slice(xs, func(i, j int) bool { return xs[i].ts > xs[j].ts })
-	out := make([]string, len(xs))
-	for i := range xs {
-		out[i] = xs[i].path
-	}
-	return out, nil
-}
-
-func intToString(n int) string        { return strconvFormatInt(int64(n)) }
-func strconvFormatInt(n int64) string { return strconv.FormatInt(n, 10) }
-
-func ParseAtom(dir string) error {
-	startTime := time.Now()
-
-	files, err := listLocalAtoms(dir)
-	if err != nil {
-		return err
-	}
-
-	workers := 8
-	fileCh := make(chan string, workers*2)
-	agg := NewOrgAgg()
-
-	var wg sync.WaitGroup
-	wg.Add(workers)
-	for w := 0; w < workers; w++ {
-		go func() {
-			defer wg.Done()
-
-			dec := xml.NewDecoder(nil) // se reasigna por archivo
-			for path := range fileCh {
-				pathStart := time.Now()
-
-				f, err := os.Open(path)
-				if err != nil {
-					log.Printf("[WARN] %v", err)
-				}
-
-				dec = xml.NewDecoder(bufio.NewReaderSize(f, 256<<10))
-				for {
-					tok, err := dec.Token()
-
-					if err == io.EOF {
-						break
-					}
-
-					if err != nil {
-						log.Printf("[XML] %s %v", path, err)
-						break
-					}
-
-					if se, ok := tok.(xml.StartElement); ok && se.Name.Local == "entry" {
-						var e Entry
-						if err := dec.DecodeElement(&e, &se); err == nil {
-							agg.ingestEntry(e)
-						}
-					}
-				}
-
-				_ = f.Close()
-				log.Printf("Took %s to process %s", time.Since(pathStart), path)
-			}
-		}()
-	}
-
-	for _, f := range files {
-		fileCh <- f
-	}
-	close(fileCh)
-	wg.Wait()
-
-	elapsed := time.Since(startTime)
-	log.Printf("[done] Total: %d organismos únicos, tiempo: %s",
-		len(agg.byKey), elapsed)
-	agg.writeCSV("dondesea.csv")
-
-	return nil
 }
