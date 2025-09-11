@@ -1,0 +1,902 @@
+<entry>
+        <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17540944</id>
+        <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=hRxr0sLCRmKExvMJXBMHHQ%3D%3D"></link>
+        <summary type="text">Id licitación: Exp 07-2025; Órgano de Contratación: Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital); Importe: 240350 EUR; Estado: RES</summary>
+        <title>Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</title>
+        <updated>2025-08-18T09:00:00.000+02:00</updated>
+        <ContractFolderStatus xmlns="cac-place-ext">
+            <ContractFolderID xmlns="cbc">Exp 07-2025</ContractFolderID>
+            <ContractFolderStatusCode xmlns="cbc-place-ext" listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">RES</ContractFolderStatusCode>
+            <UUID xmlns="cbc" schemeName="TED">13464a36-5817-427f-9e80-dbddda281691</UUID>
+            <LocatedContractingParty xmlns="cac-place-ext">
+                <ContractingPartyTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityCode-2.10.gc">7</ContractingPartyTypeCode>
+                <ActivityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityActivityCode-2.10.gc">1</ActivityCode>
+                <BuyerProfileURIID xmlns="cbc">https://contrataciondelestado.es/wps/poc?uri=deeplink:perfilContratante&amp;idBp=URTYI5cY1%2FsQK2TEfXGy%2BA%3D%3D</BuyerProfileURIID>
+                <Party xmlns="cac">
+                    <WebsiteURI xmlns="cbc">http://www.ibetec.cat</WebsiteURI>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="NIF">V16541831</ID>
+                    </PartyIdentification>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="ID_PLATAFORMA">41026140146374</ID>
+                    </PartyIdentification>
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <PostalAddress xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <AddressLine xmlns="cac">
+                            <Line xmlns="cbc">Blaise Pascal, s/n Edificio Adduno - Parc Bit (Ctra. Palma-Valdemossa, Km 7,4)</Line>
+                        </AddressLine>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </PostalAddress>
+                    <Contact xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                        <Telephone xmlns="cbc">971177354</Telephone>
+                        <ElectronicMail xmlns="cbc">contractacio@ibdigital.caib.es</ElectronicMail>
+                    </Contact>
+                </Party>
+                <ParentLocatedParty xmlns="cac-place-ext">
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <ParentLocatedParty xmlns="cac-place-ext">
+                        <PartyName xmlns="cac">
+                            <Name xmlns="cbc">Illes Balears</Name>
+                        </PartyName>
+                        <ParentLocatedParty xmlns="cac-place-ext">
+                            <PartyName xmlns="cac">
+<Name xmlns="cbc">SOCIEDADES, FUNDACIONES Y CONSORCIOS COMUNIDADES AUTÓNOMAS</Name>
+                            </PartyName>
+                            <ParentLocatedParty xmlns="cac-place-ext">
+<PartyName xmlns="cac">
+    <Name xmlns="cbc">OTRAS ENTIDADES DEL SECTOR PÚBLICO</Name>
+</PartyName>
+<ParentLocatedParty xmlns="cac-place-ext">
+    <PartyName xmlns="cac">
+        <Name xmlns="cbc">Sector Público</Name>
+    </PartyName>
+</ParentLocatedParty>
+                            </ParentLocatedParty>
+                        </ParentLocatedParty>
+                    </ParentLocatedParty>
+                </ParentLocatedParty>
+            </LocatedContractingParty>
+            <ProcurementProject xmlns="cac">
+                <Name xmlns="cbc">Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</Name>
+                <TypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractCode-2.08.gc">2</TypeCode>
+                <SubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/ServiceContractCode-1.04.gc">21</SubTypeCode>
+                <MixContractIndicator xmlns="cbc">false</MixContractIndicator>
+                <BudgetAmount xmlns="cac">
+                    <EstimatedOverallContractAmount xmlns="cbc" currencyID="EUR">423200</EstimatedOverallContractAmount>
+                    <TotalAmount xmlns="cbc" currencyID="EUR">290823.5</TotalAmount>
+                    <TaxExclusiveAmount xmlns="cbc" currencyID="EUR">240350</TaxExclusiveAmount>
+                </BudgetAmount>
+                <RequiredCommodityClassification xmlns="cac">
+                    <ItemClassificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">79111000</ItemClassificationCode>
+                </RequiredCommodityClassification>
+                <RealizedLocation xmlns="cac">
+                    <CountrySubentity xmlns="cbc">Mallorca</CountrySubentity>
+                    <CountrySubentityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/NUTS-2021.gc">ES532</CountrySubentityCode>
+                    <Address xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </Address>
+                </RealizedLocation>
+                <PlannedPeriod xmlns="cac">
+                    <DurationMeasure xmlns="cbc" unitCode="ANN">2</DurationMeasure>
+                </PlannedPeriod>
+                <ContractExtension xmlns="cac">
+                    <OptionValidityPeriod xmlns="cac">
+                        <Description xmlns="cbc">Posibilidad de prórroga hasta 2 años, excepto para el apartado 4 del PPT&#xD;
+referente al servicio de asesoramiento jurídico integral y acompañamiento en el&#xD;
+proceso de transformación de la entidad, que no admite prórroga</Description>
+                    </OptionValidityPeriod>
+                </ContractExtension>
+            </ProcurementProject>
+            <TenderResult xmlns="cac">
+                <ResultCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/TenderResultCode-2.09.gc">4</ResultCode>
+                <AwardDate xmlns="cbc">2025-08-13</AwardDate>
+            </TenderResult>
+            <TenderingTerms xmlns="cac">
+                <RequiredCurriculaIndicator xmlns="cbc">false</RequiredCurriculaIndicator>
+                <FundingProgramCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/FundingProgramCode-2.08.gc" name="No hay financiación con fondos de la UE">NO-EU</FundingProgramCode>
+                <ProcurementNationalLegislationCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.08/ProcurementNationalLegislationCode-2.08.gc">3</ProcurementNationalLegislationCode>
+                <RequiredFinancialGuarantee xmlns="cac">
+                    <GuaranteeTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/GuaranteeTypeCode-1.04.gc">2</GuaranteeTypeCode>
+                    <AmountRate xmlns="cbc">5</AmountRate>
+                </RequiredFinancialGuarantee>
+                <ProcurementLegislationDocumentReference xmlns="cac">
+                    <ID xmlns="cbc">2014/24/EU</ID>
+                </ProcurementLegislationDocumentReference>
+                <TendererQualificationRequest xmlns="cac">
+                    <TechnicalEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">XSX-CERTCALIDAD</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">certificados</Description>
+                    </TechnicalEvaluationCriteria>
+                    <FinancialEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/FinancialCapabilityTypeCode-2.0.gc">5</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">cifra anual de negocios</Description>
+                    </FinancialEvaluationCriteria>
+                    <SpecificTendererRequirement xmlns="cac">
+                        <RequirementTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/DeclarationTypeCode-2.08.gc">1</RequirementTypeCode>
+                        <Description xmlns="cbc">Capacidad de obrar</Description>
+                    </SpecificTendererRequirement>
+                </TendererQualificationRequest>
+                <AwardingTerms xmlns="cac">
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora 2</Description>
+                        <Note xmlns="cbc">Ver apartado B forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+b. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de ciberseguridad.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+2. Mejoras&#xD;
+a. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de las telecomunicaciones.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Precio</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">1</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">90</WeightNumeric>
+                    </AwardingCriteria>
+                </AwardingTerms>
+                <TenderRecipientParty xmlns="cac">
+                    <EndpointID xmlns="cbc">https://contrataciondelestado.es</EndpointID>
+                </TenderRecipientParty>
+                <Language xmlns="cac">
+                    <ID xmlns="cbc">es</ID>
+                </Language>
+            </TenderingTerms>
+            <TenderingProcess xmlns="cac">
+                <ProcedureCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.07/SyndicationTenderingProcessCode-2.07.gc">1</ProcedureCode>
+                <UrgencyCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/DiligenceTypeCode-1.04.gc">1</UrgencyCode>
+                <ContractingSystemCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractingSystemTypeCode-2.08.gc">0</ContractingSystemCode>
+                <SubmissionMethodCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/TenderDeliveryCode-1.04.gc">1</SubmissionMethodCode>
+                <OverThresholdIndicator xmlns="cbc">true</OverThresholdIndicator>
+                <TenderSubmissionDeadlinePeriod xmlns="cac">
+                    <EndDate xmlns="cbc">2025-07-23</EndDate>
+                    <EndTime xmlns="cbc">15:00:00</EndTime>
+                </TenderSubmissionDeadlinePeriod>
+                <AuctionTerms xmlns="cac">
+                    <AuctionConstraintIndicator xmlns="cbc">false</AuctionConstraintIndicator>
+                </AuctionTerms>
+            </TenderingProcess>
+            <LegalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">5 PCA.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=eMw6NzuKEXZyZzRIPAN1aR/FBHV9eoJxQqDp12z7TdiPLkTE7LEN//fwwdxL3IvILa9%2BG4si65bMxdC3NGh0fD4JLldnZO5Me9978I%2BR9sx7QB3HKyQaFUExmUVQCerk&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">SPLkyXsOLc43KtAI10ydy8eDYUI=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </LegalDocumentReference>
+            <TechnicalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">PPT.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=NZ7dRbsdZQVeTkOAuVAssQR5xus4thExcwHEbGVduaEinMIWas609LvBSCNwAn/KvGrSl%2BLoEEOOIaEjScXtLsr0MbYKKmZ1krVhUUOVlFXDdQD9RyhUmzT4jZ2In4zL&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">0vXXatsnVlrsEZZV4j5apWMl0p8=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </TechnicalDocumentReference>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DESISTIMIENTO</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">DOUE</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-08-18</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationRequest xmlns="cac-place-ext">
+                        <AgencyID xmlns="cbc">DOUE</AgencyID>
+                        <SendDate xmlns="cbc-place-ext">2025-08-14+02:00</SendDate>
+                        <SendTime xmlns="cbc-place-ext">09:38:57</SendTime>
+                    </AdditionalPublicationRequest>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">DOUE</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationRequest xmlns="cac-place-ext">
+                        <AgencyID xmlns="cbc">DOUE</AgencyID>
+                        <SendDate xmlns="cbc-place-ext">2025-06-23+02:00</SendDate>
+                        <SendTime xmlns="cbc-place-ext">12:10:57</SendTime>
+                    </AdditionalPublicationRequest>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DESISTIMIENTO</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-08-16</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingDocumentTypeCode-2.11.gc" name="Documento de Acta de Adjudicación">ACTA_ADJ</DocumentTypeCode>
+                        <Attachment xmlns="cac">
+                            <ExternalReference xmlns="cac">
+<URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=P37bRNZ3RMevlc2U%2BEgBag%2BlZmIiUPVd2A8Pwv5Ps8c9ZZCEeOpWnj1pE3Gtww9VmNZrvu5PC0EO5YxyXe4E5a7gZhVcXNAuScx3yOufSXTfdyQgZAdTm3EfcUAC7CJ6&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+<FileName xmlns="cbc">12 resolucio_desistiment_exp_despesa_plecs_07-2025_imprimible.pdf</FileName>
+                            </ExternalReference>
+                        </Attachment>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CD</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">8</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</URI>
+                            <FileName xmlns="cbc">Acuerdo de iniciación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-f44256fc-b512-43bd-9603-f3e017aafc5e</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">11</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-f44256fc-b512-43bd-9603-f3e017aafc5e</URI>
+                            <FileName xmlns="cbc">Documento de aprobación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-968b193a-5e06-4964-96e5-8bec5bce09d5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">9</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-968b193a-5e06-4964-96e5-8bec5bce09d5</URI>
+                            <FileName xmlns="cbc">Memoria justificativa</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-5cf195c5-4a17-49e1-8cea-708932839961</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">2</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-5cf195c5-4a17-49e1-8cea-708932839961</URI>
+                            <FileName xmlns="cbc">Composición de la mesa de contratación</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+        </ContractFolderStatus>
+    </entry><entry>
+        <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17540944</id>
+        <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=hRxr0sLCRmKExvMJXBMHHQ%3D%3D"></link>
+        <summary type="text">Id licitación: Exp 07-2025; Órgano de Contratación: Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital); Importe: 240350 EUR; Estado: RES</summary>
+        <title>Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</title>
+        <updated>2025-08-16T09:43:27.425+02:00</updated>
+        <ContractFolderStatus xmlns="cac-place-ext">
+            <ContractFolderID xmlns="cbc">Exp 07-2025</ContractFolderID>
+            <ContractFolderStatusCode xmlns="cbc-place-ext" listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">RES</ContractFolderStatusCode>
+            <UUID xmlns="cbc" schemeName="TED">13464a36-5817-427f-9e80-dbddda281691</UUID>
+            <LocatedContractingParty xmlns="cac-place-ext">
+                <ContractingPartyTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityCode-2.10.gc">7</ContractingPartyTypeCode>
+                <ActivityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityActivityCode-2.10.gc">1</ActivityCode>
+                <BuyerProfileURIID xmlns="cbc">https://contrataciondelestado.es/wps/poc?uri=deeplink:perfilContratante&amp;idBp=URTYI5cY1%2FsQK2TEfXGy%2BA%3D%3D</BuyerProfileURIID>
+                <Party xmlns="cac">
+                    <WebsiteURI xmlns="cbc">http://www.ibetec.cat</WebsiteURI>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="NIF">V16541831</ID>
+                    </PartyIdentification>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="ID_PLATAFORMA">41026140146374</ID>
+                    </PartyIdentification>
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <PostalAddress xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <AddressLine xmlns="cac">
+                            <Line xmlns="cbc">Blaise Pascal, s/n Edificio Adduno - Parc Bit (Ctra. Palma-Valdemossa, Km 7,4)</Line>
+                        </AddressLine>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </PostalAddress>
+                    <Contact xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                        <Telephone xmlns="cbc">971177354</Telephone>
+                        <ElectronicMail xmlns="cbc">contractacio@ibdigital.caib.es</ElectronicMail>
+                    </Contact>
+                </Party>
+                <ParentLocatedParty xmlns="cac-place-ext">
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <ParentLocatedParty xmlns="cac-place-ext">
+                        <PartyName xmlns="cac">
+                            <Name xmlns="cbc">Illes Balears</Name>
+                        </PartyName>
+                        <ParentLocatedParty xmlns="cac-place-ext">
+                            <PartyName xmlns="cac">
+<Name xmlns="cbc">SOCIEDADES, FUNDACIONES Y CONSORCIOS COMUNIDADES AUTÓNOMAS</Name>
+                            </PartyName>
+                            <ParentLocatedParty xmlns="cac-place-ext">
+<PartyName xmlns="cac">
+    <Name xmlns="cbc">OTRAS ENTIDADES DEL SECTOR PÚBLICO</Name>
+</PartyName>
+<ParentLocatedParty xmlns="cac-place-ext">
+    <PartyName xmlns="cac">
+        <Name xmlns="cbc">Sector Público</Name>
+    </PartyName>
+</ParentLocatedParty>
+                            </ParentLocatedParty>
+                        </ParentLocatedParty>
+                    </ParentLocatedParty>
+                </ParentLocatedParty>
+            </LocatedContractingParty>
+            <ProcurementProject xmlns="cac">
+                <Name xmlns="cbc">Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</Name>
+                <TypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractCode-2.08.gc">2</TypeCode>
+                <SubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/ServiceContractCode-1.04.gc">21</SubTypeCode>
+                <MixContractIndicator xmlns="cbc">false</MixContractIndicator>
+                <BudgetAmount xmlns="cac">
+                    <EstimatedOverallContractAmount xmlns="cbc" currencyID="EUR">423200</EstimatedOverallContractAmount>
+                    <TotalAmount xmlns="cbc" currencyID="EUR">290823.5</TotalAmount>
+                    <TaxExclusiveAmount xmlns="cbc" currencyID="EUR">240350</TaxExclusiveAmount>
+                </BudgetAmount>
+                <RequiredCommodityClassification xmlns="cac">
+                    <ItemClassificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">79111000</ItemClassificationCode>
+                </RequiredCommodityClassification>
+                <RealizedLocation xmlns="cac">
+                    <CountrySubentity xmlns="cbc">Mallorca</CountrySubentity>
+                    <CountrySubentityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/NUTS-2021.gc">ES532</CountrySubentityCode>
+                    <Address xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </Address>
+                </RealizedLocation>
+                <PlannedPeriod xmlns="cac">
+                    <DurationMeasure xmlns="cbc" unitCode="ANN">2</DurationMeasure>
+                </PlannedPeriod>
+                <ContractExtension xmlns="cac">
+                    <OptionValidityPeriod xmlns="cac">
+                        <Description xmlns="cbc">Posibilidad de prórroga hasta 2 años, excepto para el apartado 4 del PPT&#xD;
+referente al servicio de asesoramiento jurídico integral y acompañamiento en el&#xD;
+proceso de transformación de la entidad, que no admite prórroga</Description>
+                    </OptionValidityPeriod>
+                </ContractExtension>
+            </ProcurementProject>
+            <TenderResult xmlns="cac">
+                <ResultCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/TenderResultCode-2.09.gc">4</ResultCode>
+                <AwardDate xmlns="cbc">2025-08-13</AwardDate>
+            </TenderResult>
+            <TenderingTerms xmlns="cac">
+                <RequiredCurriculaIndicator xmlns="cbc">false</RequiredCurriculaIndicator>
+                <FundingProgramCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/FundingProgramCode-2.08.gc" name="No hay financiación con fondos de la UE">NO-EU</FundingProgramCode>
+                <ProcurementNationalLegislationCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.08/ProcurementNationalLegislationCode-2.08.gc">3</ProcurementNationalLegislationCode>
+                <RequiredFinancialGuarantee xmlns="cac">
+                    <GuaranteeTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/GuaranteeTypeCode-1.04.gc">2</GuaranteeTypeCode>
+                    <AmountRate xmlns="cbc">5</AmountRate>
+                </RequiredFinancialGuarantee>
+                <ProcurementLegislationDocumentReference xmlns="cac">
+                    <ID xmlns="cbc">2014/24/EU</ID>
+                </ProcurementLegislationDocumentReference>
+                <TendererQualificationRequest xmlns="cac">
+                    <TechnicalEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">XSX-CERTCALIDAD</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">certificados</Description>
+                    </TechnicalEvaluationCriteria>
+                    <FinancialEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/FinancialCapabilityTypeCode-2.0.gc">5</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">cifra anual de negocios</Description>
+                    </FinancialEvaluationCriteria>
+                    <SpecificTendererRequirement xmlns="cac">
+                        <RequirementTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/DeclarationTypeCode-2.08.gc">1</RequirementTypeCode>
+                        <Description xmlns="cbc">Capacidad de obrar</Description>
+                    </SpecificTendererRequirement>
+                </TendererQualificationRequest>
+                <AwardingTerms xmlns="cac">
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora 2</Description>
+                        <Note xmlns="cbc">Ver apartado B forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+b. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de ciberseguridad.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+2. Mejoras&#xD;
+a. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de las telecomunicaciones.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Precio</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">1</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">90</WeightNumeric>
+                    </AwardingCriteria>
+                </AwardingTerms>
+                <TenderRecipientParty xmlns="cac">
+                    <EndpointID xmlns="cbc">https://contrataciondelestado.es</EndpointID>
+                </TenderRecipientParty>
+                <Language xmlns="cac">
+                    <ID xmlns="cbc">es</ID>
+                </Language>
+            </TenderingTerms>
+            <TenderingProcess xmlns="cac">
+                <ProcedureCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.07/SyndicationTenderingProcessCode-2.07.gc">1</ProcedureCode>
+                <UrgencyCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/DiligenceTypeCode-1.04.gc">1</UrgencyCode>
+                <ContractingSystemCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractingSystemTypeCode-2.08.gc">0</ContractingSystemCode>
+                <SubmissionMethodCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/TenderDeliveryCode-1.04.gc">1</SubmissionMethodCode>
+                <OverThresholdIndicator xmlns="cbc">true</OverThresholdIndicator>
+                <TenderSubmissionDeadlinePeriod xmlns="cac">
+                    <EndDate xmlns="cbc">2025-07-23</EndDate>
+                    <EndTime xmlns="cbc">15:00:00</EndTime>
+                </TenderSubmissionDeadlinePeriod>
+                <AuctionTerms xmlns="cac">
+                    <AuctionConstraintIndicator xmlns="cbc">false</AuctionConstraintIndicator>
+                </AuctionTerms>
+            </TenderingProcess>
+            <LegalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">5 PCA.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=eMw6NzuKEXZyZzRIPAN1aR/FBHV9eoJxQqDp12z7TdiPLkTE7LEN//fwwdxL3IvILa9%2BG4si65bMxdC3NGh0fD4JLldnZO5Me9978I%2BR9sx7QB3HKyQaFUExmUVQCerk&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">SPLkyXsOLc43KtAI10ydy8eDYUI=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </LegalDocumentReference>
+            <TechnicalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">PPT.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=NZ7dRbsdZQVeTkOAuVAssQR5xus4thExcwHEbGVduaEinMIWas609LvBSCNwAn/KvGrSl%2BLoEEOOIaEjScXtLsr0MbYKKmZ1krVhUUOVlFXDdQD9RyhUmzT4jZ2In4zL&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">0vXXatsnVlrsEZZV4j5apWMl0p8=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </TechnicalDocumentReference>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">DOUE</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationRequest xmlns="cac-place-ext">
+                        <AgencyID xmlns="cbc">DOUE</AgencyID>
+                        <SendDate xmlns="cbc-place-ext">2025-06-23+02:00</SendDate>
+                        <SendTime xmlns="cbc-place-ext">12:10:57</SendTime>
+                    </AdditionalPublicationRequest>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DESISTIMIENTO</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-08-16</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingDocumentTypeCode-2.11.gc" name="Documento de Acta de Adjudicación">ACTA_ADJ</DocumentTypeCode>
+                        <Attachment xmlns="cac">
+                            <ExternalReference xmlns="cac">
+<URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=P37bRNZ3RMevlc2U%2BEgBag%2BlZmIiUPVd2A8Pwv5Ps8c9ZZCEeOpWnj1pE3Gtww9VmNZrvu5PC0EO5YxyXe4E5a7gZhVcXNAuScx3yOufSXTfdyQgZAdTm3EfcUAC7CJ6&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+<FileName xmlns="cbc">12 resolucio_desistiment_exp_despesa_plecs_07-2025_imprimible.pdf</FileName>
+                            </ExternalReference>
+                        </Attachment>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CD</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">8</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</URI>
+                            <FileName xmlns="cbc">Acuerdo de iniciación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-f44256fc-b512-43bd-9603-f3e017aafc5e</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">11</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-f44256fc-b512-43bd-9603-f3e017aafc5e</URI>
+                            <FileName xmlns="cbc">Documento de aprobación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-968b193a-5e06-4964-96e5-8bec5bce09d5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">9</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-968b193a-5e06-4964-96e5-8bec5bce09d5</URI>
+                            <FileName xmlns="cbc">Memoria justificativa</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-5cf195c5-4a17-49e1-8cea-708932839961</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">2</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-5cf195c5-4a17-49e1-8cea-708932839961</URI>
+                            <FileName xmlns="cbc">Composición de la mesa de contratación</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+        </ContractFolderStatus>
+    </entry><entry>
+        <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17540944</id>
+        <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=hRxr0sLCRmKExvMJXBMHHQ%3D%3D"></link>
+        <summary type="text">Id licitación: Exp 07-2025; Órgano de Contratación: Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital); Importe: 240350 EUR; Estado: PUB</summary>
+        <title>Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</title>
+        <updated>2025-06-25T10:51:20.989+02:00</updated>
+        <ContractFolderStatus xmlns="cac-place-ext">
+            <ContractFolderID xmlns="cbc">Exp 07-2025</ContractFolderID>
+            <ContractFolderStatusCode xmlns="cbc-place-ext" listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">PUB</ContractFolderStatusCode>
+            <UUID xmlns="cbc" schemeName="TED">13464a36-5817-427f-9e80-dbddda281691</UUID>
+            <LocatedContractingParty xmlns="cac-place-ext">
+                <ContractingPartyTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityCode-2.10.gc">7</ContractingPartyTypeCode>
+                <ActivityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityActivityCode-2.10.gc">1</ActivityCode>
+                <BuyerProfileURIID xmlns="cbc">https://contrataciondelestado.es/wps/poc?uri=deeplink:perfilContratante&amp;idBp=URTYI5cY1%2FsQK2TEfXGy%2BA%3D%3D</BuyerProfileURIID>
+                <Party xmlns="cac">
+                    <WebsiteURI xmlns="cbc">http://www.ibetec.cat</WebsiteURI>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="NIF">V16541831</ID>
+                    </PartyIdentification>
+                    <PartyIdentification xmlns="cac">
+                        <ID xmlns="cbc" schemeName="ID_PLATAFORMA">41026140146374</ID>
+                    </PartyIdentification>
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <PostalAddress xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <AddressLine xmlns="cac">
+                            <Line xmlns="cbc">Blaise Pascal, s/n Edificio Adduno - Parc Bit (Ctra. Palma-Valdemossa, Km 7,4)</Line>
+                        </AddressLine>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </PostalAddress>
+                    <Contact xmlns="cac">
+                        <Name xmlns="cbc">Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                        <Telephone xmlns="cbc">971177354</Telephone>
+                        <ElectronicMail xmlns="cbc">contractacio@ibdigital.caib.es</ElectronicMail>
+                    </Contact>
+                </Party>
+                <ParentLocatedParty xmlns="cac-place-ext">
+                    <PartyName xmlns="cac">
+                        <Name xmlns="cbc">Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital)</Name>
+                    </PartyName>
+                    <ParentLocatedParty xmlns="cac-place-ext">
+                        <PartyName xmlns="cac">
+                            <Name xmlns="cbc">Illes Balears</Name>
+                        </PartyName>
+                        <ParentLocatedParty xmlns="cac-place-ext">
+                            <PartyName xmlns="cac">
+<Name xmlns="cbc">SOCIEDADES, FUNDACIONES Y CONSORCIOS COMUNIDADES AUTÓNOMAS</Name>
+                            </PartyName>
+                            <ParentLocatedParty xmlns="cac-place-ext">
+<PartyName xmlns="cac">
+    <Name xmlns="cbc">OTRAS ENTIDADES DEL SECTOR PÚBLICO</Name>
+</PartyName>
+<ParentLocatedParty xmlns="cac-place-ext">
+    <PartyName xmlns="cac">
+        <Name xmlns="cbc">Sector Público</Name>
+    </PartyName>
+</ParentLocatedParty>
+                            </ParentLocatedParty>
+                        </ParentLocatedParty>
+                    </ParentLocatedParty>
+                </ParentLocatedParty>
+            </LocatedContractingParty>
+            <ProcurementProject xmlns="cac">
+                <Name xmlns="cbc">Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.</Name>
+                <TypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractCode-2.08.gc">2</TypeCode>
+                <SubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/ServiceContractCode-1.04.gc">21</SubTypeCode>
+                <MixContractIndicator xmlns="cbc">false</MixContractIndicator>
+                <BudgetAmount xmlns="cac">
+                    <EstimatedOverallContractAmount xmlns="cbc" currencyID="EUR">423200</EstimatedOverallContractAmount>
+                    <TotalAmount xmlns="cbc" currencyID="EUR">290823.5</TotalAmount>
+                    <TaxExclusiveAmount xmlns="cbc" currencyID="EUR">240350</TaxExclusiveAmount>
+                </BudgetAmount>
+                <RequiredCommodityClassification xmlns="cac">
+                    <ItemClassificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">79111000</ItemClassificationCode>
+                </RequiredCommodityClassification>
+                <RealizedLocation xmlns="cac">
+                    <CountrySubentity xmlns="cbc">Mallorca</CountrySubentity>
+                    <CountrySubentityCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/NUTS-2021.gc">ES532</CountrySubentityCode>
+                    <Address xmlns="cac">
+                        <CityName xmlns="cbc">Palma</CityName>
+                        <PostalZone xmlns="cbc">07121</PostalZone>
+                        <Country xmlns="cac">
+                            <IdentificationCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</IdentificationCode>
+                            <Name xmlns="cbc">España</Name>
+                        </Country>
+                    </Address>
+                </RealizedLocation>
+                <PlannedPeriod xmlns="cac">
+                    <DurationMeasure xmlns="cbc" unitCode="ANN">2</DurationMeasure>
+                </PlannedPeriod>
+                <ContractExtension xmlns="cac">
+                    <OptionValidityPeriod xmlns="cac">
+                        <Description xmlns="cbc">Posibilidad de prórroga hasta 2 años, excepto para el apartado 4 del PPT&#xD;
+referente al servicio de asesoramiento jurídico integral y acompañamiento en el&#xD;
+proceso de transformación de la entidad, que no admite prórroga</Description>
+                    </OptionValidityPeriod>
+                </ContractExtension>
+            </ProcurementProject>
+            <TenderingTerms xmlns="cac">
+                <RequiredCurriculaIndicator xmlns="cbc">false</RequiredCurriculaIndicator>
+                <FundingProgramCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/FundingProgramCode-2.08.gc" name="No hay financiación con fondos de la UE">NO-EU</FundingProgramCode>
+                <ProcurementNationalLegislationCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.08/ProcurementNationalLegislationCode-2.08.gc">3</ProcurementNationalLegislationCode>
+                <RequiredFinancialGuarantee xmlns="cac">
+                    <GuaranteeTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/GuaranteeTypeCode-1.04.gc">2</GuaranteeTypeCode>
+                    <AmountRate xmlns="cbc">5</AmountRate>
+                </RequiredFinancialGuarantee>
+                <ProcurementLegislationDocumentReference xmlns="cac">
+                    <ID xmlns="cbc">2014/24/EU</ID>
+                </ProcurementLegislationDocumentReference>
+                <TendererQualificationRequest xmlns="cac">
+                    <TechnicalEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">XSX-CERTCALIDAD</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">certificados</Description>
+                    </TechnicalEvaluationCriteria>
+                    <FinancialEvaluationCriteria xmlns="cac">
+                        <EvaluationCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/FinancialCapabilityTypeCode-2.0.gc">5</EvaluationCriteriaTypeCode>
+                        <Description xmlns="cbc">cifra anual de negocios</Description>
+                    </FinancialEvaluationCriteria>
+                    <SpecificTendererRequirement xmlns="cac">
+                        <RequirementTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/DeclarationTypeCode-2.08.gc">1</RequirementTypeCode>
+                        <Description xmlns="cbc">Capacidad de obrar</Description>
+                    </SpecificTendererRequirement>
+                </TendererQualificationRequest>
+                <AwardingTerms xmlns="cac">
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora 2</Description>
+                        <Note xmlns="cbc">Ver apartado B forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+b. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de ciberseguridad.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Precio</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">1</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">90</WeightNumeric>
+                    </AwardingCriteria>
+                    <AwardingCriteria xmlns="cac">
+                        <AwardingCriteriaTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</AwardingCriteriaTypeCode>
+                        <Description xmlns="cbc">Mejora</Description>
+                        <Note xmlns="cbc">Ver apartado B Forma de evaluar las proposiciones del PCA&#xD;
+&#xD;
+2. Mejoras&#xD;
+a. Adscripción de al menos una persona con&#xD;
+cualificación y experiencia, mínima de 2 años, en&#xD;
+materia de derecho de las telecomunicaciones.</Note>
+                        <AwardingCriteriaSubTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</AwardingCriteriaSubTypeCode>
+                        <WeightNumeric xmlns="cbc">5</WeightNumeric>
+                    </AwardingCriteria>
+                </AwardingTerms>
+                <TenderRecipientParty xmlns="cac">
+                    <EndpointID xmlns="cbc">https://contrataciondelestado.es</EndpointID>
+                </TenderRecipientParty>
+                <Language xmlns="cac">
+                    <ID xmlns="cbc">es</ID>
+                </Language>
+            </TenderingTerms>
+            <TenderingProcess xmlns="cac">
+                <ProcedureCode xmlns="cbc" listURI="https://contrataciondelestado.es/codice/cl/2.07/SyndicationTenderingProcessCode-2.07.gc">1</ProcedureCode>
+                <UrgencyCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/DiligenceTypeCode-1.04.gc">1</UrgencyCode>
+                <ContractingSystemCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractingSystemTypeCode-2.08.gc">0</ContractingSystemCode>
+                <SubmissionMethodCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/1.04/TenderDeliveryCode-1.04.gc">1</SubmissionMethodCode>
+                <OverThresholdIndicator xmlns="cbc">true</OverThresholdIndicator>
+                <TenderSubmissionDeadlinePeriod xmlns="cac">
+                    <EndDate xmlns="cbc">2025-07-23</EndDate>
+                    <EndTime xmlns="cbc">15:00:00</EndTime>
+                </TenderSubmissionDeadlinePeriod>
+                <AuctionTerms xmlns="cac">
+                    <AuctionConstraintIndicator xmlns="cbc">false</AuctionConstraintIndicator>
+                </AuctionTerms>
+            </TenderingProcess>
+            <LegalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">5 PCA.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=eMw6NzuKEXZyZzRIPAN1aR/FBHV9eoJxQqDp12z7TdiPLkTE7LEN//fwwdxL3IvILa9%2BG4si65bMxdC3NGh0fD4JLldnZO5Me9978I%2BR9sx7QB3HKyQaFUExmUVQCerk&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">SPLkyXsOLc43KtAI10ydy8eDYUI=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </LegalDocumentReference>
+            <TechnicalDocumentReference xmlns="cac">
+                <ID xmlns="cbc">PPT.pdf</ID>
+                <Attachment xmlns="cac">
+                    <ExternalReference xmlns="cac">
+                        <URI xmlns="cbc">https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=NZ7dRbsdZQVeTkOAuVAssQR5xus4thExcwHEbGVduaEinMIWas609LvBSCNwAn/KvGrSl%2BLoEEOOIaEjScXtLsr0MbYKKmZ1krVhUUOVlFXDdQD9RyhUmzT4jZ2In4zL&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</URI>
+                        <DocumentHash xmlns="cbc">0vXXatsnVlrsEZZV4j5apWMl0p8=</DocumentHash>
+                    </ExternalReference>
+                </Attachment>
+            </TechnicalDocumentReference>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">DOUE</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                    <AdditionalPublicationRequest xmlns="cac-place-ext">
+                        <AgencyID xmlns="cbc">DOUE</AgencyID>
+                        <SendDate xmlns="cbc-place-ext">2025-06-23+02:00</SendDate>
+                        <SendTime xmlns="cbc-place-ext">12:10:57</SendTime>
+                    </AdditionalPublicationRequest>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CD</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <ValidNoticeInfo xmlns="cac-place-ext">
+                <NoticeTypeCode xmlns="cbc-place-ext" listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</NoticeTypeCode>
+                <AdditionalPublicationStatus xmlns="cac-place-ext">
+                    <PublicationMediaName xmlns="cbc-place-ext">Perfil del contratante</PublicationMediaName>
+                    <AdditionalPublicationDocumentReference xmlns="cac-place-ext">
+                        <IssueDate xmlns="cbc">2025-06-25</IssueDate>
+                    </AdditionalPublicationDocumentReference>
+                </AdditionalPublicationStatus>
+            </ValidNoticeInfo>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">8</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-dcdc43b8-ece6-41df-a90b-56ff2bcfabf5</URI>
+                            <FileName xmlns="cbc">Acuerdo de iniciación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-f44256fc-b512-43bd-9603-f3e017aafc5e</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">11</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-f44256fc-b512-43bd-9603-f3e017aafc5e</URI>
+                            <FileName xmlns="cbc">Documento de aprobación del expediente</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-968b193a-5e06-4964-96e5-8bec5bce09d5</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">9</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-968b193a-5e06-4964-96e5-8bec5bce09d5</URI>
+                            <FileName xmlns="cbc">Memoria justificativa</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+            <GeneralDocument xmlns="cac-place-ext">
+                <GeneralDocumentDocumentReference xmlns="cac-place-ext">
+                    <ID xmlns="cbc">2025-5cf195c5-4a17-49e1-8cea-708932839961</ID>
+                    <DocumentTypeCode xmlns="cbc" listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">2</DocumentTypeCode>
+                    <Attachment xmlns="cac">
+                        <ExternalReference xmlns="cac">
+                            <URI xmlns="cbc">https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-5cf195c5-4a17-49e1-8cea-708932839961</URI>
+                            <FileName xmlns="cbc">Composición de la mesa de contratación</FileName>
+                        </ExternalReference>
+                    </Attachment>
+                </GeneralDocumentDocumentReference>
+            </GeneralDocument>
+        </ContractFolderStatus>
+    </entry>
