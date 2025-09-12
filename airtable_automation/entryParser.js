@@ -110,21 +110,127 @@ class LicitationRepository {
     if (!records[0]?.fields)
       return null
 
-    return records[0].fields
+    return { id: records[0].id, ...records[0].fields };
   }
 
-  async save(entry) {
+  async save(entry, orgId) {
     const { entry_id, updated, cpvs, party, lots, documents, lot_id, ...rest } = entry;
-    await this.base("Licitaciones").create([
+    const result = await this.base("Licitaciones").create([
       {
         fields: {
           Id: entry_id,
           updated: updated,
           cpvs: cpvs.join(','),
+          Organismo: [orgId],
           ...rest,
         },
       },
     ]);
+    return result[0].id;
+  }
+}
+
+class LotsRepository {
+  constructor(base) {
+    this.base = base
+  }
+
+  async save(lots, licId) {
+    for (const lo of lots) {
+      await this.base("Lotes").create([
+        {
+          fields: {
+            "Nombre": lo.name,
+            "ID Lote": (lo.lot_id ?? "").toString(),
+            "External Id": lo.ext_id,
+            "Licitación": [licId],
+            "Tipo": 1,
+            "Subtipo": 2,
+            "Coste Total Estimado": 0,
+            "Coste con Impuestos": lo.cost_with_taxes,
+            "Coste sin Impuestos": lo.cost_without_taxes,
+            "CPVs": lo.cpvs.join(","),
+            "Lugar de Ejecución": lo.place,
+            "Ciudad de Realización": lo.city,
+            "Código Postal de Realización": lo.zip,
+            "País de Realización": lo.country,
+            "Duración Estimada": "",
+            "Código de Resultado de Licitación": lo.tender_result_code,
+            "Fecha de Adjudicación": lo.award_date,
+            "Cantidad de Ofertas Recibidas": lo.received_tender_quantity,
+            "Oferta Más Baja": lo.lower_tender_amount,
+            "Oferta Más Alta": lo.higher_tender_amount,
+            "NIF Ganador": lo.winning_nif,
+            "Nombre Ganador": lo.winning_name,
+            "Ciudad Ganador": lo.winning_city,
+            "Código Postal Ganador": lo.winning_zip,
+            "Asignación Ganador Sin Impuestos": lo.award_tax_exclusive,
+            "Asignación Ganador Con Impuestos": lo.award_payble_amount,
+          },
+        },
+      ]);
+    }
+  }
+}
+
+class OrgRepository {
+  constructor(base) {
+    this.base = base
+  }
+
+  async get(nif) {
+    const records = await this.base("Organismos").select({
+      filterByFormula: `{NIF} = "${nif}"`,
+      maxRecords: 1,
+    }).all();
+
+    if (!records[0]?.fields)
+      return null
+
+    return { id: records[0].id, ...records[0].fields };
+  }
+
+  async save(org) {
+    const result = await this.base("Organismos").create([
+      {
+        fields: {
+          'Nombre Organismo': org.name,
+          'NIF': org.nif,
+          'DIR3': org.dir3,
+          'Website': org.website,
+          'Perfil Contratante URL': org.profile_url,
+          'Dirección': org.address,
+          'Código Postal': org.zip,
+          'Ciudad': org.city,
+          'País': org.country,
+          'País Código': org.country_code,
+          'Teléfono': org.phone,
+          'Email': org.email,
+        },
+      },
+    ]);
+    return result[0].id;
+  }
+}
+
+class DocRepository {
+  constructor(base) {
+    this.base = base
+  }
+
+  async save(docs, licId) {
+    for (const d of docs) {
+      await this.base("Documentos Licitación").create([
+        {
+          fields: {
+            "ID Documento": d.id,
+            "Licitación": [licId],
+            "URL Documento": d.url,
+            "Tipo de Documento": d.type,
+          },
+        },
+      ]);
+    }
   }
 }
 
@@ -137,6 +243,9 @@ async function start(baseUrl) {
 
   const cursorRepo = new CursorRepository(base);
   const licitationsRepo = new LicitationRepository(base);
+  const lotsRepo = new LotsRepository(base);
+  const orgRepo = new OrgRepository(base);
+  const docRepo = new DocRepository(base);
 
   try {
     const lastUpdate = await cursorRepo.getLastCursor();
@@ -148,10 +257,18 @@ async function start(baseUrl) {
 
     for (entry of newEntries) {
       const lic = await licitationsRepo.get(entry.entry_id);
+      const org = await orgRepo.get(entry.party.nif);
+
       if (lic) {
       } else {
-        console.log(entry.updated, entry);
-        await licitationsRepo.save(entry);
+        let orgId = org?.id;
+        if (!org) {
+          orgId = await orgRepo.save(entry.party);
+        }
+        const licId = await licitationsRepo.save(entry, orgId);
+
+        await lotsRepo.save(entry.lots, licId);
+        await docRepo.save(entry.documents, licId);
       }
     }
 
@@ -173,7 +290,8 @@ async function extractNewEntries(baseUrl, lastUpdate) {
   let newLastExtracted = null;
   let newEntries = [];
   let deletedEntries = [];
-  while (next) {
+  let count = 0;
+  while (count++ < 2 && next) {
     console.log("Processing", next);
     const res = await fetch(next, {
       method: 'GET',
@@ -244,7 +362,7 @@ function parseEntries(root) {
       }
 
       lots = projectLot.map(lo => {
-        const id = lo["cbc:ID"]._;
+        const lot_id = lo["cbc:ID"]._;
         const procurement = lo["cac:ProcurementProject"];
         const budget = procurement["cac:BudgetAmount"];
         const realizedLocation = procurement["cac:RealizedLocation"];
@@ -252,14 +370,15 @@ function parseEntries(root) {
         let commodities = procurement["cac:RequiredCommodityClassification"];
         commodities = !commodities ? commodities : Array.isArray(commodities) ? commodities : [commodities];
 
-        let lotTenderResult = tender_results.find(el => el.lot_id === id);
+        let lotTenderResult = tender_results.find(el => el.lot_id === lot_id);
         if (lotTenderResult)
           lotsAdj += 1
         else
           lotTenderResult = {}
 
         return {
-          id,
+          lot_id,
+          ext_id: `${lot_id}_${id}`,
           name: procurement["cbc:Name"],
           cost_with_taxes: budget["cbc:TotalAmount"]?._,
           cost_without_taxes: budget["cbc:TaxExclusiveAmount"]?._,
@@ -268,7 +387,7 @@ function parseEntries(root) {
           city: realizedLocation && realizedLocation["cac:Address"]?.["cbc:CityName"],
           zip: realizedLocation && realizedLocation["cac:Address"]?.["cbc:PostalZone"],
           country: realizedLocation && realizedLocation["cac:Address"]?.["cac:Country"]["cbc:IdentificationCode"]?._,
-          ...lotTenderResult
+          ...lotTenderResult,
         };
       });
     } else {
@@ -282,6 +401,8 @@ function parseEntries(root) {
 
       lots = [
         {
+          lot_id: 0,
+          ext_id: `0_${id}`,
           ...procurement,
           ...tender_result,
         },
@@ -369,18 +490,13 @@ function collectParty(CFS) {
   const dir3 = partyIdentification?.find(el => el["cbc:ID"]["schemeName"] === "DIR3")?.["cbc:ID"]?._;
   const nif = partyIdentification?.find(el => el["cbc:ID"]["schemeName"] === "NIF")?.["cbc:ID"]?._;
   const name = party["cac:PartyName"]["cbc:Name"]
-  const address = party["cac:PostalAddress"][
-    "cac:AddressLine"]["cbc:Line"]
-  const zip = party["cac:PostalAddress"]["cbc:PostalZone"]
-  const city = party["cac:PostalAddress"][
-    "cbc:CityName"]
-  const countryCode = party["cac:PostalAddress"]["cac:Country"][
-    "cbc:IdentificationCode"]._;
+  const address = party["cac:PostalAddress"]["cac:AddressLine"]["cbc:Line"]
+  const zip = (party["cac:PostalAddress"]["cbc:PostalZone"] ?? "").toString();
+  const city = party["cac:PostalAddress"]["cbc:CityName"]
+  const countryCode = party["cac:PostalAddress"]["cac:Country"]["cbc:IdentificationCode"]._;
   const country = party["cac:PostalAddress"]["cac:Country"]["cbc:Name"]
-  const phone = party["cac:Contact"][
-    "cbc:Telephone"]
-  const email = party[
-    "cac:Contact"]["cbc:ElectronicMail"]
+  const phone = (party["cac:Contact"]["cbc:Telephone"] ?? "").toString();
+  const email = party["cac:Contact"]["cbc:ElectronicMail"]
 
   return {
     profile_url,
@@ -448,7 +564,7 @@ function processTenderResult(tender_result) {
     "cbc:HigherTenderAmount"]?._;
 
   const winning_party = tender_result?.["cac:WinningParty"];
-  const winning_nif = winning_party?.["cac:PartyIdentification"]?.["cbc:ID"]?._;
+  const winning_nif = (winning_party?.["cac:PartyIdentification"]?.["cbc:ID"]?._ ?? "").toString();
   const winning_name = winning_party?.["cac:PartyName"]["cbc:Name"];
 
   const winning_location = winning_party?.["cac:PhysicalLocation"]?.["cac:Address"];
