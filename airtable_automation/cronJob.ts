@@ -388,6 +388,7 @@ export class Lot {
     this.lot_id = args.lot_id;
     this.ext_id = args.ext_id;
     this.name = args.name;
+    this.licitationId = args.licitationId;
     this.cost_with_taxes = args.cost_with_taxes;
     this.cost_without_taxes = args.cost_without_taxes;
     this.cpvs = Array.isArray(args.cpvs)
@@ -414,7 +415,7 @@ export class Lot {
   }
 
   static fromParsed(l: ParsedLot, licitationId: string): Lot {
-    return new Lot({ ...l, licitationId, });
+    return new Lot({ ...l, licitationId: licitationId, });
   }
 
   static fromDb(row: LotLike & { licitationId: string }): Lot {
@@ -743,6 +744,7 @@ class LicitationRepository {
       {
         fields: {
           ['ID']: lic.entry_id,
+          ['Organismo']: [lic.partyId],
           ...this.createUpdatableObject(lic),
         },
       },
@@ -754,7 +756,7 @@ class LicitationRepository {
   async save(lic: Licitation) {
     if (!lic.id) return;
 
-    const result = await this.base("Licitaciones").update([
+    await this.base("Licitaciones").update([
       {
         id: lic.id,
         fields: this.createUpdatableObject(lic),
@@ -803,7 +805,6 @@ class LicitationRepository {
       ['Hora Fin Disponibilidad']: lic.end_availability_hour,
       ['Fecha de Fin']: lic.end_date,
       ['Hora de Fin']: lic.end_hour,
-      ['Organismo']: [lic.partyId],
     };
   }
 }
@@ -1061,7 +1062,7 @@ class EventRepository {
       await this.base("Eventos").create([
         {
           fields: {
-            "Fecha de Creación": e.createdAt,
+            "Fecha de Creación": e.createdAt.toString(),
             "Tipo": e.type,
             "Licitación": e.licitationId,
             "Lote": e.lotId,
