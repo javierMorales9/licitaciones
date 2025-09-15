@@ -750,4 +750,3 @@ export function parseDeletedEntries(root: AtomRootRaw): ParsedDeletedEntry[] {
     })
     .filter((x): x is ParsedDeletedEntry => Boolean(x));
 }
-

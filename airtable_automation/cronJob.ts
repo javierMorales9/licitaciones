@@ -10,7 +10,9 @@ import type {
   AtomRootRaw,
   ParsedEntry,
   ParsedDeletedEntry,
-  ParsedLot
+  ParsedLot,
+  ParsedDocRef,
+  ParsedParty
 } from "./feedParser.ts";
 
 const BASE_FEED_URL = 'https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom';
@@ -75,6 +77,7 @@ export interface LicitationLike {
 export class Licitation {
   id?: string;
   entry_id: string;
+  partyId: string;
   statusCode?: string;
   publishedDate?: string;
   updated: Date;
@@ -125,9 +128,10 @@ export class Licitation {
   end_date?: string;
   end_hour?: string;
 
-  constructor(args: LicitationLike & { entry_id: string; updated: Date }) {
+  constructor(args: LicitationLike & { entry_id: string; partyId: string; updated: Date; }) {
     this.id = args.id;
     this.entry_id = args.entry_id;
+    this.partyId = args.partyId;
     this.statusCode = args.statusCode;
     this.publishedDate = args.publishedDate;
     this.updated = args.updated;
@@ -198,9 +202,10 @@ export class Licitation {
     return undefined;
   }
 
-  static fromParsedEntry(p: ParsedEntry): Licitation {
+  static fromParsedEntry(p: ParsedEntry, partyId: string): Licitation {
     return new Licitation({
       entry_id: p.entry_id,
+      partyId,
       statusCode: p.statusCode,
       publishedDate: p.publishedDate,
       updated: Licitation.asDate(p.updated),
@@ -255,7 +260,7 @@ export class Licitation {
 
   // ===== Factory 2: desde la base de datos (tras mapping en el repo) =====
   // Recibe ya las claves con los nombres de la clase; normaliza updated/arrays, etc.
-  static fromDb(row: Partial<LicitationLike>): Licitation {
+  static fromDb(row: Partial<LicitationLike> & { partyId: string }): Licitation {
     if (!row.entry_id) {
       throw new Error("fromDb: 'entry_id' es obligatorio");
     }
@@ -263,6 +268,7 @@ export class Licitation {
     return new Licitation({
       id: row.id,
       entry_id: row.entry_id,
+      partyId: row.partyId,
       statusCode: row.statusCode,
       publishedDate: row.publishedDate,
       updated: Licitation.asDate(row.updated),
@@ -315,6 +321,14 @@ export class Licitation {
       end_hour: row.end_hour,
     });
   }
+
+  update(newData: Partial<Licitation>): void {
+    for (const [key, value] of Object.entries(newData)) {
+      if (value !== undefined && value !== null) {
+        (this as any)[key] = value;
+      }
+    }
+  }
 }
 
 export interface LotLike {
@@ -348,6 +362,7 @@ export class Lot {
   lot_id: string | number;
   ext_id: string;
   name?: string;
+  licitationId: string;
   cost_with_taxes?: string | number;
   cost_without_taxes?: string | number;
   cpvs?: string[];
@@ -368,7 +383,7 @@ export class Lot {
   award_tax_exclusive?: string | number | undefined;
   award_payable_amount?: string | number | undefined;
 
-  constructor(args: LotLike) {
+  constructor(args: LotLike & { licitationId: string }) {
     this.id = args.id;
     this.lot_id = args.lot_id;
     this.ext_id = args.ext_id;
@@ -398,43 +413,63 @@ export class Lot {
     this.award_payable_amount = args.award_payable_amount;
   }
 
-  static fromParsed(l: ParsedLot): Lot {
-    return new Lot({ ...l });
+  static fromParsed(l: ParsedLot, licitationId: string): Lot {
+    return new Lot({ ...l, licitationId, });
   }
 
-  static fromDb(row: LotLike): Lot {
+  static fromDb(row: LotLike & { licitationId: string }): Lot {
     return new Lot(row);
+  }
+
+  update(newData: Partial<ParsedLot>): void {
+    for (const [key, value] of Object.entries(newData)) {
+      if (value !== undefined && value !== null) {
+        (this as any)[key] = value;
+      }
+    }
   }
 }
 
 export class Doc {
   id?: string | undefined;
+  licitationId: string;
   name: string;
   url: string;
   type?: string;
 
-  constructor(args: { id?: string; name: string; url: string; type?: string }) {
+  constructor(args: { id?: string; licitationId: string; name: string; url: string; type?: string }) {
     this.id = args.id;
+    this.licitationId = args.licitationId;
     this.name = args.name;
     this.url = args.url;
     this.type = args.type;
   }
 
-  static fromParsed(d: { name: string; url: string; type?: string }): Doc {
+  static fromParsed(d: { name: string; url: string; type?: string }, licitationId: string): Doc {
     return new Doc({
       name: d.name,
+      licitationId,
       url: d.url,
       type: d.type,
     });
   }
 
-  static fromDb(row: { id?: string; name?: string; url?: string; type?: string }): Doc {
+  static fromDb(row: { id?: string; licitationId: string, name?: string; url?: string; type?: string }): Doc {
     return new Doc({
       id: row.id,
+      licitationId: row.licitationId,
       name: row.name ?? "",
       url: row.url ?? "",
       type: row.type,
     });
+  }
+
+  update(newData: Partial<ParsedDocRef>): void {
+    for (const [key, value] of Object.entries(newData)) {
+      if (value !== undefined && value !== null) {
+        (this as any)[key] = value;
+      }
+    }
   }
 }
 
@@ -554,6 +589,14 @@ export class Party {
       email: row.email,
     });
   }
+
+  update(newData: Partial<ParsedParty>): void {
+    for (const [key, value] of Object.entries(newData)) {
+      if (value !== undefined && value !== null) {
+        (this as any)[key] = value;
+      }
+    }
+  }
 }
 
 class Event {
@@ -630,6 +673,7 @@ class LicitationRepository {
 
     return Licitation.fromDb({
       id: records[0]?.id,
+      partyId: fields["Organismo"] as string,
       entry_id: fields["ID"] as string,
       statusCode: fields["Código de Estado"] as string | undefined,
 
@@ -694,56 +738,73 @@ class LicitationRepository {
     });
   }
 
-  async create(entry: Licitation, orgId: string) {
+  async create(lic: Licitation) {
     const result = await this.base("Licitaciones").create([
       {
         fields: {
-          ['ID']: entry.entry_id,
-          ['Código de Estado']: entry.statusCode,
-          ['Última actualización']: entry.updated,
-          ['Título']: entry.title,
-          ['Resumen']: entry.summary,
-          ['URL de Plataforma']: entry.platform_url,
-          ['Código de Tipo']: entry.type_code,
-          ['Código de Subtipo']: entry.subtype_code,
-          ['Coste Total Estimado']: entry.estimated_overall_cost,
-          ['Coste con Impuestos']: entry.cost_with_taxes,
-          ['Coste sin Impuestos']: entry.cost_without_taxes,
-          ['CPVs']: entry.cpvs?.join(","),
-          ['Lugar']: entry.place,
-          ['Ciudad de Realización']: entry.realized_city,
-          ['Código Postal de Realización']: entry.realized_zip,
-          ['País de Realización']: entry.realized_country,
-          ['Duración Estimada']: entry.estimated_duration,
-          ['Código de Resultado de Licitación']: entry.tender_result_code,
-          ['Fecha de Adjudicación']: entry.award_date,
-          ['Cantidad de Ofertas Recibidas']: entry.received_tender_quantity,
-          ['Oferta Más Baja']: entry.lower_tender_amount,
-          ['Oferta Más Alta']: entry.higher_tender_amount,
-          ['NIF Ganador']: entry.winning_nif,
-          ['Nombre Ganador']: entry.winning_name,
-          ['Ciudad Ganador']: entry.winning_city,
-          ['Código Postal Ganador']: entry.winning_zip,
-          ['País Ganador']: entry.winning_country,
-          ['Adjudicación sin Impuestos']: entry.award_tax_exclusive,
-          ['Importe a Pagar Adjudicación']: entry.award_payable_amount,
-          ['Lotes Adjudicados']: entry.lotsAdj,
-          ['Código de Procedimiento']: entry.procedure_code,
-          ['Código de Urgencia']: entry.urgency_code,
-          ['Código de Presentación']: entry.part_presentation_code,
-          ['Código de Sistema de Contratación']: entry.contracting_system_code,
-          ['Código de Método de Presentación']: entry.submission_method_code,
-          ['Indicador Sobre Umbral']: entry.over_threshold_indicator,
-          ['Fin Periodo Disponibilidad']: entry.end_availability_period,
-          ['Hora Fin Disponibilidad']: entry.end_availability_hour,
-          ['Fecha de Fin']: entry.end_date,
-          ['Hora de Fin']: entry.end_hour,
-          Organismo: [orgId],
+          ['ID']: lic.entry_id,
+          ...this.createUpdatableObject(lic),
         },
       },
     ]);
 
     return result[0]?.id as string;
+  }
+
+  async save(lic: Licitation) {
+    if (!lic.id) return;
+
+    const result = await this.base("Licitaciones").update([
+      {
+        id: lic.id,
+        fields: this.createUpdatableObject(lic),
+      }
+    ]);
+  }
+
+  private createUpdatableObject(lic: Licitation) {
+    return {
+      ['Código de Estado']: lic.statusCode,
+      ['Última actualización']: lic.updated.toString(),
+      ['Título']: lic.title,
+      ['Resumen']: lic.summary,
+      ['URL de Plataforma']: lic.platform_url,
+      ['Código de Tipo']: lic.type_code,
+      ['Código de Subtipo']: lic.subtype_code,
+      ['Coste Total Estimado']: lic.estimated_overall_cost,
+      ['Coste con Impuestos']: lic.cost_with_taxes,
+      ['Coste sin Impuestos']: lic.cost_without_taxes,
+      ['CPVs']: lic.cpvs?.join(","),
+      ['Lugar']: lic.place,
+      ['Ciudad de Realización']: lic.realized_city,
+      ['Código Postal de Realización']: lic.realized_zip,
+      ['País de Realización']: lic.realized_country,
+      ['Duración Estimada']: lic.estimated_duration,
+      ['Código de Resultado de Licitación']: lic.tender_result_code,
+      ['Fecha de Adjudicación']: lic.award_date,
+      ['Cantidad de Ofertas Recibidas']: lic.received_tender_quantity,
+      ['Oferta Más Baja']: lic.lower_tender_amount,
+      ['Oferta Más Alta']: lic.higher_tender_amount,
+      ['NIF Ganador']: lic.winning_nif,
+      ['Nombre Ganador']: lic.winning_name,
+      ['Ciudad Ganador']: lic.winning_city,
+      ['Código Postal Ganador']: lic.winning_zip,
+      ['País Ganador']: lic.winning_country,
+      ['Adjudicación sin Impuestos']: lic.award_tax_exclusive,
+      ['Importe a Pagar Adjudicación']: lic.award_payable_amount,
+      ['Lotes Adjudicados']: lic.lotsAdj,
+      ['Código de Procedimiento']: lic.procedure_code,
+      ['Código de Urgencia']: lic.urgency_code,
+      ['Código de Presentación']: lic.part_presentation_code,
+      ['Código de Sistema de Contratación']: lic.contracting_system_code,
+      ['Código de Método de Presentación']: lic.submission_method_code,
+      ['Indicador Sobre Umbral']: lic.over_threshold_indicator,
+      ['Fin Periodo Disponibilidad']: lic.end_availability_period,
+      ['Hora Fin Disponibilidad']: lic.end_availability_hour,
+      ['Fecha de Fin']: lic.end_date,
+      ['Hora de Fin']: lic.end_hour,
+      ['Organismo']: [lic.partyId],
+    };
   }
 }
 
@@ -770,6 +831,7 @@ class LotsRepository {
         id: r.id,
         lot_id: f["ID Lote"] != null ? String(f["ID Lote"]) : "0",
         ext_id: (f["External Id"] as string) ?? "",
+        licitationId: f["Licitación"] as string,
         name: f["Nombre"] as string | undefined,
         cost_with_taxes: f["Coste con Impuestos"] as string | number | undefined,
         cost_without_taxes: f["Coste sin Impuestos"] as string | number | undefined,
@@ -797,7 +859,7 @@ class LotsRepository {
     });
   }
 
-  async create(lots: Lot[], licId: string) {
+  async create(lots: Lot[]) {
     for (const lo of lots) {
       await this.base("Lotes").create([
         {
@@ -805,33 +867,49 @@ class LotsRepository {
             "Nombre": lo.name,
             "ID Lote": (lo.lot_id ?? "").toString(),
             "External Id": lo.ext_id,
-            "Licitación": [licId],
-            "Tipo": 1,
-            "Subtipo": 2,
-            "Coste Total Estimado": 0,
-            "Coste con Impuestos": lo.cost_with_taxes,
-            "Coste sin Impuestos": lo.cost_without_taxes,
-            "CPVs": lo.cpvs?.join(","),
-            "Lugar de Ejecución": lo.place,
-            "Ciudad de Realización": lo.city,
-            "Código Postal de Realización": lo.zip,
-            "País de Realización": lo.country,
-            "Duración Estimada": "",
-            "Código de Resultado de Licitación": lo.tender_result_code,
-            "Fecha de Adjudicación": lo.award_date,
-            "Cantidad de Ofertas Recibidas": lo.received_tender_quantity,
-            "Oferta Más Baja": lo.lower_tender_amount,
-            "Oferta Más Alta": lo.higher_tender_amount,
-            "NIF Ganador": lo.winning_nif,
-            "Nombre Ganador": lo.winning_name,
-            "Ciudad Ganador": lo.winning_city,
-            "Código Postal Ganador": lo.winning_zip,
-            "Asignación Ganador Sin Impuestos": lo.award_tax_exclusive,
-            "Asignación Ganador Con Impuestos": lo.award_payable_amount,
+            "Licitación": [lo.licitationId],
+            ...this.createEditableObject(lo),
           },
         },
       ]);
     }
+  }
+
+  async saveLots(lots: Lot[]) {
+    for (const lo of lots) {
+      if (!lo.id) continue;
+
+      await this.base("Lotes").update([
+        {
+          id: lo.id,
+          fields: this.createEditableObject(lo),
+        }
+      ]);
+    }
+  }
+
+  private createEditableObject(lot: Lot) {
+    return {
+      "Coste con Impuestos": lot.cost_with_taxes,
+      "Coste sin Impuestos": lot.cost_without_taxes,
+      "CPVs": lot.cpvs?.join(","),
+      "Lugar de Ejecución": lot.place,
+      "Ciudad de Realización": lot.city,
+      "Código Postal de Realización": lot.zip,
+      "País de Realización": lot.country,
+      "Duración Estimada": "",
+      "Código de Resultado de Licitación": lot.tender_result_code,
+      "Fecha de Adjudicación": lot.award_date,
+      "Cantidad de Ofertas Recibidas": lot.received_tender_quantity,
+      "Oferta Más Baja": lot.lower_tender_amount,
+      "Oferta Más Alta": lot.higher_tender_amount,
+      "NIF Ganador": lot.winning_nif,
+      "Nombre Ganador": lot.winning_name,
+      "Ciudad Ganador": lot.winning_city,
+      "Código Postal Ganador": lot.winning_zip,
+      "Asignación Ganador Sin Impuestos": lot.award_tax_exclusive,
+      "Asignación Ganador Con Impuestos": lot.award_payable_amount,
+    };
   }
 }
 
@@ -880,20 +958,37 @@ class PartyRepository {
           'Nombre Organismo': org.name,
           'NIF': org.nif,
           'DIR3': org.dir3,
-          'Website': org.website,
           'Perfil Contratante URL': org.profile_url,
-          'Dirección': org.address,
-          'Código Postal': org.zip,
-          'Ciudad': org.city,
-          'País': org.country,
-          'País Código': org.countryCode,
-          'Teléfono': org.phone,
-          'Email': org.email,
+          ...this.createEditableObject(org),
         },
       },
     ]);
 
     return result[0]?.id ?? "";
+  }
+
+  async save(party: Party) {
+    if (!party.id) return;
+
+    await this.base("Organismos").update([
+      {
+        id: party.id,
+        fields: this.createEditableObject(party),
+      },
+    ]);
+  }
+
+  createEditableObject(org: Party) {
+    return {
+      'Website': org.website,
+      'Dirección': org.address,
+      'Código Postal': org.zip,
+      'Ciudad': org.city,
+      'País': org.country,
+      'País Código': org.countryCode,
+      'Teléfono': org.phone,
+      'Email': org.email,
+    };
   }
 }
 
@@ -915,6 +1010,7 @@ class DocRepository {
       const f = rec.fields;
       return Doc.fromDb({
         id: rec.id,
+        licitationId: f["Licitación"] as string,
         name: (f["ID Documento"] as string) ?? "",
         url: (f["URL Documento"] as string) ?? "",
         type: f["Tipo de Documento"] as string | undefined,
@@ -922,15 +1018,30 @@ class DocRepository {
     });
   }
 
-  async create(docs: Doc[], licId: string) {
+  async create(docs: Doc[]) {
     for (const d of docs) {
       await this.base("Documentos Licitación").create([
         {
           fields: {
             "ID Documento": d.name,
-            "Licitación": [licId],
+            "Licitación": [d.licitationId],
             "URL Documento": d.url,
             "Tipo de Documento": d.type,
+          },
+        },
+      ]);
+    }
+  }
+
+  async saveDocs(docs: Doc[]) {
+    for (const d of docs) {
+      if (!d.id) continue;
+
+      await this.base("Documentos Licitación").update([
+        {
+          id: d.id,
+          fields: {
+            "URL Documento": d.url,
           },
         },
       ]);
@@ -961,7 +1072,7 @@ class EventRepository {
   }
 }
 
-async function start(baseUrl: string) {
+async function executeJob(baseUrl: string) {
   const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
     AIRTABLE_BASE_ID,
   );
@@ -971,6 +1082,7 @@ async function start(baseUrl: string) {
   const lotsRepo = new LotsRepository(base);
   const partyRepo = new PartyRepository(base);
   const docRepo = new DocRepository(base);
+  const eventRepo = new EventRepository(base);
 
   try {
     const lastUpdate = await cursorRepo.getLastCursor();
@@ -984,14 +1096,121 @@ async function start(baseUrl: string) {
       const lic = await licitationsRepo.get(entry.entry_id);
       const org = await partyRepo.get(entry.party.nif);
 
-      if (lic) {
-      } else {
-        let orgId = org?.id ?? await partyRepo.create(Party.fromParsed(entry.party));
-        const licId = await licitationsRepo.create(Licitation.fromParsedEntry(entry), orgId);
+      const events: Event[] = [];
 
-        await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el)), licId);
-        await docRepo.create(entry.documents.map(el => Doc.fromParsed(el)), licId);
+      if (lic) {
+        if (!lic.id) {
+          console.log("THIS SHOULD NOT HAPPEN");
+          continue;
+        }
+
+        if (lic.updated >= entry.updated) {
+          continue;
+        }
+
+        const docs = await docRepo.get(lic.id);
+        const lots = await lotsRepo.getByLicitation(lic.id);
+
+        const newDocs: Doc[] = [];
+        const newLots: Lot[] = [];
+
+        if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
+          events.push(
+            new Event({
+              type: "licitation_finished_submission_period",
+              createdAt: new Date(),
+              licitationId: lic.id,
+            })
+          );
+        }
+        else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
+          events.push(
+            new Event({
+              type: "licitation_resolved",
+              createdAt: new Date(),
+              licitationId: lic.id,
+            })
+          );
+        }
+
+        const prevAdjLots = lic.lotsAdj;
+        lic.update(entry);
+
+        for (const parsedLot of entry.lots) {
+          const lot = lots.find(el => el.lot_id === parsedLot.lot_id);
+
+          if (!lot) {
+            newLots.push(Lot.fromParsed(parsedLot, lic.id));
+          } else {
+            if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
+              events.push(
+                new Event({
+                  createdAt: new Date(),
+                  type: "licitation_lot_awarded",
+                  licitationId: lic.id,
+                  lotId: lot.lot_id.toString(),
+                })
+              );
+            }
+            lot.update(parsedLot);
+          }
+        }
+
+        for (const parsedDoc of entry.documents) {
+          const doc = docs.find(el => el.name === parsedDoc.name);
+          if (!doc) {
+            newDocs.push(Doc.fromParsed(parsedDoc, lic.id));
+          } else {
+            doc.update(parsedDoc);
+          }
+        }
+
+        const lotsAmount = lots.length && newLots.length;
+        if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
+          events.push(
+            new Event({
+              createdAt: new Date(),
+              type: "licitation_awarded",
+              licitationId: lic.id
+            })
+          );
+        }
+
+        if (org) {
+          //Should always enter here
+          org.update(entry.party);
+          await partyRepo.save(org);
+        }
+
+        await licitationsRepo.save(lic);
+
+        await lotsRepo.saveLots(lots);
+        await lotsRepo.create(newLots);
+
+        await docRepo.saveDocs(docs);
+        await docRepo.create(newDocs);
+      } else {
+        let orgId = org?.id;
+        if (!org) {
+          orgId = await partyRepo.create(Party.fromParsed(entry.party));
+        } else if (org.updated < new Date(entry.party.updated)) {
+          org.update(entry.party);
+        }
+        if (!orgId) {
+          console.log("THIS SHOULD NOT HAPPEN");
+          continue;
+        }
+
+        const lic = Licitation.fromParsedEntry(entry, orgId);
+        const licId = await licitationsRepo.create(lic);
+
+        await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
+        await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
+
+        events.push(new Event({ createdAt: new Date(), type: "licitation_created", licitationId: licId }));
       }
+
+      await eventRepo.add(events);
     }
 
     //await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
@@ -1046,4 +1265,4 @@ async function extractNewEntries(baseUrl: string, lastUpdate: Date) {
   return { newLastExtracted, newEntries, deletedEntries };
 }
 
-start(BASE_FEED_URL);
+executeJob(BASE_FEED_URL);
