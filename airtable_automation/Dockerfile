@@ -1,17 +1,27 @@
-# --- Build stage
-FROM node:20-alpine AS build
+FROM node:20-alpine AS builder
 WORKDIR /app
-COPY package*.json ./
-RUN "npm ci"
+
+COPY package.json package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+# Copia el resto del código (TS, configs, etc.)
 COPY tsconfig.json ./
 COPY src ./src
-RUN "npm run build"
 
-# --- Runtime stage
-FROM node:20-alpine
+# Compila a /app/dist
+RUN npm run build
+
+FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production
-COPY package*.json ./
-RUN "npm ci --omit=dev"
-COPY --from=build /app/dist ./dist
-CMD ["node", "dist/index.js"]
+
+ENV NODE_ENV=production \
+    PINO_PRETTY=false # Pino: pretty solo si quieres ver legible en local (desactívalo en prod)
+
+COPY package.json package-lock.json* ./
+RUN if [ -f package-lock.json ]; then npm ci --omit=dev; else npm install --omit=dev; fi
+
+COPY --from=builder /app/dist ./dist
+
+USER node
+
+CMD ["node", "dist/cronJob.js"]

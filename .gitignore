@@ -7,3 +7,5 @@ dondesea*
 node_modules/
 
 airtable_automation/dist/
+
+.env
