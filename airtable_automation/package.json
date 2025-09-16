@@ -5,7 +5,9 @@
   "main": "entryParser.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node cronJob.ts"
+    "dev": "tsx src/cronJob.ts",
+    "build": "tsc",
+    "start": "node dist/cronJob.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@types/node": "^24.4.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }

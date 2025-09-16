@@ -4,7 +4,7 @@ import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import {
   parseEntries,
   parseDeletedEntries,
-} from "./feedParser.ts";
+} from "./feedParser.js";
 
 import type {
   AtomRootRaw,
@@ -13,7 +13,7 @@ import type {
   ParsedLot,
   ParsedDocRef,
   ParsedParty
-} from "./feedParser.ts";
+} from "./feedParser.js";
 
 const BASE_FEED_URL = 'https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom';
 const CPVS = ["9132", "9134"];
@@ -646,7 +646,7 @@ class CursorRepository {
       await this.base("Cursor").create([
         {
           fields: {
-            'Fecha Última Revisión': newLastExtracted,
+            'Fecha Última Revisión': newLastExtracted.toString(),
             'Entradas procesadas': entriesProcessed,
           },
         },
