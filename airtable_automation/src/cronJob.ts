@@ -5,7 +5,6 @@ import {
   parseEntries,
   parseDeletedEntries,
 } from "./feedParser.js";
-
 import type {
   AtomRootRaw,
   ParsedEntry,
@@ -15,10 +14,54 @@ import type {
   ParsedParty
 } from "./feedParser.js";
 
-const BASE_FEED_URL = 'https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom';
-const CPVS = ["9132", "9134"];
-const AIRTABLE_API_KEY = "patPa3vrKFZzCjmEZ.09f5ce7555aad195f2e2973d59d917ea21da75ca4024b0be5ce0527416b3c7c2";
-const AIRTABLE_BASE_ID = "appHCHKp389SLrdkg";
+import pino from "pino";
+
+import dotenv from "dotenv";
+import { randomUUID } from "crypto";
+
+const IS_PROD = process.env.NODE_ENV === "production";
+
+if (!IS_PROD) {
+  dotenv.config();
+}
+
+if (!process.env.BASE_FEED_URL) {
+  throw new Error("BASE FEED URL env var not present");
+}
+
+if (!process.env.CPVS) {
+  throw new Error("CPVs env var not present");
+}
+
+if (!process.env.AIRTABLE_API_KEY) {
+  throw new Error("Airtable api key env var not present");
+}
+
+if (!process.env.AIRTABLE_BASE_ID) {
+  throw new Error("Airtable base Id env var not present");
+}
+
+const BASE_FEED_URL = process.env.BASE_FEED_URL;
+const CPVS = process.env.CPVS.split(",");
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+
+export const logger = pino(
+  IS_PROD
+    ? { level: process.env.LOG_LEVEL || "info" }
+    : {
+      level: "debug",
+      transport: {
+        target: "pino-pretty",
+        options: {
+          colorize: true,
+          singleLine: true,
+          translateTime: "SYS:yyyy-mm-dd HH:MM:ss.l o",
+          ignore: "pid,hostname",
+        },
+      },
+    }
+);
 
 export interface LicitationLike {
   id?: string;
@@ -1073,7 +1116,21 @@ class EventRepository {
   }
 }
 
-async function executeJob(baseUrl: string) {
+async function start(baseUrl: string) {
+  const runId = randomUUID();
+  const start = Date.now();
+  const rlog = logger.child({ runId, baseUrl });
+
+  // métricas del run
+  const m = {
+    pagesFetched: 0,
+    entriesProcessed: 0,
+    entriesCreated: 0,
+    entriesUpdated: 0,
+    eventsEmitted: 0
+  };
+
+
   const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
     AIRTABLE_BASE_ID,
   );
@@ -1088,139 +1145,213 @@ async function executeJob(baseUrl: string) {
   try {
     const lastUpdate = await cursorRepo.getLastCursor();
     if (!lastUpdate) {
-      throw new Error("No previous cursor");
+      rlog.error({ stage: "init" }, "No previous cursor");
+      return;
     }
+    rlog.info({ stage: "init", lastUpdate }, "Job start");
 
-    const { newEntries, newLastExtracted } = await extractNewEntries(baseUrl, lastUpdate);
+    const { newEntries, newLastExtracted } = await extractNewEntries(baseUrl, lastUpdate, rlog, m);
+    rlog.info({
+      stage: "fetch",
+      pagesFetched: m.pagesFetched,
+      entriesFetched: newEntries.length,
+      newLastExtracted
+    }, "Feed fetched");
 
     for (const entry of newEntries) {
-      const lic = await licitationsRepo.get(entry.entry_id);
-      const org = await partyRepo.get(entry.party.nif);
+      m.entriesProcessed++;
+      const elog = rlog.child({
+        entry_id: entry.entry_id,
+        entryUpdated: entry.updated,
+        statusNew: entry.statusCode
+      });
 
-      const events: Event[] = [];
+      try {
+        const lic = await licitationsRepo.get(entry.entry_id);
+        const org = await partyRepo.get(entry.party.nif);
 
-      if (lic) {
-        if (!lic.id) {
-          console.log("THIS SHOULD NOT HAPPEN");
-          continue;
-        }
+        const events: Event[] = [];
 
-        if (lic.updated >= entry.updated) {
-          continue;
-        }
+        if (lic) {
+          if (!lic.id) {
+            elog.warn({ reason: "missing_lic_id" }, "Unexpected: licitation without id")
+            continue;
+          }
 
-        const docs = await docRepo.get(lic.id);
-        const lots = await lotsRepo.getByLicitation(lic.id);
+          if (lic.updated >= entry.updated) {
+            elog.debug({ licUpdated: lic.updated }, "Skip: stale entry");
+            continue;
+          }
 
-        const newDocs: Doc[] = [];
-        const newLots: Lot[] = [];
+          const prevStatus = lic.statusCode;
+          const prevAdjLots = lic.lotsAdj;
 
-        if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
-          events.push(
-            new Event({
-              type: "licitation_finished_submission_period",
-              createdAt: new Date(),
-              licitationId: lic.id,
-            })
-          );
-        }
-        else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
-          events.push(
-            new Event({
-              type: "licitation_resolved",
-              createdAt: new Date(),
-              licitationId: lic.id,
-            })
-          );
-        }
+          const docs = await docRepo.get(lic.id);
+          const lots = await lotsRepo.getByLicitation(lic.id);
 
-        const prevAdjLots = lic.lotsAdj;
-        lic.update(entry);
+          const newDocs: Doc[] = [];
+          const newLots: Lot[] = [];
 
-        for (const parsedLot of entry.lots) {
-          const lot = lots.find(el => el.lot_id === parsedLot.lot_id);
+          if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
+            events.push(
+              new Event({
+                type: "licitation_finished_submission_period",
+                createdAt: new Date(),
+                licitationId: lic.id,
+              })
+            );
+          }
+          else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
+            events.push(
+              new Event({
+                type: "licitation_resolved",
+                createdAt: new Date(),
+                licitationId: lic.id,
+              })
+            );
+          }
 
-          if (!lot) {
-            newLots.push(Lot.fromParsed(parsedLot, lic.id));
-          } else {
-            if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
-              events.push(
-                new Event({
-                  createdAt: new Date(),
-                  type: "licitation_lot_awarded",
-                  licitationId: lic.id,
-                  lotId: lot.lot_id.toString(),
-                })
-              );
+          lic.update(entry);
+
+          for (const parsedLot of entry.lots) {
+            const lot = lots.find(el => el.lot_id === parsedLot.lot_id);
+
+            if (!lot) {
+              newLots.push(Lot.fromParsed(parsedLot, lic.id));
+            } else {
+              if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
+                events.push(
+                  new Event({
+                    createdAt: new Date(),
+                    type: "licitation_lot_awarded",
+                    licitationId: lic.id,
+                    lotId: lot.lot_id.toString(),
+                  })
+                );
+              }
+              lot.update(parsedLot);
             }
-            lot.update(parsedLot);
           }
-        }
 
-        for (const parsedDoc of entry.documents) {
-          const doc = docs.find(el => el.name === parsedDoc.name);
-          if (!doc) {
-            newDocs.push(Doc.fromParsed(parsedDoc, lic.id));
-          } else {
-            doc.update(parsedDoc);
+          for (const parsedDoc of entry.documents) {
+            const doc = docs.find(el => el.name === parsedDoc.name);
+            if (!doc) {
+              newDocs.push(Doc.fromParsed(parsedDoc, lic.id));
+            } else {
+              doc.update(parsedDoc);
+            }
           }
+
+          const lotsAmount = lots.length && newLots.length;
+          if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
+            events.push(
+              new Event({
+                createdAt: new Date(),
+                type: "licitation_awarded",
+                licitationId: lic.id
+              })
+            );
+          }
+
+          if (org) {
+            //Should always enter here
+            org.update(entry.party);
+            await partyRepo.save(org);
+          }
+
+          await licitationsRepo.save(lic);
+
+          await lotsRepo.saveLots(lots);
+          await lotsRepo.create(newLots);
+
+          await docRepo.saveDocs(docs);
+          await docRepo.create(newDocs);
+
+          await eventRepo.add(events);
+
+          m.entriesUpdated++;
+          m.eventsEmitted += events.length;
+
+          elog.info({
+            action: "updated",
+            statusPrev: prevStatus,
+            statusCurr: lic.statusCode,
+            lotsUpdated: lots.length,
+            lotsCreated: newLots.length,
+            docsUpdated: docs.length,
+            docsCreated: newDocs.length,
+            events: events.map(e => e.type)
+          }, "Licitation Updated");
+        } else {
+          let orgId = org?.id;
+          if (!org) {
+            orgId = await partyRepo.create(Party.fromParsed(entry.party));
+          } else if (org.updated < new Date(entry.party.updated)) {
+            org.update(entry.party);
+          }
+          if (!orgId) {
+            elog.warn({ reason: "missing_org_id" }, "Unexpected: party id is undefined after upsert");
+            continue;
+          }
+
+          const lic = Licitation.fromParsedEntry(entry, orgId);
+          const licId = await licitationsRepo.create(lic);
+
+          await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
+          await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
+
+          events.push(new Event({ createdAt: new Date(), type: "licitation_created", licitationId: licId }));
+
+          await eventRepo.add(events);
+
+          m.entriesCreated++;
+          m.eventsEmitted += events.length;
+
+          elog.info({
+            action: "created",
+            lotsCreated: entry.lots.length,
+            docsCreated: entry.documents.length,
+            events: events.map(e => e.type),
+          }, "Licitation created");
         }
-
-        const lotsAmount = lots.length && newLots.length;
-        if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
-          events.push(
-            new Event({
-              createdAt: new Date(),
-              type: "licitation_awarded",
-              licitationId: lic.id
-            })
-          );
-        }
-
-        if (org) {
-          //Should always enter here
-          org.update(entry.party);
-          await partyRepo.save(org);
-        }
-
-        await licitationsRepo.save(lic);
-
-        await lotsRepo.saveLots(lots);
-        await lotsRepo.create(newLots);
-
-        await docRepo.saveDocs(docs);
-        await docRepo.create(newDocs);
-      } else {
-        let orgId = org?.id;
-        if (!org) {
-          orgId = await partyRepo.create(Party.fromParsed(entry.party));
-        } else if (org.updated < new Date(entry.party.updated)) {
-          org.update(entry.party);
-        }
-        if (!orgId) {
-          console.log("THIS SHOULD NOT HAPPEN");
-          continue;
-        }
-
-        const lic = Licitation.fromParsedEntry(entry, orgId);
-        const licId = await licitationsRepo.create(lic);
-
-        await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
-        await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
-
-        events.push(new Event({ createdAt: new Date(), type: "licitation_created", licitationId: licId }));
+      } catch (e: unknown) {
+        const err = e instanceof Error ? e : new Error(String(e));
+        logger.error({
+          runId,
+          entry_id: entry.entry_id,
+          err,
+          stack: err.stack
+        }, "Entry processing error");
       }
-
-      await eventRepo.add(events);
     }
 
     //await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
+
+    rlog.info({
+      stage: "done",
+      pagesFetched: m.pagesFetched,
+      entriesProcessed: m.entriesProcessed,
+      entriesCreated: m.entriesCreated,
+      entriesUpdated: m.entriesUpdated,
+      eventsEmitted: m.eventsEmitted,
+      durationMs: Date.now() - start
+    }, "Job finished");
   } catch (e) {
-    console.error(e);
+    const err = e instanceof Error ? e : new Error(String(e));
+    rlog.error({
+      stage: "fatal",
+      err,
+      stack: err.stack
+    }, "Job crashed");
   }
 }
 
-async function extractNewEntries(baseUrl: string, lastUpdate: Date) {
+async function extractNewEntries(
+  baseUrl: string,
+  lastUpdate: Date,
+  rlog: pino.Logger,
+  m: { pagesFetched: number },
+) {
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "",
@@ -1233,37 +1364,54 @@ async function extractNewEntries(baseUrl: string, lastUpdate: Date) {
   let newEntries: ParsedEntry[] = [];
   let deletedEntries: ParsedDeletedEntry[] = [];
   let count = 0;
-  while (count++ < 3 && next) {
-    console.log("Processing", next);
-    const res = await fetch(next, {
-      method: 'GET',
-    });
-    const data = await res.text();
+  while (next && (process.env.NODE_ENV === 'production' || count++ < 3)) {
+    const pageLog = rlog.child({ pageUrl: next });
+    pageLog.debug("Fetching page");
 
-    let root: AtomRootRaw = parser.parse(data);
+    try {
+      const res = await fetch(next, {
+        method: 'GET',
+      });
+      const data = await res.text();
 
-    if (new Date(root.feed.updated) <= lastUpdate) {
+      let root: AtomRootRaw = parser.parse(data);
+      const pageUpdated = new Date(root.feed.updated);
+
+      if (pageUpdated <= lastUpdate) {
+        pageLog.info({ pageUpdated, lastUpdate }, "Stop: page is older than last cursor");
+        break;
+      }
+
+      const newDeletedEntries = parseDeletedEntries(root);
+      deletedEntries = deletedEntries.concat(newDeletedEntries);
+
+      const entries = parseEntries(root)
+      const filtered = entries.filter(el => el.cpvs?.some(entryCPV =>
+        CPVS.some(validCPV => entryCPV.toString().startsWith(validCPV))
+      ));
+      newEntries = newEntries.concat(filtered);
+
+      if (!newLastExtracted) {
+        newLastExtracted = pageUpdated;
+      }
+
+      next = root.feed.link.find(el => el.rel === 'next')?.href;
+      if (!next) pageLog.debug("No next page");
+
+      m.pagesFetched++;
+      pageLog.info({
+        pageUpdated,
+        entriesTotal: entries.length,
+        entriesKept: filtered.length,
+        deletedEntries: newDeletedEntries.length
+      }, "Page parsed");
+    } catch (e) {
+      pageLog.error({ err: e }, "Error procesando página, se detiene el bucle");
       break;
     }
-
-    const newDeletedEntries = parseDeletedEntries(root);
-    deletedEntries = deletedEntries.concat(newDeletedEntries);
-
-    const entries = parseEntries(root)
-    newEntries = newEntries.concat(
-      entries.filter(el => el.cpvs?.some(entryCPV =>
-        CPVS.some(validCPV => entryCPV.toString().startsWith(validCPV))
-      )),
-    );
-
-    if (!newLastExtracted) {
-      newLastExtracted = new Date(root.feed.updated);
-    }
-
-    next = root.feed.link.find(el => el.rel === 'next')?.href;
   }
 
   return { newLastExtracted, newEntries, deletedEntries };
 }
 
-executeJob(BASE_FEED_URL);
+start(BASE_FEED_URL);

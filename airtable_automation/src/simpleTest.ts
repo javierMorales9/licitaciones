@@ -11,8 +11,8 @@ import type { AtomRootRaw, } from "./feedParser.js";
 
 const BASE_FEED_URL = 'https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom';
 const CPVS = ["9132", "9134"];
-const AIRTABLE_API_KEY = "patPa3vrKFZzCjmEZ.09f5ce7555aad195f2e2973d59d917ea21da75ca4024b0be5ce0527416b3c7c2";
-const AIRTABLE_BASE_ID = "appHCHKp389SLrdkg";
+const AIRTABLE_API_KEY = "";
+const AIRTABLE_BASE_ID = "";
 
 /*
 fetch(
