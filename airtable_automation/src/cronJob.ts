@@ -1325,7 +1325,7 @@ async function start(baseUrl: string) {
       }
     }
 
-    //await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
+    await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
 
     rlog.info({
       stage: "done",
@@ -1363,8 +1363,7 @@ async function extractNewEntries(
   let newLastExtracted = null;
   let newEntries: ParsedEntry[] = [];
   let deletedEntries: ParsedDeletedEntry[] = [];
-  let count = 0;
-  while (next && (process.env.NODE_ENV === 'production' || count++ < 3)) {
+  while (next) {
     const pageLog = rlog.child({ pageUrl: next });
     pageLog.debug("Fetching page");
 
