@@ -18,6 +18,7 @@ import pino from "pino";
 
 import dotenv from "dotenv";
 import { randomUUID } from "crypto";
+import { exit } from "process";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -1102,17 +1103,130 @@ class EventRepository {
 
   async add(events: Event[]) {
     for (const e of events) {
+
+      const lotData = e.lotId ? { "Lote": e.lotId } : {};
+
       await this.base("Eventos").create([
         {
           fields: {
             "Fecha de Creación": e.createdAt.toString(),
             "Tipo": e.type,
-            "Licitación": e.licitationId,
-            "Lote": e.lotId,
+            "Licitación": [e.licitationId],
+            ...lotData,
           },
         },
       ]);
     }
+  }
+}
+
+class Notifications {
+  private notifications: {
+    [key: string]: {
+      licitationId: string;
+      licitationExternalId: string;
+      licitationPlatformUrl?: string;
+      licitationStatusCode?: string;
+      licitationTitle?: string;
+      events: {
+        type: string;
+        lotId?: string;
+        lotLotId?: string;
+        lotName?: string;
+      }[];
+    }
+  }
+
+  constructor() {
+    this.notifications = {};
+    /*
+    "Hola": {
+        licitationId: "id 1",
+        licitationPlatformUrl: "plat",
+        licitationStatusCode: "status",
+        licitationTitle: "title1",
+        licitationExternalId: "ext id",
+        events: [
+          {
+            type: "type 1",
+            lotId: "lot id",
+          },
+        ],
+      },
+      "Adios": {
+        licitationId: "id",
+        licitationPlatformUrl: "plat",
+        licitationStatusCode: "status",
+        licitationTitle: "title 2",
+        licitationExternalId: "ext id",
+        events: [
+          {
+            type: "type2",
+            lotId: "lot id",
+            lotLotId: "lot lot id",
+            lotName: "lot name 2"
+          },
+          {
+            type: "type3",
+            lotId: "lot id",
+            lotLotId: "lot lot id",
+            lotName: "lot name 3"
+          },
+        ],
+      },
+    */
+  }
+
+  add(e: Event, licitation: Licitation, lot?: Lot) {
+    const n = this.notifications[e.licitationId];
+    if (!n) {
+      this.notifications[licitation.entry_id] = {
+        licitationId: e.licitationId,
+        licitationExternalId: licitation.entry_id,
+        licitationPlatformUrl: licitation.platform_url,
+        licitationStatusCode: licitation.statusCode,
+        licitationTitle: licitation.title,
+        events: [{
+          type: e.type,
+          lotId: lot?.id,
+          lotLotId: lot?.lot_id.toString(),
+          lotName: lot?.name,
+        }],
+      };
+    } else {
+      n.events.push({
+        type: e.type,
+        lotId: lot?.id,
+        lotLotId: lot?.lot_id.toString(),
+        lotName: lot?.name,
+      });
+    }
+  }
+
+  toArray() {
+    return Object.values(this.notifications);
+  }
+}
+
+class Notifier {
+  private notif: Notifications;
+
+  constructor(notif: Notifications) {
+    this.notif = notif;
+  }
+
+  async send() {
+    if (!process.env.MAKE_WEBHOOK || !process.env.MAKE_API_KEY) {
+      return;
+    }
+
+    const res = await fetch(process.env.MAKE_WEBHOOK, {
+      method: "POST",
+      body: JSON.stringify(this.notif.toArray()),
+      headers: {
+        'x-make-apikey': process.env.MAKE_API_KEY,
+      },
+    });
   }
 }
 
@@ -1130,6 +1244,7 @@ async function start(baseUrl: string) {
     eventsEmitted: 0
   };
 
+  const notifications = new Notifications();
 
   const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
     AIRTABLE_BASE_ID,
@@ -1193,22 +1308,22 @@ async function start(baseUrl: string) {
           const newLots: Lot[] = [];
 
           if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
-            events.push(
-              new Event({
-                type: "licitation_finished_submission_period",
-                createdAt: new Date(),
-                licitationId: lic.id,
-              })
-            );
+            const event = new Event({
+              type: "licitation_finished_submission_period",
+              createdAt: new Date(),
+              licitationId: lic.id,
+            });
+            events.push(event);
+            notifications.add(event, lic);
           }
           else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
-            events.push(
-              new Event({
-                type: "licitation_resolved",
-                createdAt: new Date(),
-                licitationId: lic.id,
-              })
-            );
+            const event = new Event({
+              type: "licitation_resolved",
+              createdAt: new Date(),
+              licitationId: lic.id,
+            });
+            events.push(event);
+            notifications.add(event, lic);
           }
 
           lic.update(entry);
@@ -1220,14 +1335,14 @@ async function start(baseUrl: string) {
               newLots.push(Lot.fromParsed(parsedLot, lic.id));
             } else {
               if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
-                events.push(
-                  new Event({
-                    createdAt: new Date(),
-                    type: "licitation_lot_awarded",
-                    licitationId: lic.id,
-                    lotId: lot.lot_id.toString(),
-                  })
-                );
+                const event = new Event({
+                  createdAt: new Date(),
+                  type: "licitation_lot_awarded",
+                  licitationId: lic.id,
+                  lotId: lot.lot_id.toString(),
+                });
+                events.push(event);
+                notifications.add(event, lic, lot);
               }
               lot.update(parsedLot);
             }
@@ -1244,13 +1359,13 @@ async function start(baseUrl: string) {
 
           const lotsAmount = lots.length && newLots.length;
           if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
-            events.push(
-              new Event({
-                createdAt: new Date(),
-                type: "licitation_awarded",
-                licitationId: lic.id
-              })
-            );
+            const event = new Event({
+              createdAt: new Date(),
+              type: "licitation_awarded",
+              licitationId: lic.id
+            });
+            events.push(event);
+            notifications.add(event, lic);
           }
 
           if (org) {
@@ -1300,7 +1415,9 @@ async function start(baseUrl: string) {
           await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
           await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
 
-          events.push(new Event({ createdAt: new Date(), type: "licitation_created", licitationId: licId }));
+          const event = new Event({ createdAt: new Date(), type: "licitation_created", licitationId: licId });
+          events.push(event);
+          notifications.add(event, lic);
 
           await eventRepo.add(events);
 
@@ -1326,6 +1443,9 @@ async function start(baseUrl: string) {
     }
 
     await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
+
+    const notifier = new Notifier(notifications);
+    await notifier.send();
 
     rlog.info({
       stage: "done",
@@ -1374,10 +1494,15 @@ async function extractNewEntries(
       const data = await res.text();
 
       let root: AtomRootRaw = parser.parse(data);
-      const pageUpdated = new Date(root.feed.updated);
 
-      if (pageUpdated <= lastUpdate) {
-        pageLog.info({ pageUpdated, lastUpdate }, "Stop: page is older than last cursor");
+      function truncateToSeconds(date: Date): Date {
+        return new Date(Math.floor(date.getTime() / 1000) * 1000);
+      }
+      const pageUpdated = truncateToSeconds(new Date(root.feed.updated));
+      const cursorTime = truncateToSeconds(lastUpdate);
+
+      if (pageUpdated <= cursorTime) {
+        pageLog.info({ pageUpdated, cursorTime }, "Stop: page is older than last cursor");
         break;
       }
 
@@ -1413,4 +1538,7 @@ async function extractNewEntries(
   return { newLastExtracted, newEntries, deletedEntries };
 }
 
-start(BASE_FEED_URL);
+start(BASE_FEED_URL).then(() => exit(0));
+//const notifications = new Notifications();
+//const notifier = new Notifier(notifications);
+//notifier.send();
