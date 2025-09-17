@@ -24,4 +24,4 @@ COPY --from=builder /app/dist ./dist
 
 USER node
 
-CMD ["node", "dist/cronJob.js"]
+CMD ["node", "dist/index.js"]
