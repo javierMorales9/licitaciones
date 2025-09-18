@@ -1,7 +1,8 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Party } from "../domain/Party.js";
+import type { PartyRepository } from "../domain/PartyRepository.js";
 
-export class PartyRepository {
+export class AirtablePartyRepository implements PartyRepository {
   private base: AirtableBase;
 
   constructor(base: AirtableBase) {

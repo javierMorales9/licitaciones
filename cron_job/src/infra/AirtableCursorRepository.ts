@@ -1,7 +1,7 @@
-import Airtable from "airtable";
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
+import type { CursorRepository } from "../domain/CursorRepository.js";
 
-export class CursorRepository {
+export class AirtableCursorRepository implements CursorRepository {
   private base: AirtableBase;
   constructor(base: AirtableBase) {
     this.base = base;

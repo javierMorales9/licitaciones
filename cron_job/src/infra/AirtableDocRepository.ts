@@ -1,7 +1,8 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Doc } from "../domain/Doc.js";
+import type { DocRepository } from "../domain/DocRepository.js";
 
-export class DocRepository {
+export class AirtableDocRepository implements DocRepository {
   private base: AirtableBase;
 
   constructor(base: AirtableBase) {

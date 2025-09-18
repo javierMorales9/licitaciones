@@ -1,7 +1,8 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Licitation } from "../domain/Licitation.js";
+import type { LicitationRepository } from "../domain/LicitationRepository.js";
 
-export class LicitationRepository {
+export class AirtableLicitationRepository implements LicitationRepository {
   private base: AirtableBase;
 
   constructor(base: AirtableBase) {

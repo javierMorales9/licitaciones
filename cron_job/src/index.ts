@@ -18,14 +18,20 @@ import { Doc } from "./domain/Doc.js";
 import { Lot } from "./domain/Lot.js";
 import { Party } from "./domain/Party.js";
 import { Event, EventType } from "./domain/Event.js";
-import { CursorRepository } from "./infra/CursorRepository.js";
-import { LicitationRepository } from "./infra/LicitationRepository.js";
-import { LotsRepository } from "./infra/LotsRepository.js";
-import { PartyRepository } from "./infra/PartyRepository.js";
-import { DocRepository } from "./infra/DocRepository.js";
-import { EventRepository } from "./infra/EventRepository.js";
-import { Notifier } from "./infra/Notifier.js";
+import { AirtableCursorRepository } from "./infra/AirtableCursorRepository.js";
+import { AirtableLicitationRepository } from "./infra/AirtableLicitationRepository.js";
+import { AirtableLotsRepository } from "./infra/AirtableLotsRepository.js";
+import { AirtablePartyRepository } from "./infra/AirtablePartyRepository.js";
+import { AirtableDocRepository } from "./infra/AirtableDocRepository.js";
+import { AirtableEventRepository } from "./infra/AirtableEventRepository.js";
+import { EmailNotifier } from "./infra/AirtableNotifier.js";
 import { Notifications } from "./domain/Notifications.js";
+import type { CursorRepository } from "./domain/CursorRepository.js";
+import type { LicitationRepository } from "./domain/LicitationRepository.js";
+import type { LotRepository } from "./domain/LotRepository.js";
+import type { PartyRepository } from "./domain/PartyRepository.js";
+import type { DocRepository } from "./domain/DocRepository.js";
+import type { EventRepository } from "./domain/EventRepository.js";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -71,12 +77,19 @@ export const logger = pino(
     }
 );
 
-async function start(baseUrl: string) {
+async function start(
+  baseUrl: string,
+  cursorRepo: CursorRepository,
+  licitationsRepo: LicitationRepository,
+  lotsRepo: LotRepository,
+  partyRepo: PartyRepository,
+  docRepo: DocRepository,
+  eventRepo: EventRepository,
+) {
   const runId = randomUUID();
   const start = Date.now();
   const rlog = logger.child({ runId, baseUrl });
 
-  // métricas del run
   const m = {
     pagesFetched: 0,
     entriesProcessed: 0,
@@ -86,17 +99,6 @@ async function start(baseUrl: string) {
   };
 
   const notifications = new Notifications();
-
-  const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
-    AIRTABLE_BASE_ID,
-  );
-
-  const cursorRepo = new CursorRepository(base);
-  const licitationsRepo = new LicitationRepository(base);
-  const lotsRepo = new LotsRepository(base);
-  const partyRepo = new PartyRepository(base);
-  const docRepo = new DocRepository(base);
-  const eventRepo = new EventRepository(base);
 
   try {
     const lastUpdate = await cursorRepo.getLastCursor();
@@ -289,7 +291,7 @@ async function start(baseUrl: string) {
 
     await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
 
-    const notifier = new Notifier(notifications);
+    const notifier = new EmailNotifier(notifications);
     await notifier.send();
 
     rlog.info({
@@ -383,4 +385,23 @@ async function extractNewEntries(
   return { newLastExtracted, newEntries, deletedEntries };
 }
 
-start(BASE_FEED_URL).then(() => exit(0));
+const base = new Airtable({ apiKey: AIRTABLE_API_KEY }).base(
+  AIRTABLE_BASE_ID,
+);
+
+const cursorRepo = new AirtableCursorRepository(base);
+const licitationsRepo = new AirtableLicitationRepository(base);
+const lotsRepo = new AirtableLotsRepository(base);
+const partyRepo = new AirtablePartyRepository(base);
+const docRepo = new AirtableDocRepository(base);
+const eventRepo = new AirtableEventRepository(base);
+
+start(
+  BASE_FEED_URL,
+  cursorRepo,
+  licitationsRepo,
+  lotsRepo,
+  partyRepo,
+  docRepo,
+  eventRepo,
+).then(() => exit(0));

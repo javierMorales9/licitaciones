@@ -1,7 +1,8 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Lot } from "../domain/Lot.js";
+import type { LotRepository } from "../domain/LotRepository.js";
 
-export class LotsRepository {
+export class AirtableLotsRepository implements LotRepository {
   private base: AirtableBase;
 
   constructor(base: AirtableBase) {
@@ -105,4 +106,3 @@ export class LotsRepository {
     };
   }
 }
-

@@ -1,6 +1,7 @@
 import type { Notifications } from "../domain/Notifications.js";
+import type { Notifier } from "../domain/Notifier.js";
 
-export class Notifier {
+export class EmailNotifier implements Notifier {
   private notif: Notifications;
 
   constructor(notif: Notifications) {

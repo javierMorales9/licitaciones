@@ -1,7 +1,8 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Event } from "../domain/Event.js";
+import type { EventRepository } from "../domain/EventRepository.js";
 
-export class EventRepository {
+export class AirtableEventRepository implements EventRepository {
   private base: AirtableBase;
 
   constructor(base: AirtableBase) {
