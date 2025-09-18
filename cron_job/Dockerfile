@@ -14,7 +14,6 @@ RUN npm run build
 FROM node:20-alpine AS runner
 WORKDIR /app
 
-# Pino: pretty solo si quieres ver legible en local (desactívalo en prod)
 ENV NODE_ENV=production PINO_PRETTY=false 
 
 COPY package.json package-lock.json* ./
