@@ -9,12 +9,13 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": ["node", "jest"],
-    //"allowImportingTsExtensions": true,
+    "types": ["node"],
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
+
+    //"allowImportingTsExtensions": true,
 
     // Other Outputs
     "sourceMap": true,
@@ -41,8 +42,6 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-
-    "allowImportingTsExtensions": true
   },
-  "exclude": ["src/tests"]
+  "exclude": ["src/tests", "dist"]
 }

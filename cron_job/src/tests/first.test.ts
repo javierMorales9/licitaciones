@@ -1,13 +1,13 @@
-import { TestCursorRepository } from "./infra/TestCursorRepository";
-import { TestDocRepository } from "./infra/TestDocRepository";
-import { TestEventRepository } from "./infra/TestEventRepository";
-import { TestLicitationRepository } from "./infra/TestLicitationRepository";
-import { TestLotsRepository } from "./infra/TestLotsRepository";
-import { TestPartyRepository } from "./infra/TestPartyRepository";
-import { start } from "../cronJob";
+import { TestCursorRepository } from "./infra/TestCursorRepository.js";
+import { TestDocRepository } from "./infra/TestDocRepository.js";
+import { TestEventRepository } from "./infra/TestEventRepository.js";
+import { TestLicitationRepository } from "./infra/TestLicitationRepository.js";
+import { TestLotsRepository } from "./infra/TestLotsRepository.js";
+import { TestPartyRepository } from "./infra/TestPartyRepository.js";
+import { start } from "../cronJob.js";
 import { pino } from "pino";
 import { describe, test, expect } from "@jest/globals"
-import { TestAtomFetcher } from "./infra/TestAtomFetcher";
+import { TestAtomFetcher } from "./infra/TestAtomFetcher.js";
 import fs from "fs";
 
 const logger = pino(

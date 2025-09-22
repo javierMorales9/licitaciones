@@ -2,28 +2,28 @@ import { XMLParser } from "fast-xml-parser";
 import {
   parseEntries,
   parseDeletedEntries,
-} from "./feedParser.ts";
+} from "./feedParser.js";
 import type {
   AtomRootRaw,
   ParsedEntry,
   ParsedDeletedEntry,
-} from "./feedParser.ts";
+} from "./feedParser.js";
 import pino from "pino";
 import { randomUUID } from "crypto";
-import { Licitation } from "./domain/Licitation.ts";
-import { Doc } from "./domain/Doc.ts";
-import { Lot } from "./domain/Lot.ts";
-import { Party } from "./domain/Party.ts";
-import { Event, EventType } from "./domain/Event.ts";
-import { EmailNotifier } from "./infra/AirtableNotifier.ts";
-import { Notifications } from "./domain/Notifications.ts";
-import type { CursorRepository } from "./domain/CursorRepository.ts";
-import type { LicitationRepository } from "./domain/LicitationRepository.ts";
-import type { LotRepository } from "./domain/LotRepository.ts";
-import type { PartyRepository } from "./domain/PartyRepository.ts";
-import type { DocRepository } from "./domain/DocRepository.ts";
-import type { EventRepository } from "./domain/EventRepository.ts";
-import type { AtomFetcher } from "./domain/AtomFetcher.ts";
+import { Licitation } from "./domain/Licitation.js";
+import { Doc } from "./domain/Doc.js";
+import { Lot } from "./domain/Lot.js";
+import { Party } from "./domain/Party.js";
+import { Event, EventType } from "./domain/Event.js";
+import { EmailNotifier } from "./infra/AirtableNotifier.js";
+import { Notifications } from "./domain/Notifications.js";
+import type { CursorRepository } from "./domain/CursorRepository.js";
+import type { LicitationRepository } from "./domain/LicitationRepository.js";
+import type { LotRepository } from "./domain/LotRepository.js";
+import type { PartyRepository } from "./domain/PartyRepository.js";
+import type { DocRepository } from "./domain/DocRepository.js";
+import type { EventRepository } from "./domain/EventRepository.js";
+import type { AtomFetcher } from "./domain/AtomFetcher.js";
 
 export async function start(
   baseUrl: string,

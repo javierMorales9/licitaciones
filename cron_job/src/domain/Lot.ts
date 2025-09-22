@@ -1,4 +1,4 @@
-import type { ParsedLot } from "../feedParser.ts";
+import type { ParsedLot } from "../feedParser.js";
 
 export interface LotLike {
   id?: string;

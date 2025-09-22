@@ -2,14 +2,14 @@ import Airtable from "airtable";
 import pino from "pino";
 import dotenv from "dotenv";
 import { exit } from "process";
-import { AirtableCursorRepository } from "./infra/AirtableCursorRepository.ts";
-import { AirtableLicitationRepository } from "./infra/AirtableLicitationRepository.ts";
-import { AirtableLotsRepository } from "./infra/AirtableLotsRepository.ts";
-import { AirtablePartyRepository } from "./infra/AirtablePartyRepository.ts";
-import { AirtableDocRepository } from "./infra/AirtableDocRepository.ts";
-import { AirtableEventRepository } from "./infra/AirtableEventRepository.ts";
-import { start } from "./cronJob.ts";
-import { ProdAtomFetcher } from "./infra/ProdAtomFetcher.ts";
+import { AirtableCursorRepository } from "./infra/AirtableCursorRepository.js";
+import { AirtableLicitationRepository } from "./infra/AirtableLicitationRepository.js";
+import { AirtableLotsRepository } from "./infra/AirtableLotsRepository.js";
+import { AirtablePartyRepository } from "./infra/AirtablePartyRepository.js";
+import { AirtableDocRepository } from "./infra/AirtableDocRepository.js";
+import { AirtableEventRepository } from "./infra/AirtableEventRepository.js";
+import { start } from "./cronJob.js";
+import { ProdAtomFetcher } from "./infra/ProdAtomFetcher.js";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 

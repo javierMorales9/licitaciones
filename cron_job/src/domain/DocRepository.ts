@@ -1,4 +1,4 @@
-import { Doc } from "./Doc.ts";
+import { Doc } from "./Doc.js";
 
 export interface DocRepository {
   get(licId: string): Promise<Doc[]>;

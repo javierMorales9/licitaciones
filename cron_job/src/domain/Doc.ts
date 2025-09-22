@@ -1,4 +1,4 @@
-import type { ParsedDocRef } from "../feedParser.ts";
+import type { ParsedDocRef } from "../feedParser.js";
 
 export class Doc {
   id?: string | undefined;

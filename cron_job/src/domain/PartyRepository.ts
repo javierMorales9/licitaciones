@@ -1,4 +1,4 @@
-import type { Party } from "./Party.ts";
+import type { Party } from "./Party.js";
 
 export interface PartyRepository {
   get(nif: string): Promise<Party | null>;

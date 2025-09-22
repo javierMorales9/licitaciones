@@ -1,6 +1,6 @@
-import type { AirtableBase } from "airtable/lib/airtable_base.ts";
-import { Event } from "../domain/Event.ts";
-import type { EventRepository } from "../domain/EventRepository.ts";
+import type { AirtableBase } from "airtable/lib/airtable_base.js";
+import { Event } from "../domain/Event.js";
+import type { EventRepository } from "../domain/EventRepository.js";
 
 export class AirtableEventRepository implements EventRepository {
   private base: AirtableBase;

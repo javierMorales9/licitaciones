@@ -1,4 +1,4 @@
-import type { AtomFetcher } from "../domain/AtomFetcher.ts";
+import type { AtomFetcher } from "../domain/AtomFetcher.js";
 
 export class ProdAtomFetcher implements AtomFetcher {
   async fetch(url: string) {

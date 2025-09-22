@@ -1,4 +1,4 @@
-import { Licitation } from "./Licitation.ts";
+import { Licitation } from "./Licitation.js";
 
 export interface LicitationRepository {
   get(id: string): Promise<Licitation | null>;
