@@ -1,4 +1,4 @@
-import { Lot } from "./Lot.js";
+import { Lot } from "./Lot.ts";
 
 export interface LotRepository {
   getByLicitation(licitationId: string): Promise<Lot[]>;

@@ -3,9 +3,9 @@ import util from "util";
 import {
   parseEntries,
   parseDeletedEntries,
-} from "./feedParser.js";
+} from "./feedParser.ts";
 
-import type { AtomRootRaw, } from "./feedParser.js";
+import type { AtomRootRaw, } from "./feedParser.ts";
 
 const BASE_FEED_URL = 'https://contrataciondelsectorpublico.gob.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom';
 const CPVS = ["9132", "9134"];

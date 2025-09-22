@@ -1,6 +1,6 @@
-import type { Event } from "./domain/Event.js";
-import type { Licitation } from "./domain/Licitation.js";
-import type { Lot } from "./domain/Lot.js";
+import type { Event } from "../domain/Event.ts";
+import type { Licitation } from "../domain/Licitation.ts";
+import type { Lot } from "../domain/Lot.ts";
 
 export class Notifications {
   private notifications: {

@@ -1,4 +1,4 @@
-import type { ParsedParty } from "./feedParser.js";
+import type { ParsedParty } from "../feedParser.ts";
 
 export class Party {
   id?: string | undefined;

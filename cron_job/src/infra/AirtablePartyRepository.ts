@@ -1,6 +1,6 @@
-import type { AirtableBase } from "airtable/lib/airtable_base.js";
-import { Party } from "../domain/Party.js";
-import type { PartyRepository } from "../domain/PartyRepository.js";
+import type { AirtableBase } from "airtable/lib/airtable_base.ts";
+import { Party } from "../domain/Party.ts";
+import type { PartyRepository } from "../domain/PartyRepository.ts";
 
 export class AirtablePartyRepository implements PartyRepository {
   private base: AirtableBase;

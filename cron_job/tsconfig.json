@@ -9,7 +9,7 @@
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
     "target": "esnext",
-    "types": ["node"],
+    "types": ["node", "jest"],
     //"allowImportingTsExtensions": true,
     // For nodejs:
     // "lib": ["esnext"],
@@ -41,5 +41,8 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+
+    "allowImportingTsExtensions": true
+  },
+  "exclude": ["src/tests"]
 }

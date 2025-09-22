@@ -1,4 +1,4 @@
-import type { ParsedEntry } from "./feedParser.js";
+import type { ParsedEntry } from "../feedParser.ts";
 
 export interface LicitationLike {
   id?: string;

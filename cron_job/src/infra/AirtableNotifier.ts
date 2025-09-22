@@ -1,5 +1,5 @@
-import type { Notifications } from "../domain/Notifications.js";
-import type { Notifier } from "../domain/Notifier.js";
+import type { Notifications } from "../domain/Notifications.ts";
+import type { Notifier } from "../domain/Notifier.ts";
 
 export class EmailNotifier implements Notifier {
   private notif: Notifications;
