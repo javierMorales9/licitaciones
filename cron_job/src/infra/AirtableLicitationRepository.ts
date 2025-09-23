@@ -35,8 +35,8 @@ export class AirtableLicitationRepository implements LicitationRepository {
       summary: fields["Resumen"] as string | undefined,
       platform_url: fields["URL de Plataforma"] as string | undefined,
 
-      type_code: fields["Código de Tipo"] as string | undefined,
-      subtype_code: fields["Código de Subtipo"] as string | undefined,
+      type_code: fields["Código de Tipo"] ? parseInt(fields["Código de Tipo"].toString()) : undefined,
+      subtype_code: fields["Código de Subtipo"] ? parseInt(fields["Código de Subtipo"].toString()) : undefined,
       estimated_overall_cost: fields["Coste Total Estimado"] as string | number | undefined,
       cost_with_taxes: fields["Coste con Impuestos"] as string | number | undefined,
       cost_without_taxes: fields["Coste sin Impuestos"] as string | number | undefined,
@@ -52,7 +52,7 @@ export class AirtableLicitationRepository implements LicitationRepository {
       realized_country: fields["País de Realización"] as string | undefined,
       estimated_duration: fields["Duración Estimada"] as string | undefined,
 
-      tender_result_code: fields["Código de Resultado de Licitación"] as string | undefined,
+      tender_result_code: fields["Código de Resultado de Licitación"] ? parseInt(fields["Código de Resultado de Licitación"].toString()) : undefined,
       award_date: fields["Fecha de Adjudicación"] as string | undefined,
       received_tender_quantity: fields["Cantidad de Ofertas Recibidas"] as string | number | undefined,
       lower_tender_amount: fields["Oferta Más Baja"] as string | number | undefined,
@@ -69,11 +69,11 @@ export class AirtableLicitationRepository implements LicitationRepository {
 
       lotsAdj: fields["Lotes Adjudicados"] != null ? Number(fields["Lotes Adjudicados"]) : 0,
 
-      procedure_code: fields["Código de Procedimiento"] as string | undefined,
-      urgency_code: fields["Código de Urgencia"] as string | undefined,
-      part_presentation_code: fields["Código de Presentación"] as string | undefined,
-      contracting_system_code: fields["Código de Sistema de Contratación"] as string | undefined,
-      submission_method_code: fields["Código de Método de Presentación"] as string | undefined,
+      procedure_code: fields["Código de Procedimiento"] ? parseInt(fields["Código de Procedimiento"].toString()) : undefined,
+      urgency_code: fields["Código de Urgencia"] ? parseInt(fields["Código de Urgencia"].toString()) : undefined,
+      part_presentation_code: fields["Código de Presentación"] ? parseInt(fields["Código de Presentación"].toString()) : undefined,
+      contracting_system_code: fields["Código de Sistema de Contratación"] ? parseInt(fields["Código de Sistema de Contratación"].toString()) : undefined,
+      submission_method_code: fields["Código de Método de Presentación"] ? parseInt(fields["Código de Método de Presentación"].toString()) : undefined,
       over_threshold_indicator:
         typeof fields["Indicador Sobre Umbral"] === "boolean"
           ? (fields["Indicador Sobre Umbral"] as boolean)

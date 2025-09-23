@@ -12,7 +12,6 @@ export class AirtablePartyRepository implements PartyRepository {
   async get(nif: string): Promise<Party | null> {
     const records = await this.base("Organismos")
       .select({
-        // Coincidencia exacta por NIF (mismo nombre de campo que en save)
         filterByFormula: `{NIF} = "${nif}"`,
         maxRecords: 1,
       })

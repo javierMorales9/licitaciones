@@ -37,7 +37,7 @@ export class AirtableLotsRepository implements LotRepository {
         city: f["Ciudad de Realización"] as string | undefined,
         zip: f["Código Postal de Realización"] != null ? String(f["Código Postal de Realización"]) : undefined,
         country: f["País de Realización"] as string | undefined,
-        tender_result_code: f["Código de Resultado de Licitación"] as string | undefined,
+        tender_result_code: f["Código de Resultado de Licitación"] ? parseInt(f["Código de Resultado de Licitación"].toString()) : undefined,
         award_date: f["Fecha de Adjudicación"] as string | undefined,
         received_tender_quantity: f["Cantidad de Ofertas Recibidas"] as string | number | undefined,
         lower_tender_amount: f["Oferta Más Baja"] as string | number | undefined,
