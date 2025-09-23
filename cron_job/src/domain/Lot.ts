@@ -12,7 +12,7 @@ export interface LotLike {
   city?: string;
   zip?: string;
   country?: string;
-  tender_result_code?: string;
+  tender_result_code?: number;
   award_date?: string;
   received_tender_quantity?: string | number;
   lower_tender_amount?: string | number;
@@ -39,7 +39,7 @@ export class Lot {
   city?: string;
   zip?: string;
   country?: string;
-  tender_result_code?: string | undefined;
+  tender_result_code?: number | undefined;
   award_date?: string | undefined;
   received_tender_quantity?: string | number | undefined;
   lower_tender_amount?: string | number | undefined;

@@ -218,7 +218,7 @@ export async function start(
           await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
 
           const event = new Event({
-            createdAt: new Date(),
+            createdAt: lic.publishedDate ? new Date(lic.publishedDate) : lic.updated,
             type: EventType.LICITATION_CREATED,
             licitationId: licId
           });

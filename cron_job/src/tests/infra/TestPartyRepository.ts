@@ -3,11 +3,13 @@ import type { PartyRepository } from "../../domain/PartyRepository.js";
 
 export class TestPartyRepository implements PartyRepository {
   private partyToReturn: Party | null;
-  private createdObject: Party | null;
+  private createArgs: Party | null;
+  private saveArgs: Party | null;
 
   constructor(partyToReturn: Party | null) {
     this.partyToReturn = partyToReturn;
-    this.createdObject = null;
+    this.createArgs = null;
+    this.saveArgs = null;
   }
 
   async get(nif: string): Promise<Party | null> {
@@ -15,15 +17,19 @@ export class TestPartyRepository implements PartyRepository {
   }
 
   async create(org: Party) {
-    this.createdObject = org;
+    this.createArgs = org;
     return "1234";
   }
 
   async save(party: Party) {
-
+    this.saveArgs = party;
   }
 
-  getCreateCall() {
-    return this.createdObject;
+  getCreateArgs() {
+    return this.createArgs;
+  }
+
+  getSaveArgs() {
+    return this.saveArgs;
   }
 }

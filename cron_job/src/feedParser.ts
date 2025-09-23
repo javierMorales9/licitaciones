@@ -43,17 +43,12 @@ export interface AtomRootRaw {
 
 // ----- CFS (ContractFolderStatus) -----
 export interface ContractFolderStatusRaw {
-  ['cbc-place-ext:ContractFolderStatusCode']?: { _?: string };
+  ['cbc-place-ext:ContractFolderStatusCode']?: { _?: number };
   ['cac:ProcurementProject']?: ProcurementProjectRaw;
   ['cac:ProcurementProjectLot']?: MaybeArray<ProcurementProjectLotRaw>;
   ['cac:TenderResult']?: MaybeArray<TenderResultRaw>;
   ['cac:TenderingProcess']?: TenderingProcessRaw;
   ['cac:DocumentAvailabilityPeriod']?: {
-    ['cbc:EndDate']?: string;
-    ['cbc:EndTime']?: string;
-    [k: string]: unknown;
-  };
-  ['cac:TenderSubmissionDeadlinePeriod']?: {
     ['cbc:EndDate']?: string;
     ['cbc:EndTime']?: string;
     [k: string]: unknown;
@@ -78,8 +73,8 @@ export interface ContractFolderStatusRaw {
 }
 
 export interface ProcurementProjectRaw {
-  ['cbc:TypeCode']?: { _?: string };
-  ['cbc:SubTypeCode']?: { _?: string };
+  ['cbc:TypeCode']?: { _?: number };
+  ['cbc:SubTypeCode']?: { _?: number };
   ['cac:BudgetAmount']?: {
     ['cbc:EstimatedOverallContractAmount']?: { _?: string | number };
     ['cbc:TotalAmount']?: { _?: string | number };
@@ -115,7 +110,7 @@ export interface ProcurementProjectLotRaw {
 }
 
 export interface TenderResultRaw {
-  ['cbc:ResultCode']?: { _?: string };
+  ['cbc:ResultCode']?: { _?: number };
   ['cbc:AwardDate']?: string;
   ['cbc:ReceivedTenderQuantity']?: string | number;
   ['cbc:LowerTenderAmount']?: { _?: string | number };
@@ -147,12 +142,17 @@ export interface TenderResultRaw {
 }
 
 export interface TenderingProcessRaw {
-  ['cbc:ProcedureCode']?: { _?: string };
-  ['cbc:UrgencyCode']?: { _?: string };
-  ['cbc:PartPresentationCode']?: { _?: string };
-  ['cbc:ContractingSystemCode']?: { _?: string };
-  ['cbc:SubmissionMethodCode']?: { _?: string };
+  ['cbc:ProcedureCode']?: { _?: number };
+  ['cbc:UrgencyCode']?: { _?: number };
+  ['cbc:PartPresentationCode']?: { _?: number };
+  ['cbc:ContractingSystemCode']?: { _?: number };
+  ['cbc:SubmissionMethodCode']?: { _?: number };
   ['cbc:OverThresholdIndicator']?: boolean | string;
+  ['cac:TenderSubmissionDeadlinePeriod']?: {
+    ['cbc:EndDate']?: string;
+    ['cbc:EndTime']?: string;
+    [k: string]: unknown;
+  };
   [k: string]: unknown;
 }
 
@@ -237,7 +237,7 @@ export interface ParsedParty {
 }
 
 export interface ParsedTenderResult {
-  tender_result_code?: string | undefined;
+  tender_result_code?: number | undefined;
   lot_id?: string | number | undefined;
   award_date?: string | undefined;
   received_tender_quantity?: string | number | undefined;
@@ -302,8 +302,8 @@ export interface ParsedEntry {
   party: ParsedParty;
 
   // Procurement
-  type_code?: string;
-  subtype_code?: string;
+  type_code?: number;
+  subtype_code?: number;
   estimated_overall_cost?: string | number;
   cost_with_taxes?: string | number;
   cost_without_taxes?: string | number;
@@ -315,7 +315,7 @@ export interface ParsedEntry {
   estimated_duration?: string;
 
   // Result
-  tender_result_code?: string;
+  tender_result_code?: number;
   award_date?: string;
   received_tender_quantity?: string | number;
   lower_tender_amount?: string | number;
@@ -332,11 +332,11 @@ export interface ParsedEntry {
   lotsAdj: number;
 
   // TenderingProcess
-  procedure_code?: string;
-  urgency_code?: string;
-  part_presentation_code?: string;
-  contracting_system_code?: string;
-  submission_method_code?: string;
+  procedure_code?: number;
+  urgency_code?: number;
+  part_presentation_code?: number;
+  contracting_system_code?: number;
+  submission_method_code?: number;
   over_threshold_indicator?: boolean | string;
 
   // Limit dates
@@ -672,7 +672,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
     const end_availability_period = availability_period && availability_period['cbc:EndDate'];
     const end_availability_hour = availability_period && availability_period['cbc:EndTime'];
 
-    const deadline_period = CFS['cac:TenderSubmissionDeadlinePeriod'];
+    const deadline_period = tendering_process['cac:TenderSubmissionDeadlinePeriod'];
     const end_date = deadline_period && deadline_period['cbc:EndDate'];
     const end_hour = deadline_period && deadline_period['cbc:EndTime'];
 

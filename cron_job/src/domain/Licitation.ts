@@ -11,8 +11,8 @@ export interface LicitationLike {
   platform_url?: string;
 
   // Procurement
-  type_code?: string;
-  subtype_code?: string;
+  type_code?: number;
+  subtype_code?: number;
   estimated_overall_cost?: string | number;
   cost_with_taxes?: string | number;
   cost_without_taxes?: string | number;
@@ -24,7 +24,7 @@ export interface LicitationLike {
   estimated_duration?: string;
 
   // Result
-  tender_result_code?: string;
+  tender_result_code?: number;
   award_date?: string;
   received_tender_quantity?: string | number;
   lower_tender_amount?: string | number;
@@ -40,11 +40,11 @@ export interface LicitationLike {
   lotsAdj?: number;
 
   // TenderingProcess
-  procedure_code?: string;
-  urgency_code?: string;
-  part_presentation_code?: string;
-  contracting_system_code?: string;
-  submission_method_code?: string;
+  procedure_code?: number;
+  urgency_code?: number;
+  part_presentation_code?: number;
+  contracting_system_code?: number;
+  submission_method_code?: number;
   over_threshold_indicator?: boolean | string;
 
   // Limit dates
@@ -66,8 +66,8 @@ export class Licitation {
   platform_url?: string;
 
   // Procurement
-  type_code?: string;
-  subtype_code?: string;
+  type_code?: number;
+  subtype_code?: number;
   estimated_overall_cost?: string | number;
   cost_with_taxes?: string | number;
   cost_without_taxes?: string | number;
@@ -79,7 +79,7 @@ export class Licitation {
   estimated_duration?: string;
 
   // Result
-  tender_result_code?: string;
+  tender_result_code?: number;
   award_date?: string;
   received_tender_quantity?: string | number;
   lower_tender_amount?: string | number;
@@ -95,11 +95,11 @@ export class Licitation {
   lotsAdj: number;
 
   // TenderingProcess
-  procedure_code?: string;
-  urgency_code?: string;
-  part_presentation_code?: string;
-  contracting_system_code?: string;
-  submission_method_code?: string;
+  procedure_code?: number;
+  urgency_code?: number;
+  part_presentation_code?: number;
+  contracting_system_code?: number;
+  submission_method_code?: number;
   over_threshold_indicator?: boolean | string;
 
   // Limit dates
