@@ -122,7 +122,7 @@ export interface TenderResultRaw {
       ['cac:Address']?: {
         ['cbc:CityName']?: string;
         ['cbc:PostalZone']?: string | number;
-        ['cbc:Country']?: { ['cbc:IdentificationCode']?: { _?: string } };
+        ['cac:Country']?: { ['cbc:IdentificationCode']?: { _?: string } };
         [k: string]: unknown;
       };
       [k: string]: unknown;
@@ -474,7 +474,7 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
   const addr = wp?.['cac:PhysicalLocation']?.['cac:Address'];
   const winning_city = addr?.['cbc:CityName'];
   const winning_zip = String(addr?.['cbc:PostalZone'] ?? '');
-  const winning_country = addr?.['cbc:Country']?.['cbc:IdentificationCode']?._;
+  const winning_country = addr?.['cac:Country']?.['cbc:IdentificationCode']?._;
 
   const legal = tr['cac:AwardedTenderedProject']?.['cac:LegalMonetaryTotal'];
   const award_tax_exclusive = legal?.['cbc:TaxExclusiveAmount']?._;

@@ -1,0 +1,667 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:cbc-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonBasicComponents-2" xmlns:cbc="urn:dgpe:names:draft:codice:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:dgpe:names:draft:codice:schema:xsd:CommonAggregateComponents-2" xmlns:cac-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonAggregateComponents-2" xmlns:at="http://purl.org/atompub/tombstones/1.0" xmlns:ns7="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <author>
+        <name>Plataforma de Contratación del Sector Público</name>
+        <uri>https://contrataciondelestado.es</uri>
+        <email>contrataciondelestado@hacienda.gob.es</email>
+    </author>
+    <id>https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom</id>
+    <link rel="self" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <link rel="first" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <title>Licitaciones publicadas en la Plataforma de Contratación del Sector Público: licitacionesPerfilesContratanteCompleto v3</title>
+    <updated>2025-08-18T17:56:02.371+02:00</updated>
+    <entry>
+        <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17165996</id>
+        <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=5Q16zvBfrXDE6P%2FuLemXRw%3D%3D"></link>
+        <summary type="text">Id licitación: 2/2025; Órgano de Contratación: Director del Instituto Canario de Estadística (ISTAC); Importe: 261901.77 EUR; Estado: RES</summary>
+        <title>Trabajos de recogida, grabación y depuración de los datos de la operación estadística denominada &quot;ENCUESTA DE CONDICIONES DE VIDA DE LOS HOGARES DE CANARIAS 2025&quot;</title>
+        <updated>2025-08-16T09:58:08.174+02:00</updated>
+        <cac-place-ext:ContractFolderStatus>
+            <cbc:ContractFolderID>2/2025</cbc:ContractFolderID>
+            <cbc-place-ext:ContractFolderStatusCode listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">RES</cbc-place-ext:ContractFolderStatusCode>
+            <cbc:UUID schemeName="TED">465757cf-6420-455d-b344-cbfd8de2f79c</cbc:UUID>
+            <cac-place-ext:LocatedContractingParty>
+                <cbc:ContractingPartyTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityCode-2.10.gc">2</cbc:ContractingPartyTypeCode>
+                <cbc:ActivityCode listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityActivityCode-2.10.gc">1</cbc:ActivityCode>
+                <cbc:BuyerProfileURIID>https://contrataciondelestado.es/wps/poc?uri=deeplink:perfilContratante&amp;idBp=lX6avbkvrJEQK2TEfXGy%2BA%3D%3D</cbc:BuyerProfileURIID>
+                <cac:Party>
+                    <cbc:WebsiteURI>http://www.gobiernodecanarias.org/istac/</cbc:WebsiteURI>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="DIR3">A05003423</cbc:ID>
+                    </cac:PartyIdentification>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="NIF">Q8550002C</cbc:ID>
+                    </cac:PartyIdentification>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="ID_PLATAFORMA">21054580149218</cbc:ID>
+                    </cac:PartyIdentification>
+                    <cac:PartyName>
+                        <cbc:Name>Director del Instituto Canario de Estadística (ISTAC)</cbc:Name>
+                    </cac:PartyName>
+                    <cac:PostalAddress>
+                        <cbc:CityName>Las Palmas de Gran Canaria</cbc:CityName>
+                        <cbc:PostalZone>35004</cbc:PostalZone>
+                        <cac:AddressLine>
+                            <cbc:Line>c/ Luis Doreste Silva, 101 p.7</cbc:Line>
+                        </cac:AddressLine>
+                        <cac:Country>
+                            <cbc:IdentificationCode listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</cbc:IdentificationCode>
+                            <cbc:Name>España</cbc:Name>
+                        </cac:Country>
+                    </cac:PostalAddress>
+                    <cac:Contact>
+                        <cbc:Name>Director del Instituto Canario de Estadística (ISTAC)</cbc:Name>
+                        <cbc:Telephone>928899260</cbc:Telephone>
+                        <cbc:Telefax>928899275</cbc:Telefax>
+                        <cbc:ElectronicMail>istac@gobiernodecanarias.org</cbc:ElectronicMail>
+                    </cac:Contact>
+                </cac:Party>
+                <cac-place-ext:ParentLocatedParty>
+                    <cac:PartyName>
+                        <cbc:Name>Instituto Canario de Estadística (ISTAC)</cbc:Name>
+                    </cac:PartyName>
+                    <cac-place-ext:ParentLocatedParty>
+                        <cac:PartyIdentification>
+                            <cbc:ID schemeName="DIR3">A05017462</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyName>
+                            <cbc:Name>Consejería de Hacienda y Relaciones con la Unión Europea</cbc:Name>
+                        </cac:PartyName>
+                        <cac-place-ext:ParentLocatedParty>
+                            <cac:PartyName>
+<cbc:Name>Comunidad Autónoma de Canarias</cbc:Name>
+                            </cac:PartyName>
+                            <cac-place-ext:ParentLocatedParty>
+<cac:PartyName>
+    <cbc:Name>COMUNIDADES Y CIUDADES AUTÓNOMAS</cbc:Name>
+</cac:PartyName>
+<cac-place-ext:ParentLocatedParty>
+    <cac:PartyName>
+        <cbc:Name>Sector Público</cbc:Name>
+    </cac:PartyName>
+</cac-place-ext:ParentLocatedParty>
+                            </cac-place-ext:ParentLocatedParty>
+                        </cac-place-ext:ParentLocatedParty>
+                    </cac-place-ext:ParentLocatedParty>
+                </cac-place-ext:ParentLocatedParty>
+            </cac-place-ext:LocatedContractingParty>
+            <cac:ProcurementProject>
+                <cbc:Name>Trabajos de recogida, grabación y depuración de los datos de la operación estadística denominada &quot;ENCUESTA DE CONDICIONES DE VIDA DE LOS HOGARES DE CANARIAS 2025&quot;</cbc:Name>
+                <cbc:TypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractCode-2.08.gc">2</cbc:TypeCode>
+                <cbc:SubTypeCode listURI="http://contrataciondelestado.es/codice/cl/1.04/ServiceContractCode-1.04.gc">10</cbc:SubTypeCode>
+                <cbc:MixContractIndicator>false</cbc:MixContractIndicator>
+                <cac:BudgetAmount>
+                    <cbc:EstimatedOverallContractAmount currencyID="EUR">261901.77</cbc:EstimatedOverallContractAmount>
+                    <cbc:TotalAmount currencyID="EUR">280234.89</cbc:TotalAmount>
+                    <cbc:TaxExclusiveAmount currencyID="EUR">261901.77</cbc:TaxExclusiveAmount>
+                </cac:BudgetAmount>
+                <cac:RequiredCommodityClassification>
+                    <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">72313000</cbc:ItemClassificationCode>
+                </cac:RequiredCommodityClassification>
+                <cac:RealizedLocation>
+                    <cbc:CountrySubentity>Canarias</cbc:CountrySubentity>
+                    <cbc:CountrySubentityCode listURI="http://contrataciondelestado.es/codice/cl/2.08/NUTS-2021.gc">ES70</cbc:CountrySubentityCode>
+                    <cac:Address>
+                        <cbc:CityName>Las Palmas de Gran Canaria</cbc:CityName>
+                        <cbc:PostalZone>35004</cbc:PostalZone>
+                        <cac:Country>
+                            <cbc:IdentificationCode listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</cbc:IdentificationCode>
+                            <cbc:Name>España</cbc:Name>
+                        </cac:Country>
+                    </cac:Address>
+                </cac:RealizedLocation>
+                <cac:PlannedPeriod>
+                    <cbc:StartDate>2025-07-15</cbc:StartDate>
+                    <cbc:DurationMeasure unitCode="MON">8</cbc:DurationMeasure>
+                </cac:PlannedPeriod>
+            </cac:ProcurementProject>
+            <cac:TenderResult>
+                <cbc:ResultCode listURI="http://contrataciondelestado.es/codice/cl/2.09/TenderResultCode-2.09.gc">9</cbc:ResultCode>
+                <cbc:Description>Mejor oferta PCAP</cbc:Description>
+                <cbc:AwardDate>2025-07-18</cbc:AwardDate>
+                <cbc:ReceivedTenderQuantity>4</cbc:ReceivedTenderQuantity>
+                <cbc:LowerTenderAmount currencyID="EUR">224002.34</cbc:LowerTenderAmount>
+                <cbc:HigherTenderAmount currencyID="EUR">260000</cbc:HigherTenderAmount>
+                <cbc:StartDate>2025-08-13</cbc:StartDate>
+                <cbc:SMEsReceivedTenderQuantity>4</cbc:SMEsReceivedTenderQuantity>
+                <cbc:EUNationalsReceivedTenderQuantity>0</cbc:EUNationalsReceivedTenderQuantity>
+                <cbc:NonEUNationalsReceivedTenderQuantity>0</cbc:NonEUNationalsReceivedTenderQuantity>
+                <cbc:SMEAwardedIndicator>true</cbc:SMEAwardedIndicator>
+                <cbc:AwardedOwnerNationalityCode listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</cbc:AwardedOwnerNationalityCode>
+                <cac:Contract>
+                    <cbc:ID>120522/2025</cbc:ID>
+                    <cbc:IssueDate>2025-08-12</cbc:IssueDate>
+                </cac:Contract>
+                <cac:WinningParty>
+                    <cac:PartyIdentification>
+                        <cbc:ID schemeName="NIF">A38210100</cbc:ID>
+                    </cac:PartyIdentification>
+                    <cac:PartyName>
+                        <cbc:Name>REDCA S.A.</cbc:Name>
+                    </cac:PartyName>
+                    <cac:PhysicalLocation>
+                        <cbc:CountrySubentityCode listURI="http://contrataciondelestado.es/codice/cl/2.08/NUTS-2021.gc" name="España">ES705</cbc:CountrySubentityCode>
+                        <cac:Address>
+                            <cbc:CityName>Las Palmas de Gran Canaria</cbc:CityName>
+                            <cbc:PostalZone>35007</cbc:PostalZone>
+                            <cac:Country>
+<cbc:IdentificationCode listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc" name="España">ES</cbc:IdentificationCode>
+                            </cac:Country>
+                        </cac:Address>
+                    </cac:PhysicalLocation>
+                </cac:WinningParty>
+                <cac:AwardedTenderedProject>
+                    <cac:LegalMonetaryTotal>
+                        <cbc:TaxExclusiveAmount currencyID="EUR">224002.34</cbc:TaxExclusiveAmount>
+                        <cbc:PayableAmount currencyID="EUR">239682.5</cbc:PayableAmount>
+                    </cac:LegalMonetaryTotal>
+                </cac:AwardedTenderedProject>
+            </cac:TenderResult>
+            <cac:TenderingTerms>
+                <cbc:RequiredCurriculaIndicator>false</cbc:RequiredCurriculaIndicator>
+                <cbc:VariantConstraintIndicator>false</cbc:VariantConstraintIndicator>
+                <cbc:FundingProgramCode listURI="http://contrataciondelestado.es/codice/cl/2.08/FundingProgramCode-2.08.gc" name="No hay financiación con fondos de la UE">NO-EU</cbc:FundingProgramCode>
+                <cbc:ProcurementNationalLegislationCode listURI="https://contrataciondelestado.es/codice/cl/2.08/ProcurementNationalLegislationCode-2.08.gc">3</cbc:ProcurementNationalLegislationCode>
+                <cbc:ReceivedAppealQuantity>0</cbc:ReceivedAppealQuantity>
+                <cac:RequiredFinancialGuarantee>
+                    <cbc:GuaranteeTypeCode listURI="http://contrataciondelestado.es/codice/cl/1.04/GuaranteeTypeCode-1.04.gc">2</cbc:GuaranteeTypeCode>
+                    <cbc:AmountRate>5</cbc:AmountRate>
+                </cac:RequiredFinancialGuarantee>
+                <cac:ProcurementLegislationDocumentReference>
+                    <cbc:ID>2014/24/EU</cbc:ID>
+                </cac:ProcurementLegislationDocumentReference>
+                <cac:TendererQualificationRequest>
+                    <cac:TechnicalEvaluationCriteria>
+                        <cbc:EvaluationCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">ZZZ</cbc:EvaluationCriteriaTypeCode>
+                        <cbc:Description>Para ser persona adjudicataria del presente contrato de servicios, la acreditación de la solvencia  técnica se realizará por los medios establecidos en la cláusula 4.3.2 del PCAP. Cuando se vaya a realizar un tratamiento por cuenta de un responsable del tratamiento, el encargado debe tener capacidad suficiente para aplicar medidas técnicas y organizativas apropiadas para cumplir la normativa de protección de datos por lo que el licitador debe estar en disposición de cumplir las medidas de seguridad que se impongan en el encargo del tratamiento. SE ACREDITARÁ EN EL MOMENTO ESTABLECIDO EN LA CLÁUSULA 19</cbc:Description>
+                    </cac:TechnicalEvaluationCriteria>
+                    <cac:TechnicalEvaluationCriteria>
+                        <cbc:EvaluationCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">OXR-MEDIOS</cbc:EvaluationCriteriaTypeCode>
+                        <cbc:Description>Para ser persona adjudicataria del presente contrato de servicios, la acreditación de la solvencia  técnica se realizará por los medios establecidos en la cláusula 4.3.2 del PCAP. Relación del personal técnico, integrado o no en la empresa en el momento de realización de la oferta, participante en el contrato como parte del equipo mínimo exigido en el apartado sobre recursos humanos del Pliego de Prescripciones Técnicas, especificando nombre y apellidos, puesto funcional dentro del equipo, formación y experiencia SE ACREDITARÁ EN EL MOMENTO ESTABLECIDO EN LA CLÁUSULA 19.</cbc:Description>
+                    </cac:TechnicalEvaluationCriteria>
+                    <cac:TechnicalEvaluationCriteria>
+                        <cbc:EvaluationCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">OSR-COMPTASK</cbc:EvaluationCriteriaTypeCode>
+                        <cbc:Description>Para ser persona adjudicataria del presente contrato de servicios, la acreditación de la solvencia  técnica se realizará por los medios establecidos en la cláusula 4.3.2 del PCAP. 1. Relación de los principales servicios realizados o en ejecución, en los últimos tres años que incluya importe, fecha y destinatario, público o privado, de los mismos. SE ACREDITARÁ EN EL MOMENTO ESTABLECIDO EN LA CLÁUSULA 19.</cbc:Description>
+                    </cac:TechnicalEvaluationCriteria>
+                    <cac:TechnicalEvaluationCriteria>
+                        <cbc:EvaluationCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/TechnicalCapabilityTypeCode-2.0.gc">XSR-CALIDAD</cbc:EvaluationCriteriaTypeCode>
+                        <cbc:Description>Para ser persona adjudicataria del presente contrato de servicios, la acreditación de la solvencia  técnica se realizará por los medios establecidos en la cláusula 4.3.2 del PCAP. Disponer de un centro de tratamiento de datos. Descripción del centro de trabajo, material y equipamiento técnico del que se dispondrá para la ejecución de los trabajos, según lo estipulado en el Pliego de Prescripciones Técnicas. SE ACREDITARÁ EN EL MOMENTO ESTABLECIDO EN LA CLÁUSULA 19</cbc:Description>
+                    </cac:TechnicalEvaluationCriteria>
+                    <cac:FinancialEvaluationCriteria>
+                        <cbc:EvaluationCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/FinancialCapabilityTypeCode-2.0.gc">5</cbc:EvaluationCriteriaTypeCode>
+                        <cbc:Description>Para ser persona adjudicataria del presente contrato de servicios, la acreditación de la solvencia económica y financiera se realizará por los medios establecidos en la cláusula 4.3.1 del PCAP. SE ACREDITARÁ EN EL MOMENTO ESTABLECIDO EN LA CLÁUSULA 19. El volumen anual de negocios</cbc:Description>
+                    </cac:FinancialEvaluationCriteria>
+                    <cac:SpecificTendererRequirement>
+                        <cbc:RequirementTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/DeclarationTypeCode-2.08.gc">1</cbc:RequirementTypeCode>
+                        <cbc:Description>Capacidad de obrar</cbc:Description>
+                    </cac:SpecificTendererRequirement>
+                    <cac:SpecificTendererRequirement>
+                        <cbc:RequirementTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/DeclarationTypeCode-2.08.gc">2</cbc:RequirementTypeCode>
+                        <cbc:Description>No prohibición para contratar</cbc:Description>
+                    </cac:SpecificTendererRequirement>
+                </cac:TendererQualificationRequest>
+                <cac:AllowedSubcontractTerms>
+                    <cbc:Description>No pueden ser objeto de subcontratación las tareas críticas establecidas en la cláusula 29.1 del PCAP.&#xD;
+</cbc:Description>
+                </cac:AllowedSubcontractTerms>
+                <cac:ContractExecutionRequirement>
+                    <cbc:Name>Consideraciones de tipo social</cbc:Name>
+                    <cbc:ExecutionRequirementCode listURI="https://contrataciondelestado.es/codice/cl/2.08/ExecutionRequirementCode-2.08.gc">2</cbc:ExecutionRequirementCode>
+                    <cbc:Description>Las establecidas en la cláusula 25.3 del Pliego de Cláusulas Administrativas Particulares: fomento de la igualdad y protección de datos</cbc:Description>
+                </cac:ContractExecutionRequirement>
+                <cac:AwardingTerms>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>01. Encuestadores/as a jornada completa y con el equipamiento necesario (categoría E-III)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad se otorgará máxima puntuación a la oferta que presente mayor número de&#xD;
+personal encuestador a jornada completa y con el equipamiento necesario. Se valorará hasta un máximo&#xD;
+de 30 personas en total.</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>10</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>11. Monitorización de encuestas telefónicas</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que incluyan la monitorización por parte del ISTAC de las encuestas telefónicas mientras se están realizando, y cero al resto</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>1</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>14. Tasa encuestas supervisadas de las 20 primeras encuestas de cada encuestador/a (4.3.4. D del PPT)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a la oferta que presente mayor tasa de encuestas supervisadas de las 20 primeras encuestas de cada encuestador hasta un máximo del 30%.</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>2</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>15. Tasa de encuestas inspeccionadas en control de cobertura (4.3.4. B del PPT)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a la oferta que presente mayor tasa de encuestas inspeccionadas hasta un máximo del 100%.</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>1</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>03. Inspectores/as - entrevistadores/as a jornada completa y con el equipamiento necesario. (categoría D-I)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad se otorgará máxima puntuación a la oferta que presente mayor número de&#xD;
+personal de inspección entrevistador a jornada completa y con el equipamiento necesario. Se valorará hasta un máximo de 2 personas en total</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>2</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>12. Cuestionarios en inglés y alemán</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que propongan la traducción de los cuestionarios por servicio profesional de traducción</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>4</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>16. Tasa de encuestas inspeccionadas en control de contenido (4.3.4. B del PPT)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a la oferta que presente mayor tasa de encuestas inspeccionadas hasta un máximo del 50%</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>2</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>08. Sistema informático para la gestión por parte de cada trabajador de campo de su plan de trabajo semanal, incidencias y localizaciones de viviendas integrado con sistemas de geolocalización</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que incluyan la integración del sistema con sistemas geolocalización e identificación de rutas mínimas</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>07. Sistema informático de asistencia a la recogida de datos CAPI con arquitectura clienteservidor</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que incluyan arquitectura cliente-servidor en el sistema CAPI y solo cliente cuando no exista cobertura telefónica de datos, procediendo a la posterior sincronización. Al resto de ofertas se puntuará con cero</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>8</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>04. Horas de trabajo del equipo de apoyo tecnológico</cbc:Description>
+                        <cbc:Note>Como criterio de calidad se otorgará máxima puntuación a la oferta que presente mayor número de horas. El número máximo de horas consideradas será de 120.</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>2</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>13. Cuadro de mando en Tableau Software</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que incluyan el acceso al cuadro de mando a través Tableau Software con acceso restringido (Tableau On-line o Tableau Server) y cero al resto</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>5</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>05. Porcentaje de contratación indefinida entre el equipo mínimo</cbc:Description>
+                        <cbc:Note>Como criterio de calidad y responsabilidad social de la oferta se otorgará máxima puntuación a la oferta que presente mayor porcentaje de contratación indefinida entre el equipo mínimo, a partir del 51% inclusive</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">4</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>06. Tasa de entrevistadores con certificado de profesionalidad</cbc:Description>
+                        <cbc:Note>Como criterio social y de calidad se otorgará máxima puntuación a la oferta que presente mayor tasa de profesionalidad entre los entrevistadores.&#xD;
+La tasa de profesionalidad es la relación entre el número de encuestadores con Certificado de Profesionalidad de Encuestador, regulado por el Real Decreto 1648/1997, de 31 de octubre sobre el número de entrevistadores exigidos en el equipo mínimo</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>02. Jefes/as de zona/inspectores a jornada completa y con el equipamiento necesario. (categoría B-II)</cbc:Description>
+                        <cbc:Note>Como criterio de calidad se otorgará máxima puntuación a la oferta que presente mayor número&#xD;
+personal de jefatura de zona a jornada completa y con el equipamiento necesario. Se valorará hasta un máximo de 4 personas en total</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>09. Tiempo de reposición de un Tablet-PC o Tableta que se haya averiado</cbc:Description>
+                        <cbc:Note>Como criterio de calidad se otorgará máxima puntuación a la oferta que presente menor tiempo de reposición medido en horas.&#xD;
+Se entiende como tiempo de reposición al tiempo en el que el trabajador de campo podrá tener a su disposición el equipo plenamente operativo</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>10. Informe de localización de encuestadores a través de la comparación entre posición GPS y dirección de la vivienda</cbc:Description>
+                        <cbc:Note>Como criterio de calidad de la oferta se otorgará máxima puntuación a las ofertas que incluyan la realización de informe de localización de encuestadores y cero al resto</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>3</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>17. Precio</cbc:Description>
+                        <cbc:Note>Se otorgará máxima puntuación a la oferta que presente menor importe.</cbc:Note>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">1</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>45</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                </cac:AwardingTerms>
+                <cac:TenderRecipientParty>
+                    <cbc:EndpointID>https://contrataciondelestado.es</cbc:EndpointID>
+                </cac:TenderRecipientParty>
+                <cac:Language>
+                    <cbc:ID>es</cbc:ID>
+                </cac:Language>
+            </cac:TenderingTerms>
+            <cac:TenderingProcess>
+                <cbc:ProcedureCode listURI="https://contrataciondelestado.es/codice/cl/2.07/SyndicationTenderingProcessCode-2.07.gc">1</cbc:ProcedureCode>
+                <cbc:UrgencyCode listURI="http://contrataciondelestado.es/codice/cl/1.04/DiligenceTypeCode-1.04.gc">1</cbc:UrgencyCode>
+                <cbc:ContractingSystemCode listURI="http://contrataciondelestado.es/codice/cl/2.08/ContractingSystemTypeCode-2.08.gc">0</cbc:ContractingSystemCode>
+                <cbc:SubmissionMethodCode listURI="http://contrataciondelestado.es/codice/cl/1.04/TenderDeliveryCode-1.04.gc">1</cbc:SubmissionMethodCode>
+                <cbc:OverThresholdIndicator>true</cbc:OverThresholdIndicator>
+                <cac:TenderSubmissionDeadlinePeriod>
+                    <cbc:EndDate>2025-06-12</cbc:EndDate>
+                    <cbc:EndTime>15:00:00</cbc:EndTime>
+                    <cbc:Description>14:00 horas en Canarias</cbc:Description>
+                </cac:TenderSubmissionDeadlinePeriod>
+                <cac:AuctionTerms>
+                    <cbc:AuctionConstraintIndicator>false</cbc:AuctionConstraintIndicator>
+                </cac:AuctionTerms>
+            </cac:TenderingProcess>
+            <cac:LegalDocumentReference>
+                <cbc:ID>PCAP.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=lFaguHXcfrNFt4mGJN9fy4MskKePiJhBC10pL/ORjUYKefS5pELhtQlUsyaPs/1AJbl2ZRR7e3h3TptbjOfssuErp8DYDge9WFJ3mRRH5C2B0nvVKRzfe4rpHcnlPhSZ&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>eywiqV0L4Pobg0kwIX+Pg8W624w=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:LegalDocumentReference>
+            <cac:TechnicalDocumentReference>
+                <cbc:ID>PPT.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=TYzghc%2BRVjDIWyaK5EruSvHjwh2TBS/WkX7GSUDmrMHXcg/uGQDNaKZk%2BqgbL%2Bry/WTc7UT9GiNaGAxECHTcVA7%2BS7jjMt7UQzdbGe9pypoC1/zDIE0Kw/PWNnLS0Z0z&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>BdwBo0z8cCJpxKNQ9uZoZfkR9Bk=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:TechnicalDocumentReference>
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>EICVHC25 - Ficha hogar.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=iqmw19H7cTpRlBrdsRjC6T9bVl4PHA2ylKDbLgUYBX6xrMF6OvXXcAF5qfLjEaCaP5u2c6791eEpUm%2BfRLUIaTMrq1Q4oJgWFXFp58kP%2Bw/DdQD9RyhUmzT4jZ2In4zL&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>FbVHOGrAkkRhNc0HhYy/Z75PiM8=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:AdditionalDocumentReference>
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>EICVHC25 - Ficha vivienda.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=DQudMDlJvhKhAV90sFudDg7r%2BxyVXPAe9DMo/9Ud%2BBR0JYWeH7QVGfuYOPzEuC9bk69K9nD5M8WPXatRUmrAihoeepZU%2Bg4G1ZoiUb1IBP6Cx2e6p7hqtlp2aFupgHMr&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>a/DCeZzQLxrzaSjdczhEGSrWsS0=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:AdditionalDocumentReference>
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>EICVHC25 - Anexo III Planificacion.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=gWYMQVAoRxVuSVOlJN7%2B995t4oG962BF/siPmu1/PpSPoV71716XBAYWKNj8DQPqUQVa4zi4E/0AgBrc5VM3OGQI1pQfuF2%2B5Hjks4Tj1RH6CYyL7SIrUOBFfNf52ZqA&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>HEILR/OJk1wuuTGXPFOaNETrkx4=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:AdditionalDocumentReference>
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>EICVHC25 - Cuestionario hogar.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=sA4qdPwp/kZSfqtMSlvE0izV5av0utC7Kt9v6434wpQaWcAnSBgYw95ObaruEEqc9RiHV2xHTYYQ//M/OVp2anmiuBWq2gDesYu1Y1rJljcC1/zDIE0Kw/PWNnLS0Z0z&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>gLV7KVOfJSarJhMZIH9QebPewUc=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:AdditionalDocumentReference>
+            <cac:AdditionalDocumentReference>
+                <cbc:ID>EICVHC25 - Cuestionario individual.pdf</cbc:ID>
+                <cac:Attachment>
+                    <cac:ExternalReference>
+                        <cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=4PPqTsNaJx00bbGAqA8UV3IzB/tZ30LJm7dK5AkKWCsll3kikInRoVPVSZJOvfeXW/WYLhMjSiOsUKMZsRex3F3gCMu7xnt3an65hxPMS2WB0nvVKRzfe4rpHcnlPhSZ&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+                        <cbc:DocumentHash>bv5bqQ22+kdNgeGUPOjlYveVkoo=</cbc:DocumentHash>
+                    </cac:ExternalReference>
+                </cac:Attachment>
+            </cac:AdditionalDocumentReference>
+            <cac-place-ext:ValidNoticeInfo>
+                <cbc-place-ext:NoticeTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</cbc-place-ext:NoticeTypeCode>
+                <cac-place-ext:AdditionalPublicationStatus>
+                    <cbc-place-ext:PublicationMediaName>DOUE</cbc-place-ext:PublicationMediaName>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-04-23</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-05-13</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationRequest>
+                        <cbc:AgencyID>DOUE</cbc:AgencyID>
+                        <cbc-place-ext:SendDate>2025-04-21+02:00</cbc-place-ext:SendDate>
+                        <cbc-place-ext:SendTime>14:13:31</cbc-place-ext:SendTime>
+                    </cac-place-ext:AdditionalPublicationRequest>
+                    <cac-place-ext:AdditionalPublicationRequest>
+                        <cbc:AgencyID>DOUE</cbc:AgencyID>
+                        <cbc-place-ext:SendDate>2025-05-12+02:00</cbc-place-ext:SendDate>
+                        <cbc-place-ext:SendTime>14:22:14</cbc-place-ext:SendTime>
+                    </cac-place-ext:AdditionalPublicationRequest>
+                </cac-place-ext:AdditionalPublicationStatus>
+            </cac-place-ext:ValidNoticeInfo>
+            <cac-place-ext:ValidNoticeInfo>
+                <cbc-place-ext:NoticeTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CAN_ADJ</cbc-place-ext:NoticeTypeCode>
+                <cac-place-ext:AdditionalPublicationStatus>
+                    <cbc-place-ext:PublicationMediaName>Perfil del contratante</cbc-place-ext:PublicationMediaName>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-07-18</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingDocumentTypeCode-2.11.gc" name="Documento de Acta de Adjudicación">ACTA_ADJ</cbc:DocumentTypeCode>
+                        <cac:Attachment>
+                            <cac:ExternalReference>
+<cbc:URI>https://contrataciondelestado.es/FileSystem/servlet/GetDocumentByIdServlet?DocumentIdParam=UArVhTmTN/s/yFaoMqbQh0peA923qDSYhilZ/U844UqfVT8zz13tay5pNVng30G7sXYVWAKr8Utyr0CUfrOxTKRgW146xaeet25uuyqb/nxJOVDbGCDM%2BMigrvuVS7Rv&amp;cifrado=QUC1GjXXSiLkydRHJBmbpw%3D%3D</cbc:URI>
+<cbc:FileName>Resolucion Adjudicacion Plataforma.pdf</cbc:FileName>
+                            </cac:ExternalReference>
+                        </cac:Attachment>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                </cac-place-ext:AdditionalPublicationStatus>
+            </cac-place-ext:ValidNoticeInfo>
+            <cac-place-ext:ValidNoticeInfo>
+                <cbc-place-ext:NoticeTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CD</cbc-place-ext:NoticeTypeCode>
+                <cac-place-ext:AdditionalPublicationStatus>
+                    <cbc-place-ext:PublicationMediaName>Perfil del contratante</cbc-place-ext:PublicationMediaName>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-04-23</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-05-12</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                </cac-place-ext:AdditionalPublicationStatus>
+            </cac-place-ext:ValidNoticeInfo>
+            <cac-place-ext:ValidNoticeInfo>
+                <cbc-place-ext:NoticeTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_CN</cbc-place-ext:NoticeTypeCode>
+                <cac-place-ext:AdditionalPublicationStatus>
+                    <cbc-place-ext:PublicationMediaName>Perfil del contratante</cbc-place-ext:PublicationMediaName>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-04-23</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-05-12</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                </cac-place-ext:AdditionalPublicationStatus>
+            </cac-place-ext:ValidNoticeInfo>
+            <cac-place-ext:ValidNoticeInfo>
+                <cbc-place-ext:NoticeTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.11/TenderingNoticeTypeCode-2.11.gc">DOC_FORM</cbc-place-ext:NoticeTypeCode>
+                <cac-place-ext:AdditionalPublicationStatus>
+                    <cbc-place-ext:PublicationMediaName>Perfil del contratante</cbc-place-ext:PublicationMediaName>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-08-16</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
+                </cac-place-ext:AdditionalPublicationStatus>
+            </cac-place-ext:ValidNoticeInfo>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-05fff47a-a7bc-4afc-ac10-20c5a6fb3baf</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-05fff47a-a7bc-4afc-ac10-20c5a6fb3baf</cbc:URI>
+                            <cbc:FileName>Comunicación Mesa de Contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-afb26e7c-6b7e-4524-bcee-5d0d320d37aa</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-afb26e7c-6b7e-4524-bcee-5d0d320d37aa</cbc:URI>
+                            <cbc:FileName>Comunicación Mesa de Contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-77aeccac-dcad-4dbb-9a85-7812c9252839</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-77aeccac-dcad-4dbb-9a85-7812c9252839</cbc:URI>
+                            <cbc:FileName>Comunicación Mesa de Contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-450d97a2-19e1-4f75-a979-d8a323474af4</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">12</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-450d97a2-19e1-4f75-a979-d8a323474af4</cbc:URI>
+                            <cbc:FileName>Acta del órgano de asistencia</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-5fba3074-1bd8-49d8-8769-d76a32789832</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">12</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-5fba3074-1bd8-49d8-8769-d76a32789832</cbc:URI>
+                            <cbc:FileName>Acta del órgano de asistencia</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-6e7e28da-36ea-4366-bab5-db8bb91edcc2</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">11</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-6e7e28da-36ea-4366-bab5-db8bb91edcc2</cbc:URI>
+                            <cbc:FileName>Documento de aprobación del expediente</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-8b688531-d02f-472a-ab3e-ae5ea2861d8e</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">2</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-8b688531-d02f-472a-ab3e-ae5ea2861d8e</cbc:URI>
+                            <cbc:FileName>Composición de la mesa de contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-fb46e6c6-0148-4428-a12e-a75425403327</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-fb46e6c6-0148-4428-a12e-a75425403327</cbc:URI>
+                            <cbc:FileName>Comunicación Mesa de Contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-6107677d-4e46-425c-b498-84649ca19633</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">12</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-6107677d-4e46-425c-b498-84649ca19633</cbc:URI>
+                            <cbc:FileName>Acta del órgano de asistencia</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-6e544d96-a8ce-4f73-a7a8-601065fb89cb</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">12</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-6e544d96-a8ce-4f73-a7a8-601065fb89cb</cbc:URI>
+                            <cbc:FileName>Acta del órgano de asistencia</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-b82a6016-ce3a-4c69-b991-4fe710912d4f</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">9</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-b82a6016-ce3a-4c69-b991-4fe710912d4f</cbc:URI>
+                            <cbc:FileName>Memoria justificativa</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-c33fb4d8-b8ba-4d60-a18a-4aa0c63b6fb2</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-c33fb4d8-b8ba-4d60-a18a-4aa0c63b6fb2</cbc:URI>
+                            <cbc:FileName>Ampliación de plazo</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-92b208d0-0afa-4a7d-a3af-fe1ea7a69371</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">8</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-92b208d0-0afa-4a7d-a3af-fe1ea7a69371</cbc:URI>
+                            <cbc:FileName>Acuerdo de iniciación del expediente</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+            <cac-place-ext:GeneralDocument>
+                <cac-place-ext:GeneralDocumentDocumentReference>
+                    <cbc:ID>2025-1cde745c-f586-4567-983e-701da3e1b83d</cbc:ID>
+                    <cbc:DocumentTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.08/GeneralContractDocuments-2.08.gc">ZZZ</cbc:DocumentTypeCode>
+                    <cac:Attachment>
+                        <cac:ExternalReference>
+                            <cbc:URI>https://contrataciondelestado.es/wps/wcm/connect/PLACE_es/Site/area/docAccCmpnt?srv=cmpnt&amp;cmpntname=GetDocumentsById&amp;source=library&amp;DocumentIdParam=2025-1cde745c-f586-4567-983e-701da3e1b83d</cbc:URI>
+                            <cbc:FileName>Comunicación Mesa de Contratación</cbc:FileName>
+                        </cac:ExternalReference>
+                    </cac:Attachment>
+                </cac-place-ext:GeneralDocumentDocumentReference>
+            </cac-place-ext:GeneralDocument>
+        </cac-place-ext:ContractFolderStatus>
+    </entry>
+</feed>

@@ -111,7 +111,7 @@ export async function start(
           if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
             const event = new Event({
               type: EventType.LICITATION_FINISHED_SUBMISSION_PERIOD,
-              createdAt: new Date(),
+              createdAt: new Date(entry.updated),
               licitationId: lic.id,
             });
             events.push(event);
@@ -120,7 +120,7 @@ export async function start(
           else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
             const event = new Event({
               type: EventType.LICITATION_RESOLVED,
-              createdAt: new Date(),
+              createdAt: new Date(entry.updated),
               licitationId: lic.id,
             });
             events.push(event);
@@ -137,7 +137,7 @@ export async function start(
             } else {
               if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
                 const event = new Event({
-                  createdAt: new Date(),
+                  createdAt: parsedLot.award_date ? new Date(parsedLot.award_date) : lic.updated,
                   type: EventType.LICITATION_LOT_AWARDED,
                   licitationId: lic.id,
                   lotId: lot.lot_id.toString(),
@@ -158,10 +158,10 @@ export async function start(
             }
           }
 
-          const lotsAmount = lots.length && newLots.length;
+          const lotsAmount = lots.length + newLots.length;
           if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
             const event = new Event({
-              createdAt: new Date(),
+              createdAt: lic.award_date ? new Date(lic.award_date) : lic.updated,
               type: EventType.LICITATION_AWARDED,
               licitationId: lic.id
             });

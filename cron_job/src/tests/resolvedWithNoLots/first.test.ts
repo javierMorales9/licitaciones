@@ -1,21 +1,10 @@
-import { TestCursorRepository } from "../infra/TestCursorRepository.js";
-import { TestDocRepository } from "../infra/TestDocRepository.js";
-import { TestEventRepository } from "../infra/TestEventRepository.js";
-import { TestLicitationRepository } from "../infra/TestLicitationRepository.js";
-import { TestLotsRepository } from "../infra/TestLotsRepository.js";
-import { TestPartyRepository } from "../infra/TestPartyRepository.js";
-import { start } from "../../cronJob.js";
-import { describe, test } from "@jest/globals"
-import { TestAtomFetcher } from "../infra/TestAtomFetcher.js";
-import fs from "fs";
-import { testLogger } from "../testLogger.js";
+import { describe } from "@jest/globals"
 import { Licitation } from "../../domain/Licitation.js";
 import { Party } from "../../domain/Party.js";
 import { Lot } from "../../domain/Lot.js";
-import { compareEvents, compareLicitation, compareLots, compareParty } from "../compareFunctions.js";
 import { Event, EventType } from "../../domain/Event.js";
+import { testLicitationUpdate, testNewLicitation } from "../utils.js";
 
-const BASE_FEED_URL = "https://www.test_feed.com";
 const CPVS = ["72313000"];
 const LAST_CURSOR_DATE = new Date('2025-08-17');
 const LICITATION_ID = "1234";
@@ -133,59 +122,181 @@ const lots2 = [new Lot({ ...baseLot1Obj, id: "1" })];
 const party2 = new Party({ ...basePartyObj, id: PARTY_ID, updated: new Date('2025-05-12T10:28:43.718Z') });
 const events2 = [];
 
+const licitation3 = new Licitation({
+  ...baseLicObj,
+  id: LICITATION_ID,
+  statusCode: 'EV',
+  summary: "Id licitación: 2/2025; Órgano de Contratación: Director del Instituto Canario de Estadística (ISTAC); Importe: 261901.77 EUR; Estado: EV",
+  updated: new Date('2025-06-13T13:24:16.856+02:00'),
+  end_date: '2025-06-12'
+});
+const lots3 = [new Lot({ ...baseLot1Obj, id: "1" })];
+const party3 = new Party({ ...basePartyObj, id: PARTY_ID, updated: new Date('2025-06-13T13:24:16.856+02:00') });
+const events3 = [new Event({
+  createdAt: new Date(licitation3.updated),
+  type: EventType.LICITATION_FINISHED_SUBMISSION_PERIOD,
+  licitationId: LICITATION_ID,
+})];
+
+const licitation4 = new Licitation({
+  ...baseLicObj,
+  id: LICITATION_ID,
+  statusCode: 'ADJ',
+  summary: "Id licitación: 2/2025; Órgano de Contratación: Director del Instituto Canario de Estadística (ISTAC); Importe: 261901.77 EUR; Estado: ADJ",
+  updated: new Date('2025-07-18T13:25:26.131+02:00'),
+  end_date: '2025-06-12',
+  tender_result_code: 8,
+  award_date: '2025-07-18',
+  received_tender_quantity: 4,
+  lower_tender_amount: '224002.34',
+  higher_tender_amount: '260000',
+  winning_nif: 'A38210100',
+  winning_name: 'REDCA S.A.',
+  winning_city: 'Las Palmas de Gran Canaria',
+  winning_zip: '35007',
+  winning_country: 'ES',
+  award_tax_exclusive: '224002.34',
+  award_payable_amount: '239682.5',
+  lotsAdj: 1,
+});
+const lots4 = [new Lot({
+  ...baseLot1Obj,
+  id: "1",
+  tender_result_code: 8,
+  award_date: '2025-07-18',
+  received_tender_quantity: 4,
+  lower_tender_amount: '224002.34',
+  higher_tender_amount: '260000',
+  winning_nif: 'A38210100',
+  winning_name: 'REDCA S.A.',
+  winning_city: 'Las Palmas de Gran Canaria',
+  winning_zip: '35007',
+  winning_country: 'ES',
+  award_tax_exclusive: '224002.34',
+  award_payable_amount: '239682.5',
+})];
+const party4 = new Party({ ...basePartyObj, id: PARTY_ID, updated: licitation4.updated });
+const events4 = [
+  new Event({
+    createdAt: new Date('2025-07-18'),
+    type: EventType.LICITATION_LOT_AWARDED,
+    licitationId: LICITATION_ID,
+    lotId: lots4[0].lot_id.toString(),
+  }),
+  new Event({
+    createdAt: new Date('2025-07-18'),
+    type: EventType.LICITATION_AWARDED,
+    licitationId: LICITATION_ID,
+  }),
+];
+
+const licitation5 = new Licitation({
+  ...baseLicObj,
+  id: LICITATION_ID,
+  statusCode: 'RES',
+  summary: "Id licitación: 2/2025; Órgano de Contratación: Director del Instituto Canario de Estadística (ISTAC); Importe: 261901.77 EUR; Estado: RES",
+  updated: new Date('2025-08-16T09:58:08.174+02:00'),
+  end_date: '2025-06-12',
+  tender_result_code: 9,
+  award_date: '2025-07-18',
+  received_tender_quantity: 4,
+  lower_tender_amount: '224002.34',
+  higher_tender_amount: '260000',
+  winning_nif: 'A38210100',
+  winning_name: 'REDCA S.A.',
+  winning_city: 'Las Palmas de Gran Canaria',
+  winning_zip: '35007',
+  winning_country: 'ES',
+  award_tax_exclusive: '224002.34',
+  award_payable_amount: '239682.5',
+  lotsAdj: 1,
+});
+const lots5 = [new Lot({
+  ...baseLot1Obj,
+  id: "1",
+  tender_result_code: 9,
+  award_date: '2025-07-18',
+  received_tender_quantity: 4,
+  lower_tender_amount: '224002.34',
+  higher_tender_amount: '260000',
+  winning_nif: 'A38210100',
+  winning_name: 'REDCA S.A.',
+  winning_city: 'Las Palmas de Gran Canaria',
+  winning_zip: '35007',
+  winning_country: 'ES',
+  award_tax_exclusive: '224002.34',
+  award_payable_amount: '239682.5',
+})];
+const party5 = new Party({ ...basePartyObj, id: PARTY_ID, updated: licitation5.updated });
+const events5 = [
+  new Event({
+    createdAt: licitation5.updated,
+    type: EventType.LICITATION_RESOLVED,
+    licitationId: LICITATION_ID,
+  }),
+];
+
 describe('Resolved with no lots', () => {
-  test('Published', async () => {
-    const cursorRepo = new TestCursorRepository(LAST_CURSOR_DATE);
-    const licitationsRepo = new TestLicitationRepository(null);
-    const lotsRepo = new TestLotsRepository([]);
-    const partyRepo = new TestPartyRepository(null);
-    const docRepo = new TestDocRepository([]);
-    const eventRepo = new TestEventRepository();
-    const atomFetcher = new TestAtomFetcher(fs.readFileSync("src/tests/resolvedWithNoLots/first.atom").toString());
-
-    await start(
-      BASE_FEED_URL,
-      CPVS,
-      cursorRepo,
-      licitationsRepo,
-      lotsRepo,
-      partyRepo,
-      docRepo,
-      eventRepo,
-      atomFetcher,
-      testLogger,
-    );
-
-    compareLicitation(licitationsRepo.getCreateArgs(), licitation0);
-    compareLots(lotsRepo.getCreateArgs(), lots0);
-    compareParty(partyRepo.getCreateArgs(), party0);
-    compareEvents(eventRepo.getAddArgs(), events0);
-  });
-  test('Published, end date updated', async () => {
-    const cursorRepo = new TestCursorRepository(LAST_CURSOR_DATE);
-    const licitationsRepo = new TestLicitationRepository(licitation1);
-    const lotsRepo = new TestLotsRepository(lots1);
-    const partyRepo = new TestPartyRepository(party1);
-    const docRepo = new TestDocRepository([]);
-    const eventRepo = new TestEventRepository();
-    const atomFetcher = new TestAtomFetcher(fs.readFileSync("src/tests/resolvedWithNoLots/second.atom").toString());
-
-    await start(
-      BASE_FEED_URL,
-      CPVS,
-      cursorRepo,
-      licitationsRepo,
-      lotsRepo,
-      partyRepo,
-      docRepo,
-      eventRepo,
-      atomFetcher,
-      testLogger,
-    );
-
-    compareLicitation(licitationsRepo.getSaveArgs(), licitation2);
-    compareLots(lotsRepo.getSaveArgs(), lots2);
-    compareParty(partyRepo.getSaveArgs(), party2);
-    compareEvents(eventRepo.getAddArgs(), events2);
-  });
+  testNewLicitation(
+    'Published',
+    "1",
+    licitation0,
+    lots0,
+    party0,
+    events0,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
+  testLicitationUpdate(
+    'Published, end date updated',
+    "2",
+    licitation1,
+    lots1,
+    party1,
+    licitation2,
+    lots2,
+    party2,
+    events2,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
+  testLicitationUpdate(
+    'Finished submission period, now in Evaluation state',
+    "5",
+    licitation2,
+    lots2,
+    party2,
+    licitation3,
+    lots3,
+    party3,
+    events3,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
+  testLicitationUpdate(
+    'Licitation awarded',
+    "9",
+    licitation3,
+    lots3,
+    party3,
+    licitation4,
+    lots4,
+    party4,
+    events4,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
+  testLicitationUpdate(
+    'Licitation awarded',
+    "10",
+    licitation4,
+    lots4,
+    party4,
+    licitation4,
+    lots5,
+    party5,
+    events5,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
 });
