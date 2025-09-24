@@ -15,7 +15,7 @@ import { Doc } from "./domain/Doc.js";
 import { Lot } from "./domain/Lot.js";
 import { Party } from "./domain/Party.js";
 import { Event, EventType } from "./domain/Event.js";
-import { EmailNotifier } from "./infra/AirtableNotifier.js";
+import { EmailNotifier } from "./infra/EmailNotifier.js";
 import { Notifications } from "./domain/Notifications.js";
 import type { CursorRepository } from "./domain/CursorRepository.js";
 import type { LicitationRepository } from "./domain/LicitationRepository.js";
@@ -217,13 +217,39 @@ export async function start(
           await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
           await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
 
-          const event = new Event({
-            createdAt: lic.publishedDate ? new Date(lic.publishedDate) : lic.updated,
-            type: EventType.LICITATION_CREATED,
-            licitationId: licId
-          });
-          events.push(event);
-          notifications.add(event, lic);
+          if (lic.statusCode === "PUB") {
+            const event = new Event({
+              createdAt: lic.publishedDate ? new Date(lic.publishedDate) : lic.updated,
+              type: EventType.LICITATION_CREATED,
+              licitationId: licId
+            });
+            events.push(event);
+            notifications.add(event, lic);
+          } else if (lic.statusCode === "EV") {
+            const event = new Event({
+              createdAt: lic.updated,
+              type: EventType.LICITATION_FINISHED_SUBMISSION_PERIOD,
+              licitationId: licId
+            });
+            events.push(event);
+            notifications.add(event, lic);
+          } else if (lic.statusCode === "ADJ" && lic.lotsAdj == entry.lots.length) {
+            const event = new Event({
+              createdAt: lic.updated,
+              type: EventType.LICITATION_AWARDED,
+              licitationId: licId
+            });
+            events.push(event);
+            notifications.add(event, lic);
+          } else if (lic.statusCode === "RES") {
+            const event = new Event({
+              createdAt: lic.updated,
+              type: EventType.LICITATION_RESOLVED,
+              licitationId: licId
+            });
+            events.push(event);
+            notifications.add(event, lic);
+          }
 
           await eventRepo.add(events);
 

@@ -1,6 +1,28 @@
 import type { Notifications } from "../domain/Notifications.js";
 import type { Notifier } from "../domain/Notifier.js";
 
+const EVENT_LABELS: Record<string, string> = {
+  licitation_created: "Nueva licitación",
+  licitation_finished_submission_period: "Fin de plazo de presentación",
+  licitation_lot_awarded: "Adjudicación de lote",
+  licitation_awarded: "Adjudicación del expediente",
+  licitation_resolved: "Licitación resuelta",
+};
+
+// Por si llega en otro casing
+const eventLabel = (t: string) =>
+  EVENT_LABELS[t] ?? EVENT_LABELS[t?.toLowerCase?.()] ?? t;
+
+const STATUS_LABELS: Record<string, string> = {
+  ANP: "Anuncio previo",
+  ENP: "En plazo",
+  EVA: "Evaluación",
+  ADJ: "Adjudicada",
+  RES: "Resuelta",
+  ANU: "Anulada",
+};
+const statusLabel = (code?: string) => (code ? (STATUS_LABELS[code] ?? code) : "");
+
 export class EmailNotifier implements Notifier {
   private notif: Notifications;
 
@@ -38,20 +60,20 @@ export class EmailNotifier implements Notifier {
     const totalExp = list.length;
     const totalEv = list.reduce((a, n) => a + (n.events?.length || 0), 0);
     const dateStr = new Date().toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
-    const subject = `Licitaciones — ${totalExp} expedientes / ${totalEv} eventos — ${dateStr}`;
+    const subject = `Licitaciones — ${totalExp} expediente${totalExp === 1 ? "" : "s"}, ${totalEv} evento${totalEv === 1 ? "" : "s"} — ${dateStr}`;
 
     // Texto plano
     let text = `Resumen diario de licitaciones — ${totalExp} expediente(s), ${totalEv} evento(s)\n\n`;
     for (const n of list) {
       text += `• ${n.licitationTitle ?? "(Sin título)"}\n`;
       if (n.licitationPlatformUrl) text += `  URL: ${n.licitationPlatformUrl}\n`;
-      if (n.licitationStatusCode) text += `  Estado: ${n.licitationStatusCode}\n`;
+      if (n.licitationStatusCode) text += `  Estado: ${statusLabel(n.licitationStatusCode)}\n`;
       if (n.licitationExternalId) text += `  Ref: ${n.licitationExternalId}\n`;
       for (const ev of n.events || []) {
         const bits = [ev.lotName ? `lote: ${ev.lotName}` : "", ev.lotLotId ? `ID lote: ${ev.lotLotId}` : ""]
           .filter(Boolean)
           .join(" — ");
-        text += `  - ${label(ev.type)}${bits ? ` (${bits})` : ""}\n`;
+        text += `  - ${eventLabel(ev.type)}${bits ? ` (${bits})` : ""}\n`;
       }
       text += `\n`;
     }
@@ -62,19 +84,22 @@ export class EmailNotifier implements Notifier {
     for (const n of list) {
       const evs = (n.events || [])
         .map(ev => {
-          const bits = [ev.lotName ? `lote: ${esc(ev.lotName)}` : "", ev.lotLotId ? `ID lote: ${esc(ev.lotLotId)}` : ""]
-            .filter(Boolean)
-            .join(" — ");
-          return `<li style="margin:4px 0">${esc(label(ev.type))}${bits ? ` (${bits})` : ""}</li>`;
+          const bits = [
+            ev.lotName ? `lote: ${esc(ev.lotName)}` : "",
+            ev.lotLotId ? `ID lote: ${esc(ev.lotLotId)}` : "",
+          ].filter(Boolean).join(" — ");
+          return `<li style="margin:4px 0">${esc(eventLabel(ev.type))}${bits ? ` (${bits})` : ""}</li>`;
         })
         .join("");
+
+      const statusText = n.licitationStatusCode ? `Estado: ${esc(statusLabel(n.licitationStatusCode))} · ` : "";
 
       rows += `
       <tr>
         <td style="padding:16px;border-top:1px solid #e2e8f0;">
           <div style="font-size:16px;font-weight:600;line-height:1.4;">${esc(n.licitationTitle) || "(Sin título)"}</div>
           <div style="font-size:12px;color:#64748b;margin-top:4px;">
-            ${n.licitationStatusCode ? `Estado: ${esc(n.licitationStatusCode)} · ` : ""}${n.licitationExternalId ? `Ref: ${esc(n.licitationExternalId)}` : ""}
+            ${statusText}${n.licitationExternalId ? `Ref: ${esc(n.licitationExternalId)}` : ""}
           </div>
           <ul style="padding-left:18px;margin:10px 0 12px;">${evs}</ul>
           ${n.licitationPlatformUrl ? `<a href="${esc(n.licitationPlatformUrl)}" style="display:inline-block;padding:10px 14px;text-decoration:none;border-radius:8px;border:1px solid #e2e8f0;">Ver en plataforma</a>` : ""}

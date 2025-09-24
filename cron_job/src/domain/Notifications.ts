@@ -24,28 +24,19 @@ export class Notifications {
   }
 
   add(e: Event, licitation: Licitation, lot?: Lot) {
-    const n = this.notifications[e.licitationId];
+    const key = licitation.entry_id;
+    const n = this.notifications[key];
     if (!n) {
-      this.notifications[licitation.entry_id] = {
+      this.notifications[key] = {
         licitationId: e.licitationId,
         licitationExternalId: licitation.entry_id,
         licitationPlatformUrl: licitation.platform_url,
         licitationStatusCode: licitation.statusCode,
         licitationTitle: licitation.title,
-        events: [{
-          type: e.type,
-          lotId: lot?.id,
-          lotLotId: lot?.lot_id.toString(),
-          lotName: lot?.name,
-        }],
+        events: [{ type: e.type, lotId: lot?.id, lotLotId: lot?.lot_id?.toString(), lotName: lot?.name }],
       };
     } else {
-      n.events.push({
-        type: e.type,
-        lotId: lot?.id,
-        lotLotId: lot?.lot_id.toString(),
-        lotName: lot?.name,
-      });
+      n.events.push({ type: e.type, lotId: lot?.id, lotLotId: lot?.lot_id?.toString(), lotName: lot?.name });
     }
   }
 
