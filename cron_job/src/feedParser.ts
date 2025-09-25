@@ -468,12 +468,12 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
   const higher_tender_amount = tr['cbc:HigherTenderAmount']?._;
 
   const wp = tr['cac:WinningParty'];
-  const winning_nif = wp?.['cac:PartyIdentification']?.['cbc:ID']?._ && String(wp?.['cac:PartyIdentification']?.['cbc:ID']?._);
+  const winning_nif = wp?.['cac:PartyIdentification']?.['cbc:ID']?._ !== undefined ? String(wp?.['cac:PartyIdentification']?.['cbc:ID']?._) : undefined;
   const winning_name = wp?.['cac:PartyName']?.['cbc:Name'];
 
   const addr = wp?.['cac:PhysicalLocation']?.['cac:Address'];
   const winning_city = addr?.['cbc:CityName'];
-  const winning_zip = addr?.['cbc:PostalZone'] && String(addr?.['cbc:PostalZone']);
+  const winning_zip = addr?.['cbc:PostalZone'] ? String(addr?.['cbc:PostalZone']) : undefined;
   const winning_country = addr?.['cac:Country']?.['cbc:IdentificationCode']?._;
 
   const legal = tr['cac:AwardedTenderedProject']?.['cac:LegalMonetaryTotal'];
