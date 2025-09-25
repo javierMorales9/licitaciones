@@ -9,6 +9,7 @@ const CPVS = ["72313000"];
 const LAST_CURSOR_DATE = new Date('2025-08-17');
 const LICITATION_ID = "1234";
 const PARTY_ID = "1234";
+const BASE_PATH = 'src/tests/resolvedWithNoLots';
 
 const baseLicObj = {
   entry_id: 'https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17165996',
@@ -239,7 +240,7 @@ const events5 = [
 describe('Resolved with no lots', () => {
   testNewLicitation(
     'Published',
-    "1",
+    `${BASE_PATH}/version1.atom`,
     licitation0,
     lots0,
     party0,
@@ -249,7 +250,7 @@ describe('Resolved with no lots', () => {
   );
   testLicitationUpdate(
     'Published, end date updated',
-    "2",
+    `${BASE_PATH}/version2.atom`,
     licitation1,
     lots1,
     party1,
@@ -262,7 +263,7 @@ describe('Resolved with no lots', () => {
   );
   testLicitationUpdate(
     'Finished submission period, now in Evaluation state',
-    "5",
+    `${BASE_PATH}/version5.atom`,
     licitation2,
     lots2,
     party2,
@@ -275,7 +276,7 @@ describe('Resolved with no lots', () => {
   );
   testLicitationUpdate(
     'Licitation awarded',
-    "9",
+    `${BASE_PATH}/version9.atom`,
     licitation3,
     lots3,
     party3,
@@ -288,7 +289,7 @@ describe('Resolved with no lots', () => {
   );
   testLicitationUpdate(
     'Licitation awarded',
-    "10",
+    `${BASE_PATH}/version10.atom`,
     licitation4,
     lots4,
     party4,

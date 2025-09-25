@@ -468,12 +468,12 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
   const higher_tender_amount = tr['cbc:HigherTenderAmount']?._;
 
   const wp = tr['cac:WinningParty'];
-  const winning_nif = String(wp?.['cac:PartyIdentification']?.['cbc:ID']?._ ?? '');
+  const winning_nif = wp?.['cac:PartyIdentification']?.['cbc:ID']?._ && String(wp?.['cac:PartyIdentification']?.['cbc:ID']?._);
   const winning_name = wp?.['cac:PartyName']?.['cbc:Name'];
 
   const addr = wp?.['cac:PhysicalLocation']?.['cac:Address'];
   const winning_city = addr?.['cbc:CityName'];
-  const winning_zip = String(addr?.['cbc:PostalZone'] ?? '');
+  const winning_zip = addr?.['cbc:PostalZone'] && String(addr?.['cbc:PostalZone']);
   const winning_country = addr?.['cac:Country']?.['cbc:IdentificationCode']?._;
 
   const legal = tr['cac:AwardedTenderedProject']?.['cac:LegalMonetaryTotal'];
@@ -645,7 +645,12 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
       if (tender_result_raw) {
         const first = Array.isArray(tender_result_raw) ? tender_result_raw[0] : tender_result_raw;
         tender_result = processTenderResult(first);
-        lotsAdj = 1;
+
+        if (tender_result.tender_result_code === 4) {
+          tender_result = { tender_result_code: tender_result.tender_result_code };
+        } else {
+          lotsAdj = 1;
+        }
       }
 
       lots = [

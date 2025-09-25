@@ -33,7 +33,7 @@ export function testNewLicitation(
     const partyRepo = new TestPartyRepository(null);
     const docRepo = new TestDocRepository([]);
     const eventRepo = new TestEventRepository();
-    const atomFetcher = new TestAtomFetcher(fs.readFileSync(`src/tests/resolvedWithNoLots/version${version}.atom`).toString());
+    const atomFetcher = new TestAtomFetcher(fs.readFileSync(version).toString());
 
     await start(
       BASE_FEED_URL,
@@ -75,7 +75,7 @@ export function testLicitationUpdate(
     const partyRepo = new TestPartyRepository(prevParty);
     const docRepo = new TestDocRepository([]);
     const eventRepo = new TestEventRepository();
-    const atomFetcher = new TestAtomFetcher(fs.readFileSync(`src/tests/resolvedWithNoLots/version${version}.atom`).toString());
+    const atomFetcher = new TestAtomFetcher(fs.readFileSync(version).toString());
 
     await start(
       BASE_FEED_URL,

@@ -1,5 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<entry>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:cbc-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonBasicComponents-2" xmlns:cbc="urn:dgpe:names:draft:codice:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:dgpe:names:draft:codice:schema:xsd:CommonAggregateComponents-2" xmlns:cac-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonAggregateComponents-2" xmlns:at="http://purl.org/atompub/tombstones/1.0" xmlns:ns7="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <author>
+        <name>Plataforma de Contratación del Sector Público</name>
+        <uri>https://contrataciondelestado.es</uri>
+        <email>contrataciondelestado@hacienda.gob.es</email>
+    </author>
+    <id>https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom</id>
+    <link rel="self" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <link rel="first" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <title>Licitaciones publicadas en la Plataforma de Contratación del Sector Público: licitacionesPerfilesContratanteCompleto v3</title>
+    <updated>2025-08-18T17:56:02.371+02:00</updated>
+    <entry>
         <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17540944</id>
         <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=hRxr0sLCRmKExvMJXBMHHQ%3D%3D"></link>
         <summary type="text">Id licitación: Exp 07-2025; Órgano de Contratación: Consejo de Administración de la Agència Balear de Digitalització, Ciberseguretat i Telecomunicacions (IB Digital); Importe: 240350 EUR; Estado: RES</summary>
@@ -303,3 +314,4 @@ materia de derecho de las telecomunicaciones.</cbc:Note>
             </cac-place-ext:GeneralDocument>
         </cac-place-ext:ContractFolderStatus>
   </entry>
+</feed>
