@@ -1,13 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<entry>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:cbc-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonBasicComponents-2" xmlns:cbc="urn:dgpe:names:draft:codice:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:dgpe:names:draft:codice:schema:xsd:CommonAggregateComponents-2" xmlns:cac-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonAggregateComponents-2" xmlns:at="http://purl.org/atompub/tombstones/1.0" xmlns:ns7="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <author>
+        <name>Plataforma de Contratación del Sector Público</name>
+        <uri>https://contrataciondelestado.es</uri>
+        <email>contrataciondelestado@hacienda.gob.es</email>
+    </author>
+    <id>https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom</id>
+    <link rel="self" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <link rel="first" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <title>Licitaciones publicadas en la Plataforma de Contratación del Sector Público: licitacionesPerfilesContratanteCompleto v3</title>
+    <updated>2025-08-18T17:56:02.371+02:00</updated>
+    <entry>
         <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/16998351</id>
         <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=fUO8%2FC3mm%2FwzjChw4z%2FXvw%3D%3D"/>
-        <summary type="text">Id licitación: CONT-010/2025 (58996/2024); Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Gandía; Importe: 390804 EUR; Estado: ADJ</summary>
+        <summary type="text">Id licitación: CONT-010/2025 (58996/2024); Órgano de Contratación: Junta de Gobierno del Ayuntamiento de Gandía; Importe: 390804 EUR; Estado: RES</summary>
         <title>Contrato de suministros consistente en arrendamiento financiero con opción de compra (leasing) para el suministro de varios vehículos destinados a la Policía Local de Gandia.</title>
-        <updated>2025-08-14T09:12:32.610+02:00</updated>
+        <updated>2025-08-18T09:00:00.000+02:00</updated>
         <cac-place-ext:ContractFolderStatus>
             <cbc:ContractFolderID>CONT-010/2025 (58996/2024)</cbc:ContractFolderID>
-            <cbc-place-ext:ContractFolderStatusCode listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">ADJ</cbc-place-ext:ContractFolderStatusCode>
+            <cbc-place-ext:ContractFolderStatusCode listURI="https://contrataciondelestado.es/codice/cl/2.04/SyndicationContractFolderStatusCode-2.04.gc" languageID="es">RES</cbc-place-ext:ContractFolderStatusCode>
             <cbc:UUID schemeName="TED">0f7f1ec5-4708-4222-b892-73f17f067ce2</cbc:UUID>
             <cac-place-ext:LocatedContractingParty>
                 <cbc:ContractingPartyTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.10/ContractingAuthorityCode-2.10.gc">3</cbc:ContractingPartyTypeCode>
@@ -152,10 +163,10 @@
                         <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">34410000</cbc:ItemClassificationCode>
                     </cac:RequiredCommodityClassification>
                     <cac:RequiredCommodityClassification>
-                        <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">66114000</cbc:ItemClassificationCode>
+                        <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">34114100</cbc:ItemClassificationCode>
                     </cac:RequiredCommodityClassification>
                     <cac:RequiredCommodityClassification>
-                        <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">34114100</cbc:ItemClassificationCode>
+                        <cbc:ItemClassificationCode listURI="http://contrataciondelestado.es/codice/cl/2.04/CPV2008-2.04.gc">66114000</cbc:ItemClassificationCode>
                     </cac:RequiredCommodityClassification>
                     <cac:RealizedLocation>
                         <cbc:CountrySubentity>Valencia/València</cbc:CountrySubentity>
@@ -227,13 +238,17 @@
                 </cac:AwardedTenderedProject>
             </cac:TenderResult>
             <cac:TenderResult>
-                <cbc:ResultCode listURI="http://contrataciondelestado.es/codice/cl/2.09/TenderResultCode-2.09.gc">8</cbc:ResultCode>
+                <cbc:ResultCode listURI="http://contrataciondelestado.es/codice/cl/2.09/TenderResultCode-2.09.gc">9</cbc:ResultCode>
                 <cbc:Description>Única oferta presentada</cbc:Description>
                 <cbc:AwardDate>2025-06-20</cbc:AwardDate>
                 <cbc:ReceivedTenderQuantity>1</cbc:ReceivedTenderQuantity>
                 <cbc:SMEsReceivedTenderQuantity>1</cbc:SMEsReceivedTenderQuantity>
                 <cbc:SMEAwardedIndicator>false</cbc:SMEAwardedIndicator>
                 <cbc:AwardedOwnerNationalityCode listURI="http://contrataciondelestado.es/codice/cl/2.08/CountryIdentificationCode-2.08.gc">ES</cbc:AwardedOwnerNationalityCode>
+                <cac:Contract>
+                    <cbc:ID>2025-0080</cbc:ID>
+                    <cbc:IssueDate>2025-08-08</cbc:IssueDate>
+                </cac:Contract>
                 <cac:WinningParty>
                     <cac:PartyIdentification>
                         <cbc:ID schemeName="NIF">B64146632</cbc:ID>
@@ -314,16 +329,16 @@ Tratamiento de los residuos generados.&#xD;
                 </cac:ContractExecutionRequirement>
                 <cac:AwardingTerms>
                     <cac:AwardingCriteria>
-                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
-                        <cbc:Description>Oferta económica</cbc:Description>
-                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
-                        <cbc:WeightNumeric>51</cbc:WeightNumeric>
-                    </cac:AwardingCriteria>
-                    <cac:AwardingCriteria>
                         <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">SUBJ</cbc:AwardingCriteriaTypeCode>
                         <cbc:Description>Memoria</cbc:Description>
                         <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaNotAutomaticallyEvaluatedSubTypeCode-2.09.gc">99</cbc:AwardingCriteriaSubTypeCode>
                         <cbc:WeightNumeric>49</cbc:WeightNumeric>
+                    </cac:AwardingCriteria>
+                    <cac:AwardingCriteria>
+                        <cbc:AwardingCriteriaTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.0/AwardingCriteriaCode-2.0.gc">OBJ</cbc:AwardingCriteriaTypeCode>
+                        <cbc:Description>Oferta económica</cbc:Description>
+                        <cbc:AwardingCriteriaSubTypeCode listURI="http://contrataciondelestado.es/codice/cl/2.09/AwardingCriteriaAutomaticallyEvaluatedSubTypeCode-2.09.gc">2</cbc:AwardingCriteriaSubTypeCode>
+                        <cbc:WeightNumeric>51</cbc:WeightNumeric>
                     </cac:AwardingCriteria>
                 </cac:AwardingTerms>
                 <cac:Language>
@@ -407,6 +422,9 @@ Tratamiento de los residuos generados.&#xD;
                     <cac-place-ext:AdditionalPublicationDocumentReference>
                         <cbc:IssueDate>2025-08-14</cbc:IssueDate>
                     </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-08-18</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
                     <cac-place-ext:AdditionalPublicationRequest>
                         <cbc:AgencyID>DOUE</cbc:AgencyID>
                         <cbc-place-ext:SendDate>2025-08-12+02:00</cbc-place-ext:SendDate>
@@ -416,6 +434,11 @@ Tratamiento de los residuos generados.&#xD;
                         <cbc:AgencyID>DOUE</cbc:AgencyID>
                         <cbc-place-ext:SendDate>2025-08-13+02:00</cbc-place-ext:SendDate>
                         <cbc-place-ext:SendTime>09:52:21</cbc-place-ext:SendTime>
+                    </cac-place-ext:AdditionalPublicationRequest>
+                    <cac-place-ext:AdditionalPublicationRequest>
+                        <cbc:AgencyID>DOUE</cbc:AgencyID>
+                        <cbc-place-ext:SendDate>2025-08-14+02:00</cbc-place-ext:SendDate>
+                        <cbc-place-ext:SendTime>09:25:39</cbc-place-ext:SendTime>
                     </cac-place-ext:AdditionalPublicationRequest>
                 </cac-place-ext:AdditionalPublicationStatus>
             </cac-place-ext:ValidNoticeInfo>
@@ -489,6 +512,9 @@ Tratamiento de los residuos generados.&#xD;
                     <cac-place-ext:AdditionalPublicationDocumentReference>
                         <cbc:IssueDate>2025-08-14</cbc:IssueDate>
                     </cac-place-ext:AdditionalPublicationDocumentReference>
+                    <cac-place-ext:AdditionalPublicationDocumentReference>
+                        <cbc:IssueDate>2025-08-16</cbc:IssueDate>
+                    </cac-place-ext:AdditionalPublicationDocumentReference>
                 </cac-place-ext:AdditionalPublicationStatus>
             </cac-place-ext:ValidNoticeInfo>
             <cac-place-ext:GeneralDocument>
@@ -517,3 +543,4 @@ Tratamiento de los residuos generados.&#xD;
             </cac-place-ext:GeneralDocument>
         </cac-place-ext:ContractFolderStatus>
     </entry>
+</feed>
