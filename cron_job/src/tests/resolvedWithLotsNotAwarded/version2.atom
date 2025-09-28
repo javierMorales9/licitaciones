@@ -1,5 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<entry>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:cbc-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonBasicComponents-2" xmlns:cbc="urn:dgpe:names:draft:codice:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:dgpe:names:draft:codice:schema:xsd:CommonAggregateComponents-2" xmlns:cac-place-ext="urn:dgpe:names:draft:codice-place-ext:schema:xsd:CommonAggregateComponents-2" xmlns:at="http://purl.org/atompub/tombstones/1.0" xmlns:ns7="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+    <author>
+        <name>Plataforma de Contratación del Sector Público</name>
+        <uri>https://contrataciondelestado.es</uri>
+        <email>contrataciondelestado@hacienda.gob.es</email>
+    </author>
+    <id>https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom</id>
+    <link rel="self" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <link rel="first" href="https://contrataciondelestado.es/sindicacion/sindicacion_643/licitacionesPerfilesContratanteCompleto3.atom"/>
+    <title>Licitaciones publicadas en la Plataforma de Contratación del Sector Público: licitacionesPerfilesContratanteCompleto v3</title>
+    <updated>2025-08-18T17:56:02.371+02:00</updated>
+    <entry>
         <id>https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17465786</id>
         <link href="https://contrataciondelestado.es/wps/poc?uri=deeplink:detalle_licitacion&amp;idEvl=nvUGbRHn8%2BRJ8Trn0ZPzLw%3D%3D"/>
         <summary type="text">Id licitación: 918/2025; Órgano de Contratación: Comisión Ejecutiva de Gestion Integral del Agua de Huelva; Importe: 2289150.11 EUR; Estado: PUB</summary>
@@ -471,3 +482,4 @@ El licitador para acreditar ese requisito, deberá presentar una declaración re
             </cac-place-ext:ValidNoticeInfo>
         </cac-place-ext:ContractFolderStatus>
     </entry>
+</feed>

@@ -135,6 +135,7 @@ export async function start(
             if (!lot) {
               newLots.push(Lot.fromParsed(parsedLot, lic.id));
             } else {
+              //Alternave: Use tender_result_code === 3 that means that the lot is desisted.
               if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
                 const event = new Event({
                   createdAt: parsedLot.award_date ? new Date(parsedLot.award_date) : lic.updated,

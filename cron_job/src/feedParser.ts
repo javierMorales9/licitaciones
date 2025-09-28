@@ -622,7 +622,12 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
         const commoditiesArr = commodities ? arr(commodities) : [];
 
         let lotTenderResult = tender_results.find(el => String(el.lot_id) === String(lot_id));
-        if (lotTenderResult) lotsAdj += 1; else lotTenderResult = {};
+        if (lotTenderResult) {
+          // If tender code is 3 it means that the lot has been marked as desisted (not awarded).
+          if (lotTenderResult.tender_result_code !== 3) lotsAdj += 1;
+        } else {
+          lotTenderResult = {};
+        }
 
         const base = collectProcurement(procurement);
 
