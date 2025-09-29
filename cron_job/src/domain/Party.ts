@@ -51,7 +51,7 @@ export class Party {
   static fromParsed(p: {
     nif: string;
     profile_url?: string;
-    updated: string;
+    updated: Date;
     website?: string;
     dir3?: string;
     name?: string;
@@ -65,7 +65,7 @@ export class Party {
   }): Party {
     return new Party({
       nif: p.nif,
-      updated: new Date(p.updated),
+      updated: p.updated,
       profile_url: p.profile_url,
       website: p.website,
       dir3: p.dir3,
