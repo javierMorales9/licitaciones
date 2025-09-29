@@ -310,8 +310,10 @@ async function extractNewEntries(
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: "",
-    trimValues: true,
     textNodeName: "_",
+    trimValues: true,
+    parseTagValue: false,
+    //parseAttributeValue: true,
   });
 
   let next: string | undefined = baseUrl;

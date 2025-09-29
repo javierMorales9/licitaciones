@@ -43,7 +43,7 @@ export interface AtomRootRaw {
 
 // ----- CFS (ContractFolderStatus) -----
 export interface ContractFolderStatusRaw {
-  ['cbc-place-ext:ContractFolderStatusCode']?: { _?: number };
+  ['cbc-place-ext:ContractFolderStatusCode']?: { _?: string };
   ['cac:ProcurementProject']?: ProcurementProjectRaw;
   ['cac:ProcurementProjectLot']?: MaybeArray<ProcurementProjectLotRaw>;
   ['cac:TenderResult']?: MaybeArray<TenderResultRaw>;
@@ -73,8 +73,8 @@ export interface ContractFolderStatusRaw {
 }
 
 export interface ProcurementProjectRaw {
-  ['cbc:TypeCode']?: { _?: number };
-  ['cbc:SubTypeCode']?: { _?: number };
+  ['cbc:TypeCode']?: { _?: string };
+  ['cbc:SubTypeCode']?: { _?: string };
   ['cac:BudgetAmount']?: {
     ['cbc:EstimatedOverallContractAmount']?: { _?: string | number };
     ['cbc:TotalAmount']?: { _?: string | number };
@@ -110,7 +110,7 @@ export interface ProcurementProjectLotRaw {
 }
 
 export interface TenderResultRaw {
-  ['cbc:ResultCode']?: { _?: number };
+  ['cbc:ResultCode']?: { _?: string };
   ['cbc:AwardDate']?: string;
   ['cbc:ReceivedTenderQuantity']?: string | number;
   ['cbc:LowerTenderAmount']?: { _?: string | number };
@@ -142,11 +142,11 @@ export interface TenderResultRaw {
 }
 
 export interface TenderingProcessRaw {
-  ['cbc:ProcedureCode']?: { _?: number };
-  ['cbc:UrgencyCode']?: { _?: number };
-  ['cbc:PartPresentationCode']?: { _?: number };
-  ['cbc:ContractingSystemCode']?: { _?: number };
-  ['cbc:SubmissionMethodCode']?: { _?: number };
+  ['cbc:ProcedureCode']?: { _?: string };
+  ['cbc:UrgencyCode']?: { _?: string };
+  ['cbc:PartPresentationCode']?: { _?: string };
+  ['cbc:ContractingSystemCode']?: { _?: string };
+  ['cbc:SubmissionMethodCode']?: { _?: string };
   ['cbc:OverThresholdIndicator']?: boolean | string;
   ['cac:TenderSubmissionDeadlinePeriod']?: {
     ['cbc:EndDate']?: string;
@@ -222,7 +222,7 @@ export interface LocatedContractingPartyRaw {
 
 export interface ParsedParty {
   nif: string;
-  updated: string;
+  updated: Date;
   profile_url?: string | undefined;
   website?: string | undefined;
   dir3?: string | undefined;
@@ -373,9 +373,27 @@ const text = (v: XmlText | undefined | null): string | undefined => {
   return String(v as any);
 };
 
+function toInt(v?: string | number | undefined): number | undefined {
+  if (!v) return v as undefined;
+
+  if (typeof v === "number")
+    return v as number;
+
+  return parseInt(v as string);
+}
+
+function toFloat(v?: string | number | undefined): number | undefined {
+  if (!v) return v as undefined;
+
+  if (typeof v === "number")
+    return v as number;
+
+  return parseFloat(v as string);
+}
+
 // ====== 4) Colecciones parciales del RAW ======
 
-function collectParty(CFS: ContractFolderStatusRaw, updatedEntryDate: string): ParsedParty | undefined {
+function collectParty(CFS: ContractFolderStatusRaw, updatedEntryDate: Date): ParsedParty | undefined {
   const contracting_party = CFS['cac-place-ext:LocatedContractingParty'];
   if (!contracting_party) return undefined;
 
@@ -420,12 +438,12 @@ function collectParty(CFS: ContractFolderStatusRaw, updatedEntryDate: string): P
 
 function collectProcurement(proc: ProcurementProjectRaw | undefined) {
   if (!proc) return {};
-  const type_code = proc['cbc:TypeCode']?._;
-  const subtype_code = proc['cbc:SubTypeCode']?._;
+  const type_code = toInt(proc['cbc:TypeCode']?._);
+  const subtype_code = toInt(proc['cbc:SubTypeCode']?._);
 
-  const estimated_overall_cost = proc['cac:BudgetAmount']?.['cbc:EstimatedOverallContractAmount']?._;
-  const cost_with_taxes = proc['cac:BudgetAmount']?.['cbc:TotalAmount']?._;
-  const cost_without_taxes = proc['cac:BudgetAmount']?.['cbc:TaxExclusiveAmount']?._;
+  const estimated_overall_cost = toFloat(proc['cac:BudgetAmount']?.['cbc:EstimatedOverallContractAmount']?._);
+  const cost_with_taxes = toFloat(proc['cac:BudgetAmount']?.['cbc:TotalAmount']?._);
+  const cost_without_taxes = toFloat(proc['cac:BudgetAmount']?.['cbc:TaxExclusiveAmount']?._);
 
   const cpvs = toArray(proc['cac:RequiredCommodityClassification'])
     .map(el => el?.['cbc:ItemClassificationCode']?._)
@@ -461,11 +479,11 @@ function collectProcurement(proc: ProcurementProjectRaw | undefined) {
 
 function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResult {
   if (!tr) return {};
-  const tender_result_code = tr['cbc:ResultCode']?._;
+  const tender_result_code = toInt(tr['cbc:ResultCode']?._);
   const award_date = tr['cbc:AwardDate'];
-  const received_tender_quantity = tr['cbc:ReceivedTenderQuantity'];
-  const lower_tender_amount = tr['cbc:LowerTenderAmount']?._;
-  const higher_tender_amount = tr['cbc:HigherTenderAmount']?._;
+  const received_tender_quantity = toInt(tr['cbc:ReceivedTenderQuantity']);
+  const lower_tender_amount = toFloat(tr['cbc:LowerTenderAmount']?._);
+  const higher_tender_amount = toFloat(tr['cbc:HigherTenderAmount']?._);
 
   const wp = tr['cac:WinningParty'];
   const winning_nif = wp?.['cac:PartyIdentification']?.['cbc:ID']?._ !== undefined ? String(wp?.['cac:PartyIdentification']?.['cbc:ID']?._) : undefined;
@@ -477,10 +495,10 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
   const winning_country = addr?.['cac:Country']?.['cbc:IdentificationCode']?._;
 
   const legal = tr['cac:AwardedTenderedProject']?.['cac:LegalMonetaryTotal'];
-  const award_tax_exclusive = legal?.['cbc:TaxExclusiveAmount']?._;
-  const award_payable_amount = legal?.['cbc:PayableAmount']?._;
+  const award_tax_exclusive = toFloat(legal?.['cbc:TaxExclusiveAmount']?._);
+  const award_payable_amount = toFloat(legal?.['cbc:PayableAmount']?._);
 
-  const lot_id = tr['cac:AwardedTenderedProject']?.['cbc:ProcurementProjectLotID'] ?? 0;
+  const lot_id = toInt(tr['cac:AwardedTenderedProject']?.['cbc:ProcurementProjectLotID']) ?? 0;
 
   return {
     tender_result_code,
@@ -597,7 +615,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
     const CFS = (e['cac-place-ext:ContractFolderStatus'] ?? {}) as ContractFolderStatusRaw;
     const statusCode = CFS['cbc-place-ext:ContractFolderStatusCode']?._;
 
-    const party = collectParty(CFS, e.updated.toString());
+    const party = collectParty(CFS, updated);
 
     const { name, ...procurementBlock } = collectProcurement(CFS['cac:ProcurementProject']);
 
@@ -613,7 +631,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
       const tender_results = tender_result_raw ? arr(tender_result_raw).map(el => processTenderResult(el)) : [];
 
       lots = lotsRaw.map(lo => {
-        const lot_id = lo['cbc:ID']?._ ?? 0;
+        const lot_id = toInt(lo['cbc:ID']?._) ?? 0;
         const procurement = lo['cac:ProcurementProject'];
         const budget = procurement?.['cac:BudgetAmount'];
         const realizedLocation = procurement?.['cac:RealizedLocation'];
@@ -635,8 +653,8 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
           lot_id,
           ext_id: `${lot_id}_${id}`,
           name: base.name,
-          cost_with_taxes: budget?.['cbc:TotalAmount']?._,
-          cost_without_taxes: budget?.['cbc:TaxExclusiveAmount']?._,
+          cost_with_taxes: toFloat(budget?.['cbc:TotalAmount']?._),
+          cost_without_taxes: toFloat(budget?.['cbc:TaxExclusiveAmount']?._),
           cpvs: commoditiesArr.map(el => el?.['cbc:ItemClassificationCode']?._).filter(Boolean) as string[],
           place: realizedLocation?.['cbc:CountrySubentity'],
           city: realizedLocation?.['cac:Address']?.['cbc:CityName'],
@@ -671,12 +689,12 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
     const { lot_id, ...root_tender_result } = tender_result;
 
     const tendering_process = CFS['cac:TenderingProcess'] ?? {};
-    const procedure_code = tendering_process['cbc:ProcedureCode']?._;
-    const urgency_code = tendering_process['cbc:UrgencyCode']?._;
-    const part_presentation_code = tendering_process['cbc:PartPresentationCode']?._;
-    const contracting_system_code = tendering_process['cbc:ContractingSystemCode']?._;
-    const submission_method_code = tendering_process['cbc:SubmissionMethodCode']?._;
-    const over_threshold_indicator = tendering_process['cbc:OverThresholdIndicator'];
+    const procedure_code = toInt(tendering_process['cbc:ProcedureCode']?._);
+    const urgency_code = toInt(tendering_process['cbc:UrgencyCode']?._);
+    const part_presentation_code = toInt(tendering_process['cbc:PartPresentationCode']?._);
+    const contracting_system_code = toInt(tendering_process['cbc:ContractingSystemCode']?._);
+    const submission_method_code = toInt(tendering_process['cbc:SubmissionMethodCode']?._);
+    const over_threshold_indicator = !!tendering_process['cbc:OverThresholdIndicator'];
 
     const availability_period = CFS['cac:DocumentAvailabilityPeriod'];
     const end_availability_period = availability_period && availability_period['cbc:EndDate'];
@@ -734,6 +752,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
       notices,
     } as ParsedEntry;
   });
+
 
   return normalItems;
 }

@@ -29,6 +29,7 @@ export class AirtableDocRepository implements DocRepository {
   }
 
   async create(docs: Doc[]) {
+    /*
     for (const d of docs) {
       await this.base("Documentos Licitación").create([
         {
@@ -41,9 +42,11 @@ export class AirtableDocRepository implements DocRepository {
         },
       ]);
     }
+    */
   }
 
   async saveDocs(docs: Doc[]) {
+    /*
     for (const d of docs) {
       if (!d.id) continue;
 
@@ -56,5 +59,6 @@ export class AirtableDocRepository implements DocRepository {
         },
       ]);
     }
+    */
   }
 }

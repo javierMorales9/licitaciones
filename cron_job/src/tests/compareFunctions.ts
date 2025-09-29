@@ -17,7 +17,7 @@ function normBoolish(v: boolean | string | undefined | null): string | undefined
 
 function normCpvs(arr?: string[] | null): string[] | undefined {
   if (!arr || !Array.isArray(arr) || arr.length === 0) return undefined;
-  return [...arr].map(s => s.toString().trim()).filter(Boolean).sort();
+  return [...arr].sort();
 }
 
 function normStr(v: string | undefined | null): string | undefined {
@@ -82,9 +82,9 @@ export function compareLicitation(actual: Licitation | null, expected: Licitatio
 
     type_code: l.type_code ?? undefined,
     subtype_code: l.subtype_code ?? undefined,
-    estimated_overall_cost: normAmount(l.estimated_overall_cost),
-    cost_with_taxes: normAmount(l.cost_with_taxes),
-    cost_without_taxes: normAmount(l.cost_without_taxes),
+    estimated_overall_cost: l.estimated_overall_cost,
+    cost_with_taxes: l.cost_with_taxes,
+    cost_without_taxes: l.cost_without_taxes,
     cpvs: normCpvs(l.cpvs),
     place: l.place ?? undefined,
     realized_city: l.realized_city ?? undefined,
@@ -94,16 +94,16 @@ export function compareLicitation(actual: Licitation | null, expected: Licitatio
 
     tender_result_code: l.tender_result_code ?? undefined,
     award_date: l.award_date ?? undefined,
-    received_tender_quantity: normAmount(l.received_tender_quantity),
-    lower_tender_amount: normAmount(l.lower_tender_amount),
-    higher_tender_amount: normAmount(l.higher_tender_amount),
+    received_tender_quantity: l.received_tender_quantity,
+    lower_tender_amount: l.lower_tender_amount,
+    higher_tender_amount: l.higher_tender_amount,
     winning_nif: l.winning_nif ?? undefined,
     winning_name: l.winning_name ?? undefined,
     winning_city: l.winning_city ?? undefined,
     winning_zip: l.winning_zip ?? undefined,
     winning_country: l.winning_country ?? undefined,
-    award_tax_exclusive: normAmount(l.award_tax_exclusive),
-    award_payable_amount: normAmount(l.award_payable_amount),
+    award_tax_exclusive: l.award_tax_exclusive,
+    award_payable_amount: l.award_payable_amount,
 
     lotsAdj: l.lotsAdj ?? 0,
 
@@ -112,7 +112,7 @@ export function compareLicitation(actual: Licitation | null, expected: Licitatio
     part_presentation_code: l.part_presentation_code ?? undefined,
     contracting_system_code: l.contracting_system_code ?? undefined,
     submission_method_code: l.submission_method_code ?? undefined,
-    over_threshold_indicator: normBoolish(l.over_threshold_indicator),
+    over_threshold_indicator: l.over_threshold_indicator,
 
     end_availability_period: l.end_availability_period ?? undefined,
     end_availability_hour: l.end_availability_hour ?? undefined,
@@ -126,34 +126,34 @@ export function compareLicitation(actual: Licitation | null, expected: Licitatio
 function normLot(l: Lot) {
   return {
     id: l.id ?? undefined,
-    lot_id: normLotId(l.lot_id),
-    ext_id: normStr(l.ext_id)!,
-    name: normStr(l.name),
-    licitationId: normStr(l.licitationId)!,
+    lot_id: l.lot_id,
+    ext_id: l.ext_id,
+    name: l.name,
+    licitationId: l.licitationId,
 
-    cost_with_taxes: normAmount(l.cost_with_taxes),
-    cost_without_taxes: normAmount(l.cost_without_taxes),
+    cost_with_taxes: l.cost_with_taxes,
+    cost_without_taxes: l.cost_without_taxes,
     cpvs: normCpvs(l.cpvs),
 
-    place: normStr(l.place),
-    city: normStr(l.city),
-    zip: normStr(l.zip),
-    country: normStr(l.country),
+    place: l.place,
+    city: l.city,
+    zip: l.zip,
+    country: l.country,
 
-    tender_result_code: normAmount(l.tender_result_code),
-    award_date: normStr(l.award_date),
-    received_tender_quantity: normAmount(l.received_tender_quantity),
-    lower_tender_amount: normAmount(l.lower_tender_amount),
-    higher_tender_amount: normAmount(l.higher_tender_amount),
+    tender_result_code: l.tender_result_code,
+    award_date: l.award_date,
+    received_tender_quantity: l.received_tender_quantity,
+    lower_tender_amount: l.lower_tender_amount,
+    higher_tender_amount: l.higher_tender_amount,
 
-    winning_nif: normStr(l.winning_nif),
-    winning_name: normStr(l.winning_name),
-    winning_city: normStr(l.winning_city),
-    winning_zip: normStr(l.winning_zip),
-    winning_country: normStr(l.winning_country),
+    winning_nif: l.winning_nif,
+    winning_name: l.winning_name,
+    winning_city: l.winning_city,
+    winning_zip: l.winning_zip,
+    winning_country: l.winning_country,
 
-    award_tax_exclusive: normAmount(l.award_tax_exclusive),
-    award_payable_amount: normAmount(l.award_payable_amount),
+    award_tax_exclusive: l.award_tax_exclusive,
+    award_payable_amount: l.award_payable_amount,
   };
 }
 
@@ -181,22 +181,22 @@ export function compareParty(actual: Party | null, expected: Party | null) {
 
   const norm = (p: Party) => ({
     id: p.id ?? undefined,
-    nif: normStr(p.nif),
-    updated: normDate(p.updated),
+    nif: p.nif,
+    updated: p.updated,
 
-    profile_url: normStr(p.profile_url),
-    website: normStr(p.website),
-    dir3: normStr(p.dir3),
-    name: normStr(p.name),
-    address: normStr(p.address),
-    zip: normStr(p.zip),
-    city: normStr(p.city),
+    profile_url: p.profile_url,
+    website: p.website,
+    dir3: p.dir3,
+    name: p.name,
+    address: p.address,
+    zip: p.zip,
+    city: p.city,
 
-    countryCode: normCountryCode(p.countryCode),
-    country: normStr(p.country),
+    countryCode: p.countryCode,
+    country: p.country,
 
-    phone: normStr(p.phone),
-    email: normEmail(p.email),
+    phone: p.phone,
+    email: p.email,
   });
 
   expect(norm(actual)).toEqual(norm(expected));
@@ -212,10 +212,10 @@ function eventKey(e: Event): string {
 
 function normEvent(e: Event) {
   return {
-    licitationId: normStr(e.licitationId)!,
-    lotId: normStr(e.lotId),
-    type: normType(e.type)!,
-    createdAt: normDate(e.createdAt)!,
+    licitationId: e.licitationId!,
+    lotId: e.lotId,
+    type: e.type!,
+    createdAt: e.createdAt!,
   };
 }
 
