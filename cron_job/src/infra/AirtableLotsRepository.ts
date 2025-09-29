@@ -54,6 +54,7 @@ export class AirtableLotsRepository implements LotRepository {
   }
 
   async create(lots: Lot[]) {
+    /*
     for (const lo of lots) {
       await this.base("Lotes").create([
         {
@@ -67,9 +68,11 @@ export class AirtableLotsRepository implements LotRepository {
         },
       ]);
     }
+    */
   }
 
   async saveLots(lots: Lot[]) {
+    /*
     for (const lo of lots) {
       if (!lo.id) continue;
 
@@ -80,6 +83,7 @@ export class AirtableLotsRepository implements LotRepository {
         }
       ]);
     }
+    */
   }
 
   private createEditableObject(lot: Lot) {

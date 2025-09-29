@@ -92,6 +92,7 @@ export class AirtableLicitationRepository implements LicitationRepository {
         fields: {
           ['ID']: lic.entry_id,
           ['Organismo']: [lic.partyId],
+          ['Fecha de Publicación']: lic.publishedDate,
           ...this.createUpdatableObject(lic),
         },
       },
