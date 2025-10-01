@@ -21,8 +21,9 @@ export class AirtableDocRepository implements DocRepository {
       const f = rec.fields;
       return Doc.fromDb({
         id: rec.id,
+        docId: f["ID Documento"] as string,
         licitationId: f["Licitación"] as string,
-        name: (f["ID Documento"] as string) ?? "",
+        name: (f["Nombre"] as string) ?? "",
         url: (f["URL Documento"] as string) ?? "",
         type: f["Tipo de Documento"] as string | undefined,
       });
@@ -34,7 +35,8 @@ export class AirtableDocRepository implements DocRepository {
       await this.base("Documentos Licitación").create([
         {
           fields: {
-            "ID Documento": d.name,
+            "ID Documento": d.docId,
+            "Nombre": d.name,
             "Licitación": [d.licitationId],
             "URL Documento": d.url,
             "Tipo de Documento": d.type,
@@ -52,6 +54,7 @@ export class AirtableDocRepository implements DocRepository {
         {
           id: d.id,
           fields: {
+            "Nombre": d.name,
             "URL Documento": d.url,
           },
         },

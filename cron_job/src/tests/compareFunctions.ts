@@ -1,6 +1,7 @@
 import { Event, EventType } from "../domain/Event";
 import { Licitation } from "../domain/Licitation";
 import { Lot } from "../domain/Lot";
+import { Doc } from "../domain/Doc";
 import { Party } from "../domain/Party";
 import { expect } from "@jest/globals"
 
@@ -228,6 +229,38 @@ export function compareEvents(actual: Event[], expected: Event[]) {
   const sortByKey = (a: Event, b: Event) => eventKey(a).localeCompare(eventKey(b));
   const normActual = [...actual].sort(sortByKey).map(normEvent);
   const normExpected = [...expected].sort(sortByKey).map(normEvent);
+
+  expect(normActual).toEqual(normExpected);
+}
+
+function docKey(l: Doc): string {
+  const a = normStr(l.name);
+  if (a) return a;
+  const b = `${normStr(l.licitationId) ?? ""}:${normLotId(l.name) ?? ""}`;
+  return b;
+}
+
+function normDoc(doc: Doc) {
+  return {
+    id: doc.id,
+    docId: doc.docId,
+    licitationId: doc.licitationId,
+    name: doc.name,
+    url: doc.url,
+    type: doc.type,
+  };
+}
+
+export function compareDocs(actual: Doc[], expected: Doc[]) {
+  expect(Array.isArray(actual)).toBe(true);
+  expect(Array.isArray(expected)).toBe(true);
+
+  expect(actual.length).toBe(expected.length);
+
+  // Stable order by key so taht the insertion order doesn't affect the comparison
+  const sortByKey = (a: Doc, b: Doc) => docKey(a).localeCompare(docKey(b));
+  const normActual = [...actual].sort(sortByKey).map(normDoc);
+  const normExpected = [...expected].sort(sortByKey).map(normDoc);
 
   expect(normActual).toEqual(normExpected);
 }

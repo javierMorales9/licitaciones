@@ -151,7 +151,7 @@ export async function start(
           }
 
           for (const parsedDoc of entry.documents) {
-            const doc = docs.find(el => el.name === parsedDoc.name);
+            const doc = docs.find(el => el.docId === parsedDoc.docId);
             if (!doc) {
               newDocs.push(Doc.fromParsed(parsedDoc, lic.id));
             } else {

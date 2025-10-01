@@ -11,7 +11,14 @@ import fs from "fs";
 import { Licitation } from "./../domain/Licitation.js";
 import { Party } from "../domain/Party.js";
 import { Lot } from "../domain/Lot.js";
-import { compareEvents, compareLicitation, compareLots, compareParty } from "./compareFunctions.js";
+import { Doc } from "../domain/Doc.js";
+import {
+  compareEvents,
+  compareLicitation,
+  compareLots,
+  compareParty,
+  compareDocs,
+} from "./compareFunctions.js";
 import { Event } from "../domain/Event.js";
 import { testLogger } from "./testLogger.js";
 
@@ -25,6 +32,7 @@ export function testNewLicitation(
   expectedEvents: Event[],
   LAST_CURSOR_DATE: Date,
   CPVS: string[],
+  expectedDocs?: Doc[],
 ) {
   test(name, async () => {
     const cursorRepo = new TestCursorRepository(LAST_CURSOR_DATE);
@@ -52,6 +60,8 @@ export function testNewLicitation(
     compareLots(lotsRepo.getCreateArgs(), expectedLots);
     compareParty(partyRepo.getCreateArgs(), expectedParty);
     compareEvents(eventRepo.getAddArgs(), expectedEvents);
+    if (expectedDocs)
+      compareDocs(docRepo.getCreateArgs(), expectedDocs);
   });
 }
 
@@ -67,13 +77,16 @@ export function testLicitationUpdate(
   expectedEvents: Event[],
   LAST_CURSOR_DATE: Date,
   CPVS: string[],
+  prevDocs?: Doc[],
+  expectedCreatedDocs?: Doc[],
+  expectedUpdatedDocs?: Doc[],
 ) {
   test(name, async () => {
     const cursorRepo = new TestCursorRepository(LAST_CURSOR_DATE);
     const licitationsRepo = new TestLicitationRepository(prevLicitation);
     const lotsRepo = new TestLotsRepository(prevLots);
     const partyRepo = new TestPartyRepository(prevParty);
-    const docRepo = new TestDocRepository([]);
+    const docRepo = new TestDocRepository(prevDocs ?? []);
     const eventRepo = new TestEventRepository();
     const atomFetcher = new TestAtomFetcher(fs.readFileSync(version).toString());
 
@@ -94,5 +107,9 @@ export function testLicitationUpdate(
     compareLots(lotsRepo.getSaveArgs(), expectedLots);
     compareParty(partyRepo.getSaveArgs(), expectedParty);
     compareEvents(eventRepo.getAddArgs(), expectedEvents);
+    if (expectedCreatedDocs)
+      compareDocs(docRepo.getCreateArgs(), expectedCreatedDocs);
+    if (expectedUpdatedDocs)
+      compareDocs(docRepo.getSaveArgs(), expectedUpdatedDocs);
   });
 }

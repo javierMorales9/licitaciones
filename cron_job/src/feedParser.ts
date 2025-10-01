@@ -266,6 +266,7 @@ export interface ParsedLot extends ParsedTenderResult {
 }
 
 export interface ParsedDocRef {
+  docId: string;
   name: string;
   url: string;
   type: 'legal' | 'technical' | 'additional' | 'general';
@@ -519,13 +520,17 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
 
 function pickDoc(ref: AnyDocRefRaw | undefined, docType: ParsedDocRef['type']): ParsedDocRef | null {
   if (!ref) return null;
+
   const id = (ref['cbc:ID'] as any) ?? (ref as any).ID;
   const url =
     ref?.['cac:Attachment']?.['cac:ExternalReference']?.['cbc:URI'] ??
     (ref as any)?.Attachment?.ExternalReference?.URI;
+
+  const name = ref?.['cac:Attachment']?.['cac:ExternalReference']?.['cbc:FileName'] ?? id;
+
   if (!id || !url) return null;
 
-  return { name: String(id), url: String(url), type: docType };
+  return { docId: String(id), name: String(name), url: String(url), type: docType };
 }
 
 function collectDocs(CFS: ContractFolderStatusRaw): ParsedDocRef[] {
@@ -547,6 +552,7 @@ function collectDocs(CFS: ContractFolderStatusRaw): ParsedDocRef[] {
   if (technical_document) all.push(technical_document);
   all = all.concat(fromBasicRefs, fromGeneral);
 
+  /*
   const seen = new Set<string>();
   const documents: ParsedDocRef[] = [];
   for (const d of all) {
@@ -556,7 +562,8 @@ function collectDocs(CFS: ContractFolderStatusRaw): ParsedDocRef[] {
       documents.push(d);
     }
   }
-  return documents;
+  */
+  return all;
 }
 
 function collectNotices(CFS: ContractFolderStatusRaw): ParsedNotice[] {
