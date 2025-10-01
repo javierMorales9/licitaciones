@@ -1,6 +1,7 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Doc } from "../domain/Doc.js";
 import type { DocRepository } from "../domain/DocRepository.js";
+import type { Licitation } from "../domain/Licitation.js";
 
 export class AirtableDocRepository implements DocRepository {
   private base: AirtableBase;
@@ -9,10 +10,10 @@ export class AirtableDocRepository implements DocRepository {
     this.base = base
   }
 
-  async get(licId: string): Promise<Doc[]> {
+  async get(lic: Licitation): Promise<Doc[]> {
     const records = await this.base("Documentos Licitación")
       .select({
-        filterByFormula: `{Licitación} = "${licId}"`,
+        filterByFormula: `{Licitación} = "${lic.entry_id}"`,
       })
       .all();
 

@@ -8,7 +8,7 @@ export class TestDocRepository implements DocRepository {
     this.docs = docs;
   }
 
-  async get(licId: string): Promise<Doc[]> {
+  async get(licId: Licitation): Promise<Doc[]> {
     return this.docs;
   }
 

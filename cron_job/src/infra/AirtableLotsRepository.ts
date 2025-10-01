@@ -1,6 +1,7 @@
 import type { AirtableBase } from "airtable/lib/airtable_base.js";
 import { Lot } from "../domain/Lot.js";
 import type { LotRepository } from "../domain/LotRepository.js";
+import { Licitation } from "../domain/Licitation.js";
 
 export class AirtableLotsRepository implements LotRepository {
   private base: AirtableBase;
@@ -9,10 +10,10 @@ export class AirtableLotsRepository implements LotRepository {
     this.base = base
   }
 
-  async getByLicitation(licitationId: string): Promise<Lot[]> {
+  async getByLicitation(licitation: Licitation): Promise<Lot[]> {
     const records = await this.base("Lotes")
       .select({
-        filterByFormula: `{Licitación}="${licitationId}"`,
+        filterByFormula: `{Licitación}="${licitation.entry_id}"`,
         pageSize: 100,
       })
       .all();

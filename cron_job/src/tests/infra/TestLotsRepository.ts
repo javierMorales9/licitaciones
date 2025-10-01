@@ -1,3 +1,4 @@
+import { Licitation } from "../../domain/Licitation.js";
 import { Lot } from "../../domain/Lot.js";
 import type { LotRepository } from "../../domain/LotRepository.js";
 
@@ -12,7 +13,7 @@ export class TestLotsRepository implements LotRepository {
     this.saveArgs = [];
   }
 
-  async getByLicitation(licitationId: string): Promise<Lot[]> {
+  async getByLicitation(licitation: Licitation): Promise<Lot[]> {
     return this.lotsToReturn;
   }
 

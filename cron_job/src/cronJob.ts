@@ -102,8 +102,8 @@ export async function start(
           const prevStatus = lic.statusCode;
           const prevAdjLots = lic.lotsAdj;
 
-          const docs = await docRepo.get(lic.id);
-          const lots = await lotsRepo.getByLicitation(lic.id);
+          const docs = await docRepo.get(lic);
+          const lots = await lotsRepo.getByLicitation(lic);
 
           const newDocs: Doc[] = [];
           const newLots: Lot[] = [];
