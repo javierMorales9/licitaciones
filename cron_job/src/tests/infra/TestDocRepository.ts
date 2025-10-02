@@ -9,6 +9,8 @@ export class TestDocRepository implements DocRepository {
 
   constructor(docs: Doc[]) {
     this.docs = docs;
+    this.docArgs = [];
+    this.saveArgs = [];
   }
 
   async get(licId: Licitation): Promise<Doc[]> {

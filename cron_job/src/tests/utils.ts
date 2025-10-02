@@ -62,6 +62,7 @@ export function testNewLicitation(
     compareEvents(eventRepo.getAddArgs(), expectedEvents);
     if (expectedDocs)
       compareDocs(docRepo.getCreateArgs(), expectedDocs);
+    compareDocs(docRepo.getSaveArgs(), []);
   });
 }
 

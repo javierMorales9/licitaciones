@@ -215,8 +215,27 @@ export async function start(
           const lic = Licitation.fromParsedEntry(entry, orgId);
           const licId = await licitationsRepo.create(lic);
 
-          await lotsRepo.create(entry.lots.map(el => Lot.fromParsed(el, licId)));
-          await docRepo.create(entry.documents.map(el => Doc.fromParsed(el, licId)));
+          const lots = entry.lots.map(el => Lot.fromParsed(el, licId));
+
+          if (lic.statusCode === 'ADJ') {
+            for (const l of lots) {
+              if (l.winning_nif !== undefined) {
+                const event = new Event({
+                  createdAt: l.award_date ? new Date(l.award_date) : lic.updated,
+                  type: EventType.LICITATION_LOT_AWARDED,
+                  licitationId: licId,
+                  lotId: l.id,
+                });
+                events.push(event);
+                notifications.add(event, lic);
+              }
+            }
+          }
+
+          const docs = entry.documents.map(el => Doc.fromParsed(el, licId));
+
+          await lotsRepo.create(lots);
+          await docRepo.create(docs);
 
           if (lic.statusCode === "PUB") {
             const event = new Event({

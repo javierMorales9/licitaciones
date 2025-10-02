@@ -304,7 +304,7 @@ describe('Resolved with lots not awarded', () => {
     CPVS,
   );
   testLicitationUpdate(
-    'Finished submission perio. Now in evaluation mode',
+    'Finished submission period. Now in evaluation mode',
     `${BASE_PATH}/version3.atom`,
     licitation1,
     lots1,
@@ -317,7 +317,20 @@ describe('Resolved with lots not awarded', () => {
     CPVS,
   );
   testLicitationUpdate(
-    'Published, end date updated',
+    'Some lots awarded',
+    `${BASE_PATH}/version4.atom`,
+    licitation2,
+    lots2,
+    party2,
+    licitation3,
+    lots3,
+    party3,
+    events3,
+    LAST_CURSOR_DATE,
+    CPVS,
+  );
+  testLicitationUpdate(
+    'Desisted Lot 2',
     `${BASE_PATH}/version5.atom`,
     licitation3,
     lots3,
