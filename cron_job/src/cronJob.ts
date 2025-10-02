@@ -94,6 +94,16 @@ export async function start(
             continue;
           }
 
+          if (!org) {
+            elog.error({ reason: "missing_org" }, "Unexpected: org must exist for an existing licitation");
+            continue;
+          }
+
+          if (!org.id) {
+            elog.error({ reason: "missing_org" }, "Unexpected: org must have an id");
+            continue;
+          }
+
           if (lic.updated >= entry.updated) {
             elog.debug({ licUpdated: lic.updated }, "Skip: stale entry");
             continue;
@@ -115,7 +125,7 @@ export async function start(
               licitationId: lic.id,
             });
             events.push(event);
-            notifications.add(event, lic);
+            notifications.add(event, Licitation.fromParsedEntry(entry, org.id));
           }
           else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
             const event = new Event({
@@ -124,7 +134,7 @@ export async function start(
               licitationId: lic.id,
             });
             events.push(event);
-            notifications.add(event, lic);
+            notifications.add(event, Licitation.fromParsedEntry(entry, org.id));
           }
 
           lic.update(entry);
