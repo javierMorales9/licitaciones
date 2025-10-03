@@ -2,7 +2,7 @@ import type { ParsedLot } from "../feedParser.js";
 
 export interface LotLike {
   id?: string;
-  lot_id: string | number;
+  lot_id: string;
   ext_id: string;
   name?: string;
   cost_with_taxes?: string | number;
@@ -28,7 +28,7 @@ export interface LotLike {
 
 export class Lot {
   id?: string | undefined;
-  lot_id: string | number;
+  lot_id: string;
   ext_id: string;
   name?: string;
   licitationId: string;

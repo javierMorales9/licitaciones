@@ -253,7 +253,7 @@ export interface ParsedTenderResult {
 }
 
 export interface ParsedLot extends ParsedTenderResult {
-  lot_id: string | number;
+  lot_id: string;
   ext_id: string;
   name?: string;
   cost_with_taxes?: string | number;
@@ -499,7 +499,7 @@ function processTenderResult(tr: TenderResultRaw | undefined): ParsedTenderResul
   const award_tax_exclusive = toFloat(legal?.['cbc:TaxExclusiveAmount']?._);
   const award_payable_amount = toFloat(legal?.['cbc:PayableAmount']?._);
 
-  const lot_id = toInt(tr['cac:AwardedTenderedProject']?.['cbc:ProcurementProjectLotID']) ?? 0;
+  const lot_id = String(tr['cac:AwardedTenderedProject']?.['cbc:ProcurementProjectLotID'] ?? 0);
 
   return {
     tender_result_code,
@@ -638,7 +638,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
       const tender_results = tender_result_raw ? arr(tender_result_raw).map(el => processTenderResult(el)) : [];
 
       lots = lotsRaw.map(lo => {
-        const lot_id = toInt(lo['cbc:ID']?._) ?? 0;
+        const lot_id = String(lo['cbc:ID']?._ ?? 0);
         const procurement = lo['cac:ProcurementProject'];
         const budget = procurement?.['cac:BudgetAmount'];
         const realizedLocation = procurement?.['cac:RealizedLocation'];
@@ -657,7 +657,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
         const base = collectProcurement(procurement);
 
         return {
-          lot_id,
+          lot_id: lot_id.toString(),
           ext_id: `${lot_id}_${id}`,
           name: base.name,
           cost_with_taxes: toFloat(budget?.['cbc:TotalAmount']?._),
@@ -685,7 +685,7 @@ export function parseEntries(root: AtomRootRaw): ParsedEntry[] {
 
       lots = [
         {
-          lot_id: 0,
+          lot_id: '0',
           ext_id: `0_${id}`,
           ...collectProcurement(CFS['cac:ProcurementProject']),
           ...tender_result,
