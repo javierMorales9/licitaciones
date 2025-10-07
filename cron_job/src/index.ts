@@ -10,6 +10,7 @@ import { AirtableDocRepository } from "./infra/AirtableDocRepository.js";
 import { AirtableEventRepository } from "./infra/AirtableEventRepository.js";
 import { start } from "./cronJob.js";
 import { ProdAtomFetcher } from "./infra/ProdAtomFetcher.js";
+import { EmailNotifier } from "./infra/EmailNotifier.js";
 
 const IS_PROD = process.env.NODE_ENV === "production";
 
@@ -66,6 +67,7 @@ const partyRepo = new AirtablePartyRepository(base);
 const docRepo = new AirtableDocRepository(base);
 const eventRepo = new AirtableEventRepository(base);
 const atomFetcher = new ProdAtomFetcher();
+const emailNotifier = new EmailNotifier();
 
 start(
   BASE_FEED_URL,
@@ -77,5 +79,6 @@ start(
   docRepo,
   eventRepo,
   atomFetcher,
+  emailNotifier,
   logger,
 ).then(() => exit(0));

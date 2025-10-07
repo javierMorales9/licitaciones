@@ -1,3 +1,5 @@
+import type { Notifications } from "./Notifications.js";
+
 export interface Notifier {
-  send(): Promise<void>;
+  send(notifications: Notifications): Promise<void>;
 }

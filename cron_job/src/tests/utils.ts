@@ -21,6 +21,7 @@ import {
 } from "./compareFunctions.js";
 import { Event } from "../domain/Event.js";
 import { testLogger } from "./testLogger.js";
+import { TestNotifier } from "./infra/TestNotifier.js";
 
 const BASE_FEED_URL = 'https://test-feed.org';
 export function testNewLicitation(
@@ -42,6 +43,7 @@ export function testNewLicitation(
     const docRepo = new TestDocRepository([]);
     const eventRepo = new TestEventRepository();
     const atomFetcher = new TestAtomFetcher(fs.readFileSync(version).toString());
+    const notifier = new TestNotifier();
 
     await start(
       BASE_FEED_URL,
@@ -53,6 +55,7 @@ export function testNewLicitation(
       docRepo,
       eventRepo,
       atomFetcher,
+      notifier,
       testLogger,
     );
 
@@ -90,6 +93,7 @@ export function testLicitationUpdate(
     const docRepo = new TestDocRepository(prevDocs ?? []);
     const eventRepo = new TestEventRepository();
     const atomFetcher = new TestAtomFetcher(fs.readFileSync(version).toString());
+    const notifier = new TestNotifier();
 
     await start(
       BASE_FEED_URL,
@@ -101,6 +105,7 @@ export function testLicitationUpdate(
       docRepo,
       eventRepo,
       atomFetcher,
+      notifier,
       testLogger,
     );
 

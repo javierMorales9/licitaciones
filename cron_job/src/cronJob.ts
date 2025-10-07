@@ -16,7 +16,7 @@ import { Lot } from "./domain/Lot.js";
 import { Party } from "./domain/Party.js";
 import { Event, EventType } from "./domain/Event.js";
 import { EmailNotifier } from "./infra/EmailNotifier.js";
-import { Notifications } from "./domain/Notifications.js";
+import { Notification, Notifications } from "./domain/Notifications.js";
 import type { CursorRepository } from "./domain/CursorRepository.js";
 import type { LicitationRepository } from "./domain/LicitationRepository.js";
 import type { LotRepository } from "./domain/LotRepository.js";
@@ -24,6 +24,7 @@ import type { PartyRepository } from "./domain/PartyRepository.js";
 import type { DocRepository } from "./domain/DocRepository.js";
 import type { EventRepository } from "./domain/EventRepository.js";
 import type { AtomFetcher } from "./domain/AtomFetcher.js";
+import type { Notifier } from "./domain/Notifier.js";
 
 export async function start(
   baseUrl: string,
@@ -35,6 +36,7 @@ export async function start(
   docRepo: DocRepository,
   eventRepo: EventRepository,
   atomFetcher: AtomFetcher,
+  notifier: Notifier,
   logger: pino.Logger,
 ) {
   const runId = randomUUID();
@@ -87,6 +89,7 @@ export async function start(
         const org = await partyRepo.get(entry.party.nif);
 
         const events: Event[] = [];
+        const notification = new Notification(entry);
 
         if (lic) {
           if (!lic.id) {
@@ -118,6 +121,10 @@ export async function start(
           const newDocs: Doc[] = [];
           const newLots: Lot[] = [];
 
+          notification.addPrevLic(lic);
+
+          const newLic = Licitation.fromParsedEntry(entry, org.id);
+
           if (lic.statusCode === "PUB" && entry.statusCode === "EV") {
             const event = new Event({
               type: EventType.LICITATION_FINISHED_SUBMISSION_PERIOD,
@@ -125,7 +132,8 @@ export async function start(
               licitationId: lic.id,
             });
             events.push(event);
-            notifications.add(event, Licitation.fromParsedEntry(entry, org.id));
+            notification.finishSubmissionPeriod();
+            notification.addEvent(event);
           }
           else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
             const event = new Event({
@@ -134,7 +142,8 @@ export async function start(
               licitationId: lic.id,
             });
             events.push(event);
-            notifications.add(event, Licitation.fromParsedEntry(entry, org.id));
+            notification.resolve();
+            notification.addEvent(event);
           }
 
           lic.update(entry);
@@ -154,9 +163,12 @@ export async function start(
                   lotId: lot.lot_id.toString(),
                 });
                 events.push(event);
-                notifications.add(event, lic, lot);
+                lot.update(parsedLot);
+                notification.addEvent(event);
+                notification.addAwardedLot(lot);
+              } else {
+                lot.update(parsedLot);
               }
-              lot.update(parsedLot);
             }
           }
 
@@ -168,6 +180,7 @@ export async function start(
               doc.update(parsedDoc);
             }
           }
+          notification.addNewDocs(newDocs);
 
           const lotsAmount = lots.length + newLots.length;
           if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
@@ -177,7 +190,8 @@ export async function start(
               licitationId: lic.id
             });
             events.push(event);
-            notifications.add(event, lic);
+            notification.addEvent(event);
+            notification.award();
           }
 
           if (org) {
@@ -237,12 +251,16 @@ export async function start(
                   lotId: l.id,
                 });
                 events.push(event);
-                notifications.add(event, lic);
+                notification.addEvent(event);
+                logger.info(notification?.addAwardedLot);
+                notification?.addAwardedLot(l);
               }
             }
+            notification.award();
           }
 
           const docs = entry.documents.map(el => Doc.fromParsed(el, licId));
+          notification.addNewDocs(docs);
 
           await lotsRepo.create(lots);
           await docRepo.create(docs);
@@ -254,7 +272,7 @@ export async function start(
               licitationId: licId
             });
             events.push(event);
-            notifications.add(event, lic);
+            notification.addEvent(event);
           } else if (lic.statusCode === "EV") {
             const event = new Event({
               createdAt: lic.updated,
@@ -262,7 +280,8 @@ export async function start(
               licitationId: licId
             });
             events.push(event);
-            notifications.add(event, lic);
+            notification.addEvent(event);
+            notification.finishSubmissionPeriod();
           } else if (lic.statusCode === "ADJ" && lic.lotsAdj == entry.lots.length) {
             const event = new Event({
               createdAt: lic.updated,
@@ -270,7 +289,8 @@ export async function start(
               licitationId: licId
             });
             events.push(event);
-            notifications.add(event, lic);
+            notification.addEvent(event);
+            notification.award();
           } else if (lic.statusCode === "RES") {
             const event = new Event({
               createdAt: lic.updated,
@@ -278,7 +298,8 @@ export async function start(
               licitationId: licId
             });
             events.push(event);
-            notifications.add(event, lic);
+            notification.addEvent(event);
+            notification.resolve();
           }
 
           await eventRepo.add(events);
@@ -291,8 +312,10 @@ export async function start(
             lotsCreated: entry.lots.length,
             docsCreated: entry.documents.length,
             events: events.map(e => e.type),
-          }, "Licitation created");
+          }, "Licitation first uploaded");
         }
+
+        notifications.add(notification);
       } catch (e: unknown) {
         const err = e instanceof Error ? e : new Error(String(e));
         logger.error({
@@ -306,8 +329,7 @@ export async function start(
 
     await cursorRepo.updateCursor(newLastExtracted, newEntries.length);
 
-    const notifier = new EmailNotifier(notifications);
-    await notifier.send();
+    await notifier.send(notifications);
 
     rlog.info({
       stage: "done",
