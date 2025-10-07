@@ -76,7 +76,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 0,
+  lot_id: '0',
   ext_id: '0_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17442349',
   name: 'Servicio de análisis, implementación y mantenimiento de la intranet corporativa en Sociedad Aragonesa de Gestión Agroambiental, S.L.U (SARGA)',
   licitationId: LICITATION_ID,

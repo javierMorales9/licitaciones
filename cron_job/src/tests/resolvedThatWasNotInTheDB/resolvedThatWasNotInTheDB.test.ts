@@ -64,7 +64,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 1,
+  lot_id: '1',
   ext_id: '1_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17510264',
   name: 'Adquisición de cartuchos filtrantes para UURR de la Base Aérea de Son San Juan - LOTE 1',
   licitationId: LICITATION_ID,
@@ -91,7 +91,7 @@ const baseLot1Obj = {
 
 const baseLot2Obj = {
   id: undefined,
-  lot_id: 2,
+  lot_id: '2',
   ext_id: '2_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17510264',
   name: 'Adquisición filtros instalación planta fija JP-8 de la Base Aérea de Son San Juan - LOTE 2',
   licitationId: LICITATION_ID,

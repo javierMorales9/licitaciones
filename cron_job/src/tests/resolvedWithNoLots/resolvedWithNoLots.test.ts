@@ -76,7 +76,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 0,
+  lot_id: '0',
   ext_id: '0_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17165996',
   name: 'Trabajos de recogida, grabación y depuración de los datos de la operación estadística denominada "ENCUESTA DE CONDICIONES DE VIDA DE LOS HOGARES DE CANARIAS 2025"',
   licitationId: LICITATION_ID,

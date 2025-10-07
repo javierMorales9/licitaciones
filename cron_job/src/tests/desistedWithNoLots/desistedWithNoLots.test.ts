@@ -75,7 +75,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 0,
+  lot_id: '0',
   ext_id: '0_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17540944',
   name: 'Servicios técnico de asesoramiento jurídico en materia de Derecho Administrativo, Derecho Urbanístico, Derecho Civil y Derecho Laboral.',
   licitationId: LICITATION_ID,

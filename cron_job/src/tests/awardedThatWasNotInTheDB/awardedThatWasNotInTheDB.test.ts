@@ -76,7 +76,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 0,
+  lot_id: '0',
   ext_id: '0_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17637184',
   name: 'Clotra suministro de embalaje',
   licitationId: LICITATION_ID,

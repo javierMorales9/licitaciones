@@ -75,7 +75,7 @@ const basePartyObj = {
 
 const baseLot1Obj = {
   id: undefined,
-  lot_id: 1,
+  lot_id: '1',
   ext_id: '1_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17465786',
   name: 'Lote 1: Zona oeste',
   licitationId: LICITATION_ID,
@@ -102,7 +102,7 @@ const baseLot1Obj = {
 
 const baseLot2Obj = {
   id: undefined,
-  lot_id: 2,
+  lot_id: '2',
   ext_id: '2_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17465786',
   name: 'Lote 2: Zona centro y este',
   licitationId: LICITATION_ID,
@@ -116,7 +116,7 @@ const baseLot2Obj = {
 };
 
 const baseLot3Obj = {
-  lot_id: 3,
+  lot_id: '3',
   ext_id: '3_https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/17465786',
   name: 'Lote 3: Zona norte.',
   licitationId: LICITATION_ID,
