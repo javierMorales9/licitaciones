@@ -9,8 +9,6 @@ const EVENT_LABELS: Record<string, string> = {
   licitation_awarded: "Adjudicación del expediente",
   licitation_resolved: "Licitación resuelta",
 };
-
-// Por si llega en otro casing
 const eventLabel = (t: string) =>
   EVENT_LABELS[t] ?? EVENT_LABELS[t?.toLowerCase?.()] ?? t;
 
@@ -24,7 +22,15 @@ const STATUS_LABELS: Record<string, string> = {
 };
 const statusLabel = (code?: string) => (code ? (STATUS_LABELS[code] ?? code) : "");
 
-// convertir objeto de cambios en pares legibles
+const esc = (s?: string) =>
+  s
+    ? s
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+    : "";
+
 const prettyChanges = (changes: Record<string, unknown>): { key: string; value: string }[] => {
   const toStr = (v: any) => {
     if (Array.isArray(v)) return v.join(", ");
@@ -36,58 +42,97 @@ const prettyChanges = (changes: Record<string, unknown>): { key: string; value: 
     .map(([k, v]) => ({ key: k, value: toStr(v) }));
 };
 
-const esc = (s?: string) =>
-  s
-    ? s
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-    : "";
+const fmtMoney = (v: unknown): string | undefined => {
+  if (v === null || v === undefined) return;
+  const n = typeof v === "number" ? v : Number(String(v).replace(/\./g, "").replace(/,/g, "."));
+  if (!Number.isFinite(n)) return String(v);
+  // 2 decimales por defecto
+  return n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
+const fmtDate = (s?: string): string | undefined => {
+  if (!s) return;
+  const t = Date.parse(s);
+  if (Number.isNaN(t)) return s;
+  return new Date(t).toLocaleDateString("es-ES");
+};
+
+// Selección de campos “clave” para mostrar de cada lote
+const lotSummaryLines = (lot: any): string[] => {
+  const lines: string[] = [];
+  if (lot.name) lines.push(`Nombre: ${lot.name}`);
+  if (lot.lot_id) lines.push(`Lote: ${lot.lot_id}`);
+  if (lot.ext_id) lines.push(`Ref: ${lot.ext_id}`);
+  if (lot.winning_name) lines.push(`Adjudicatario: ${lot.winning_name}${lot.winning_nif ? ` (${lot.winning_nif})` : ""}`);
+  if (lot.award_date) lines.push(`Fecha adjud.: ${fmtDate(lot.award_date)}`);
+  if (lot.award_payable_amount ?? lot.cost_with_taxes ?? lot.cost_without_taxes) {
+    const total =
+      fmtMoney(lot.award_payable_amount) ??
+      fmtMoney(lot.cost_with_taxes) ??
+      fmtMoney(lot.cost_without_taxes);
+    if (total) lines.push(`Importe: ${total} €`);
+  }
+  if (lot.cpvs && (Array.isArray(lot.cpvs) ? lot.cpvs.length : String(lot.cpvs).trim())) {
+    lines.push(`CPVs: ${Array.isArray(lot.cpvs) ? lot.cpvs.join(", ") : String(lot.cpvs)}`);
+  }
+  if (lot.city || lot.country) {
+    lines.push(`Lugar: ${[lot.city, lot.country].filter(Boolean).join(", ")}`);
+  }
+  return lines;
+};
 
 export class EmailNotifier implements Notifier {
-  constructor() { }
-
   async send(notif: Notifications) {
     if (!process.env.MAKE_WEBHOOK || !process.env.MAKE_API_KEY) {
-      logger.error("Make webhook not available");
+      logger.error("Not available make env vars");
       return;
     }
 
-    // Adaptar cada Notification → item de email con cambios
-    const items = notif.toArray().map((n: Notification) => n.toEmailItem());
+    if (!notif || !notif.toArray) {
+      logger.error("No notifications registered");
+      return;
+    }
+
+    const items = notif?.toArray().map((n: Notification) => n.toEmailItem());
 
     if (!items.length) {
-      // si no hay eventos ni cambios, no se envía
-      logger.debug({ items: items.length }, "No licitation");
+      logger.error({ items: items.length }, "Expected items");
       return;
     }
 
     const totalExp = items.length;
     const totalEv = items.reduce((a, n) => a + (n.events?.length || 0), 0);
+    const totalLots = items.reduce((a, n) => a + (n.awardedLots?.length || 0), 0);
+    const totalDocs = items.reduce((a, n) => a + (n.newDocs?.length || 0), 0);
+
     const dateStr = new Date().toLocaleDateString("es-ES", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
     });
-    const subject = `Licitaciones — ${totalExp} expediente${totalExp === 1 ? "" : "s"}, ${totalEv} evento${totalEv === 1 ? "" : "s"} — ${dateStr}`;
+    const subject =
+      `Licitaciones — ${totalExp} expediente${totalExp === 1 ? "" : "s"}, ` +
+      `${totalEv} evento${totalEv === 1 ? "" : "s"}, ` +
+      `${totalLots} lote${totalLots === 1 ? "" : "s"} adjudicado${totalLots === 1 ? "" : "s"}, ` +
+      `${totalDocs} documento${totalDocs === 1 ? "" : "s"} — ${dateStr}`;
 
     // ===== Texto plano =====
-    let text = `Resumen diario de licitaciones — ${totalExp} expediente(s), ${totalEv} evento(s)\n\n`;
+    let text = `Resumen diario de licitaciones — ${totalExp} expediente(s), ${totalEv} evento(s), ${totalLots} lote(s) adjudicado(s), ${totalDocs} documento(s)\n\n`;
     for (const n of items) {
       text += `• ${n.licitationTitle ?? "(Sin título)"}\n`;
       if (n.licitationPlatformUrl) text += `  URL: ${n.licitationPlatformUrl}\n`;
       if (n.licitationStatusCode) text += `  Estado: ${statusLabel(n.licitationStatusCode)}\n`;
       if (n.licitationExternalId) text += `  Ref: ${n.licitationExternalId}\n`;
 
-      const evs = n.events || [];
-      for (const ev of evs) {
+      // Eventos
+      for (const ev of n.events || []) {
         const bits = [ev.lotName ? `lote: ${ev.lotName}` : "", ev.lotLotId ? `ID lote: ${ev.lotLotId}` : ""]
           .filter(Boolean)
           .join(" — ");
         text += `  - ${eventLabel(ev.type)}${bits ? ` (${bits})` : ""}\n`;
       }
 
+      // Cambios
       const changesArr = prettyChanges(n.changes ?? {});
       if (changesArr.length) {
         text += `  Cambios:\n`;
@@ -95,8 +140,6 @@ export class EmailNotifier implements Notifier {
           text += `    · ${c.key}: ${c.value}\n`;
         }
       } else if (n.isNew) {
-        // Si es nueva y no hubo diff (porque lo consideraste nueva), ya se incluyeron todos los campos en changes
-        // pero por seguridad:
         const newFields = prettyChanges(n.changes ?? {});
         if (newFields.length) {
           text += `  Campos iniciales:\n`;
@@ -106,11 +149,45 @@ export class EmailNotifier implements Notifier {
         }
       }
 
+      // Lotes adjudicados
+      if (n.awardedLots?.length) {
+        text += `  Lotes adjudicados (${n.awardedLots.length}):\n`;
+        for (const lot of n.awardedLots) {
+          const lines = lotSummaryLines(lot);
+          text += `    - ${lines.shift() ?? "(Lote)"}\n`;
+          for (const ln of lines) text += `      ${ln}\n`;
+        }
+      }
+
+      // Nuevos documentos
+      if (n.newDocs?.length) {
+        text += `  Nuevos documentos (${n.newDocs.length}):\n`;
+        for (const d of n.newDocs) {
+          const label = d.type ? `${d.name} (${d.type})` : d.name;
+          text += `    - ${label}: ${d.url}\n`;
+        }
+      }
+
       text += `\n`;
     }
     text = text.trimEnd();
 
     // ===== HTML =====
+    const lotHtml = (lot: any) => {
+      const lines = lotSummaryLines(lot);
+      if (!lines.length) return "";
+      return `
+        <li style="margin:6px 0;">
+          <div>${esc(lines[0])}</div>
+          ${lines.slice(1).length
+          ? `<ul style="margin:4px 0 0 16px;padding:0;">
+                   ${lines.slice(1).map(l => `<li style="margin:2px 0;">${esc(l)}</li>`).join("")}
+                 </ul>`
+          : ""
+        }
+        </li>`;
+    };
+
     let rows = "";
     for (const n of items) {
       const evsHtml = (n.events || [])
@@ -127,7 +204,7 @@ export class EmailNotifier implements Notifier {
 
       const chg = prettyChanges(n.changes ?? {});
       const chgHtml = chg.length
-        ? `<div style="font-size:13px;margin:6px 0 10px;">
+        ? `<div style="font-size:13px;margin:8px 0 10px;">
              <div style="font-weight:600;margin-bottom:4px;">Cambios:</div>
              <ul style="padding-left:18px;margin:0;">
                ${chg
@@ -138,6 +215,34 @@ export class EmailNotifier implements Notifier {
              </ul>
            </div>`
         : "";
+
+      const lotsHtml =
+        n.awardedLots?.length
+          ? `<div style="font-size:13px;margin:8px 0 10px;">
+               <div style="font-weight:600;margin-bottom:4px;">Lotes adjudicados (${n.awardedLots.length}):</div>
+               <ul style="padding-left:18px;margin:0;">
+                 ${n.awardedLots.map(lotHtml).join("")}
+               </ul>
+             </div>`
+          : "";
+
+      const docsHtml =
+        n.newDocs?.length
+          ? `<div style="font-size:13px;margin:8px 0 10px;">
+               <div style="font-weight:600;margin-bottom:4px;">Nuevos documentos (${n.newDocs.length}):</div>
+               <ul style="padding-left:18px;margin:0;">
+                 ${n.newDocs
+            .map(
+              (d) =>
+                `<li style="margin:3px 0;">
+                          <a href="${esc(d.url)}" style="text-decoration:none;">${esc(d.name)}</a>${d.type ? ` <span style="color:#64748b">(${esc(d.type)})</span>` : ""
+                }
+                        </li>`
+            )
+            .join("")}
+               </ul>
+             </div>`
+          : "";
 
       const statusText = n.licitationStatusCode
         ? `Estado: ${esc(statusLabel(n.licitationStatusCode))} · `
@@ -150,8 +255,10 @@ export class EmailNotifier implements Notifier {
           <div style="font-size:12px;color:#64748b;margin-top:4px;">
             ${statusText}${n.licitationExternalId ? `Ref: ${esc(n.licitationExternalId)}` : ""}
           </div>
-          ${evsHtml ? `<ul style="padding-left:18px;margin:10px 0 12px;">${evsHtml}</ul>` : ""}
+          ${(n.events?.length ?? 0) ? `<ul style="padding-left:18px;margin:10px 0 12px;">${evsHtml}</ul>` : ""}
           ${chgHtml}
+          ${lotsHtml}
+          ${docsHtml}
           ${n.licitationPlatformUrl
           ? `<a href="${esc(
             n.licitationPlatformUrl
@@ -170,7 +277,7 @@ export class EmailNotifier implements Notifier {
             <tr>
               <td style="padding:20px 24px;border-bottom:1px solid #e2e8f0;background:#0f172a;color:#e2e8f0;">
                 <div style="font-size:18px;font-weight:700;">${esc(
-      `Resumen diario de licitaciones — ${totalExp} expedientes, ${totalEv} eventos`
+      `Resumen diario de licitaciones — ${totalExp} expedientes, ${totalEv} eventos, ${totalLots} lotes adjudicados, ${totalDocs} documentos`
     )}</div>
                 <div style="font-size:12px;opacity:.85;">${new Date().toLocaleDateString("es-ES", {
       weekday: "long",
@@ -198,7 +305,7 @@ export class EmailNotifier implements Notifier {
 
     if (!res.ok) {
       const msg = await res.text().catch(() => "");
-      logger.error({ status: res.status, msg }, "Webhook error");
+      logger.error(`Webhook error (${res.status}): ${msg}`);
     }
   }
 }
