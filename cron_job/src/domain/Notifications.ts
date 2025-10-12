@@ -116,37 +116,6 @@ export class Notification {
     return result;
   }
 
-  /**
-   * Objeto “DTO” para el email.
-  toEmailItem() {
-    const changes = this.getLicitationChanges();
-    // Determinar título/URL/estado desde newData (preferente) o desde previa
-    const title = (this.newLicData as any).title ?? this.licitation?.title ?? "";
-    const platform_url =
-      (this.newLicData as any).platform_url ?? this.licitation?.platform_url ?? "";
-    const statusCode =
-      (this.newLicData as any).statusCode ?? this.licitation?.statusCode ?? undefined;
-
-    const licitationExternalId =
-      (this.newLicData as any).entry_id ?? this.licitation?.entry_id ?? "";
-
-    const licitationId =
-      this.licitation?.id ?? (this.newLicData as any).id ?? licitationExternalId;
-
-    return {
-      licitationId: String(licitationId ?? licitationExternalId),
-      licitationExternalId: String(licitationExternalId ?? ""),
-      licitationPlatformUrl: platform_url || undefined,
-      licitationStatusCode: statusCode,
-      licitationTitle: String(title || ""),
-      events: this.events.slice(),
-      // añadido: cambios de campos
-      changes,
-      isNew: this.isNew(),
-    };
-  }
-  */
-
   toEmailItem() {
     const changes = this.getLicitationChanges();
 
