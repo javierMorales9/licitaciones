@@ -1,8 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
-import {
-  parseEntries,
-  parseDeletedEntries,
-} from "./feedParser.js";
+import { parseEntries, parseDeletedEntries } from "./feedParser.js";
 import type {
   AtomRootRaw,
   ParsedEntry,
@@ -48,7 +45,7 @@ export async function start(
     entriesProcessed: 0,
     entriesCreated: 0,
     entriesUpdated: 0,
-    eventsEmitted: 0
+    eventsEmitted: 0,
   };
 
   const notifications = new Notifications();
@@ -69,19 +66,22 @@ export async function start(
       m,
       atomFetcher,
     );
-    rlog.info({
-      stage: "fetch",
-      pagesFetched: m.pagesFetched,
-      entriesFetched: newEntries.length,
-      newLastExtracted
-    }, "Feed fetched");
+    rlog.info(
+      {
+        stage: "fetch",
+        pagesFetched: m.pagesFetched,
+        entriesFetched: newEntries.length,
+        newLastExtracted,
+      },
+      "Feed fetched",
+    );
 
     for (const entry of newEntries) {
       m.entriesProcessed++;
       const elog = rlog.child({
         entry_id: entry.entry_id,
         entryUpdated: entry.updated,
-        statusNew: entry.statusCode
+        statusNew: entry.statusCode,
       });
 
       try {
@@ -93,17 +93,26 @@ export async function start(
 
         if (lic) {
           if (!lic.id) {
-            elog.warn({ reason: "missing_lic_id" }, "Unexpected: licitation without id")
+            elog.warn(
+              { reason: "missing_lic_id" },
+              "Unexpected: licitation without id",
+            );
             continue;
           }
 
           if (!org) {
-            elog.error({ reason: "missing_org" }, "Unexpected: org must exist for an existing licitation");
+            elog.error(
+              { reason: "missing_org" },
+              "Unexpected: org must exist for an existing licitation",
+            );
             continue;
           }
 
           if (!org.id) {
-            elog.error({ reason: "missing_org" }, "Unexpected: org must have an id");
+            elog.error(
+              { reason: "missing_org" },
+              "Unexpected: org must have an id",
+            );
             continue;
           }
 
@@ -134,8 +143,7 @@ export async function start(
             events.push(event);
             notification.finishSubmissionPeriod();
             notification.addEvent(event);
-          }
-          else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
+          } else if (lic.statusCode !== "RES" && entry.statusCode === "RES") {
             const event = new Event({
               type: EventType.LICITATION_RESOLVED,
               createdAt: new Date(entry.updated),
@@ -149,15 +157,20 @@ export async function start(
           lic.update(entry);
 
           for (const parsedLot of entry.lots) {
-            const lot = lots.find(el => el.lot_id === parsedLot.lot_id);
+            const lot = lots.find((el) => el.lot_id === parsedLot.lot_id);
 
             if (!lot) {
               newLots.push(Lot.fromParsed(parsedLot, lic.id));
             } else {
               //Alternave: Use tender_result_code === 3 that means that the lot is desisted.
-              if (lot.winning_nif === undefined && parsedLot.winning_nif !== undefined) {
+              if (
+                lot.winning_nif === undefined &&
+                parsedLot.winning_nif !== undefined
+              ) {
                 const event = new Event({
-                  createdAt: parsedLot.award_date ? new Date(parsedLot.award_date) : lic.updated,
+                  createdAt: parsedLot.award_date
+                    ? new Date(parsedLot.award_date)
+                    : lic.updated,
                   type: EventType.LICITATION_LOT_AWARDED,
                   licitationId: lic.id,
                   lotId: lot.lot_id.toString(),
@@ -173,7 +186,7 @@ export async function start(
           }
 
           for (const parsedDoc of entry.documents) {
-            const doc = docs.find(el => el.docId === parsedDoc.docId);
+            const doc = docs.find((el) => el.docId === parsedDoc.docId);
             if (!doc) {
               newDocs.push(Doc.fromParsed(parsedDoc, lic.id));
             } else {
@@ -185,9 +198,11 @@ export async function start(
           const lotsAmount = lots.length + newLots.length;
           if (prevAdjLots < lotsAmount && lic.lotsAdj === lotsAmount) {
             const event = new Event({
-              createdAt: lic.award_date ? new Date(lic.award_date) : lic.updated,
+              createdAt: lic.award_date
+                ? new Date(lic.award_date)
+                : lic.updated,
               type: EventType.LICITATION_AWARDED,
-              licitationId: lic.id
+              licitationId: lic.id,
             });
             events.push(event);
             notification.addEvent(event);
@@ -213,16 +228,19 @@ export async function start(
           m.entriesUpdated++;
           m.eventsEmitted += events.length;
 
-          elog.info({
-            action: "updated",
-            statusPrev: prevStatus,
-            statusCurr: lic.statusCode,
-            lotsUpdated: lots.length,
-            lotsCreated: newLots.length,
-            docsUpdated: docs.length,
-            docsCreated: newDocs.length,
-            events: events.map(e => e.type)
-          }, "Licitation Updated");
+          elog.info(
+            {
+              action: "updated",
+              statusPrev: prevStatus,
+              statusCurr: lic.statusCode,
+              lotsUpdated: lots.length,
+              lotsCreated: newLots.length,
+              docsUpdated: docs.length,
+              docsCreated: newDocs.length,
+              events: events.map((e) => e.type),
+            },
+            "Licitation Updated",
+          );
         } else {
           rlog.info({ org });
           let orgId = org?.id;
@@ -232,20 +250,25 @@ export async function start(
             org.update(entry.party);
           }
           if (!orgId) {
-            elog.warn({ reason: "missing_org_id" }, "Unexpected: party id is undefined after upsert");
+            elog.warn(
+              { reason: "missing_org_id" },
+              "Unexpected: party id is undefined after upsert",
+            );
             continue;
           }
 
           const lic = Licitation.fromParsedEntry(entry, orgId);
           const licId = await licitationsRepo.create(lic);
 
-          const lots = entry.lots.map(el => Lot.fromParsed(el, licId));
+          const lots = entry.lots.map((el) => Lot.fromParsed(el, licId));
 
-          if (lic.statusCode === 'ADJ') {
+          if (lic.statusCode === "ADJ") {
             for (const l of lots) {
               if (l.winning_nif !== undefined) {
                 const event = new Event({
-                  createdAt: l.award_date ? new Date(l.award_date) : lic.updated,
+                  createdAt: l.award_date
+                    ? new Date(l.award_date)
+                    : lic.updated,
                   type: EventType.LICITATION_LOT_AWARDED,
                   licitationId: licId,
                   lotId: l.id,
@@ -259,7 +282,7 @@ export async function start(
             notification.award();
           }
 
-          const docs = entry.documents.map(el => Doc.fromParsed(el, licId));
+          const docs = entry.documents.map((el) => Doc.fromParsed(el, licId));
           notification.addNewDocs(docs);
 
           await lotsRepo.create(lots);
@@ -267,9 +290,11 @@ export async function start(
 
           if (lic.statusCode === "PUB") {
             const event = new Event({
-              createdAt: lic.publishedDate ? new Date(lic.publishedDate) : lic.updated,
+              createdAt: lic.publishedDate
+                ? new Date(lic.publishedDate)
+                : lic.updated,
               type: EventType.LICITATION_CREATED,
-              licitationId: licId
+              licitationId: licId,
             });
             events.push(event);
             notification.addEvent(event);
@@ -277,16 +302,19 @@ export async function start(
             const event = new Event({
               createdAt: lic.updated,
               type: EventType.LICITATION_FINISHED_SUBMISSION_PERIOD,
-              licitationId: licId
+              licitationId: licId,
             });
             events.push(event);
             notification.addEvent(event);
             notification.finishSubmissionPeriod();
-          } else if (lic.statusCode === "ADJ" && lic.lotsAdj == entry.lots.length) {
+          } else if (
+            lic.statusCode === "ADJ" &&
+            lic.lotsAdj == entry.lots.length
+          ) {
             const event = new Event({
               createdAt: lic.updated,
               type: EventType.LICITATION_AWARDED,
-              licitationId: licId
+              licitationId: licId,
             });
             events.push(event);
             notification.addEvent(event);
@@ -295,7 +323,7 @@ export async function start(
             const event = new Event({
               createdAt: lic.updated,
               type: EventType.LICITATION_RESOLVED,
-              licitationId: licId
+              licitationId: licId,
             });
             events.push(event);
             notification.addEvent(event);
@@ -307,23 +335,29 @@ export async function start(
           m.entriesCreated++;
           m.eventsEmitted += events.length;
 
-          elog.info({
-            action: "created",
-            lotsCreated: entry.lots.length,
-            docsCreated: entry.documents.length,
-            events: events.map(e => e.type),
-          }, "Licitation first uploaded");
+          elog.info(
+            {
+              action: "created",
+              lotsCreated: entry.lots.length,
+              docsCreated: entry.documents.length,
+              events: events.map((e) => e.type),
+            },
+            "Licitation first uploaded",
+          );
         }
 
         notifications.add(notification);
       } catch (e: unknown) {
         const err = e instanceof Error ? e : new Error(String(e));
-        logger.error({
-          runId,
-          entry_id: entry.entry_id,
-          err,
-          stack: err.stack
-        }, "Entry processing error");
+        logger.error(
+          {
+            runId,
+            entry_id: entry.entry_id,
+            err,
+            stack: err.stack,
+          },
+          "Entry processing error",
+        );
       }
     }
 
@@ -331,22 +365,28 @@ export async function start(
 
     await notifier.send(notifications);
 
-    rlog.info({
-      stage: "done",
-      pagesFetched: m.pagesFetched,
-      entriesProcessed: m.entriesProcessed,
-      entriesCreated: m.entriesCreated,
-      entriesUpdated: m.entriesUpdated,
-      eventsEmitted: m.eventsEmitted,
-      durationMs: Date.now() - start
-    }, "Job finished");
+    rlog.info(
+      {
+        stage: "done",
+        pagesFetched: m.pagesFetched,
+        entriesProcessed: m.entriesProcessed,
+        entriesCreated: m.entriesCreated,
+        entriesUpdated: m.entriesUpdated,
+        eventsEmitted: m.eventsEmitted,
+        durationMs: Date.now() - start,
+      },
+      "Job finished",
+    );
   } catch (e) {
     const err = e instanceof Error ? e : new Error(String(e));
-    rlog.error({
-      stage: "fatal",
-      err,
-      stack: err.stack
-    }, "Job crashed");
+    rlog.error(
+      {
+        stage: "fatal",
+        err,
+        stack: err.stack,
+      },
+      "Job crashed",
+    );
   }
 }
 
@@ -387,33 +427,41 @@ async function extractNewEntries(
       const cursorTime = truncateToSeconds(lastUpdate);
 
       if (pageUpdated <= cursorTime) {
-        pageLog.info({ pageUpdated, cursorTime }, "Stop: page is older than last cursor");
+        pageLog.info(
+          { pageUpdated, cursorTime },
+          "Stop: page is older than last cursor",
+        );
         break;
       }
 
       const newDeletedEntries = parseDeletedEntries(root);
       deletedEntries = deletedEntries.concat(newDeletedEntries);
 
-      const entries = parseEntries(root)
-      const filtered = entries.filter(el => el.cpvs?.some(entryCPV =>
-        CPVS.some(validCPV => entryCPV.toString().startsWith(validCPV))
-      ));
+      const entries = parseEntries(root);
+      const filtered = entries.filter((el) =>
+        el.cpvs?.some((entryCPV) =>
+          CPVS.some((validCPV) => entryCPV.toString().startsWith(validCPV)),
+        ),
+      );
       newEntries = newEntries.concat(filtered);
 
       if (!newLastExtracted) {
         newLastExtracted = pageUpdated;
       }
 
-      next = root.feed.link.find(el => el.rel === 'next')?.href;
+      next = root.feed.link.find((el) => el.rel === "next")?.href;
       if (!next) pageLog.debug("No next page");
 
       m.pagesFetched++;
-      pageLog.info({
-        pageUpdated,
-        entriesTotal: entries.length,
-        entriesKept: filtered.length,
-        deletedEntries: newDeletedEntries.length
-      }, "Page parsed");
+      pageLog.info(
+        {
+          pageUpdated,
+          entriesTotal: entries.length,
+          entriesKept: filtered.length,
+          deletedEntries: newDeletedEntries.length,
+        },
+        "Page parsed",
+      );
     } catch (e) {
       pageLog.error({ err: e }, "Error procesando página, se detiene el bucle");
       break;
@@ -422,4 +470,3 @@ async function extractNewEntries(
 
   return { newLastExtracted, newEntries, deletedEntries };
 }
-

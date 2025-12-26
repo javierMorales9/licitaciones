@@ -12,6 +12,7 @@ export class AirtableCursorRepository implements CursorRepository {
       sort: [{ field: 'Fecha Última Revisión', direction: "desc" }],
       maxRecords: 1,
     }).all();
+
     if (!records[0]?.fields) {
       return null;
     }
